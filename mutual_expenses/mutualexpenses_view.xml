@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record model="ir.ui.view" id="hr_expense.view_expenses">
+            <field name="name">hr.expense.form</field>
+            <field name="model">hr.expense.expense</field>
+            <field name="inherit_id" ref="hr_expense.view_expenses_form" />
+            <field name="arch" type="xml">
+             <field name="name" position="after">
+                 <field name="partner_id_expense"/>
+             </field>
+            </field>
+        </record>
+    </data>
+</openerp>

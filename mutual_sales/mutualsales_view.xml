@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="relatives_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Other Contacts</field>
+            <field name="res_model">customer.relatives</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem
+            name="Other Contacts"
+            action="relatives_open_project_attachment_view"
+            id="menu_relatives_open_project_attachment_view"
+            sequence="7"
+            parent="base.menu_sales">
+        </menuitem>
+        <record id="customer_relatives_form_view" model="ir.ui.view">
+            <field name="name">customer_relatives.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">customer.relatives</field>
+            <field name="arch" type="xml">
+                <form string="customer_relatives">
+                    <sheet>
+                        <group string="Other Contacts">
+                            <group>
+                                 <field name="customer_r"/>
+                                 <field name="other"/>
+                                 <field name="relationship"/>
+                            </group>
+                            <group>
+                                <field name="contact_1"/>
+                                <field name="contact_2"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cs_id">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field string="CS Number" name="cs_number"  placeholder="CS Number"/>
+                    <field string="Branch Code" name="branch_code"  placeholder="Branch Code" />
+                    <field string="Bank Code" name="bank_code" placeholder="Bank Code"/>
+                    <field string="Uplink Date" name="uplink_date" placeholder="Uplink Date"/>
+                </field>
+                <field name="title" position="after">
+                    <field name="is_technician"  class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
+                    <field name="is_rider"  class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
+                </field>
+                <field name="function" position="after">
+                    <field name="office"/>
+                </field>
+                <field name="office" position="attributes">
+                    <attribute name="string">Nearest Police Station No.</attribute>
+                </field>
+                <field name="phone" position="attributes">
+                    <attribute name="string">Nearest Fire Station No.</attribute>
+                </field>
+                <label for="street" string="Address" position="replace">
+                    <label for="street" string="Monitoring Address" />
+                </label>
+                <xpath expr="//form/sheet/group" position="after" >
+                    <br/>
+                    <separator string="Other Contacts"/>
+                <group>
+                     <field name="customer_relatives" colspan="4" nolabel="1">
+                            <tree editable="top" string="Relative">
+                                 <field name="other"/>
+                                 <field name="relationship"/>
+                                 <field name="contact_1"/>
+                                 <field name="contact_2"/>
+                                 <field name="sms_alert"/>
+                            </tree>
+                     </field>
+                </group>
+                </xpath>
+                <xpath expr="//form/sheet/group" position="after" >
+                    <br/>
+                    <separator string="Branch Details"/>
+                    <group colspan="4" col="6">
+                        <field name="guard_less_branch" widget="radio" />
+                        <field name="locker_available" widget="radio"/>
+                        <field name="saturday_open" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="customer_branch_det" colspan="6" nolabel="1" attrs="{'invisible': [('guard_less_branch','=','No')]}">
+                            <tree editable="top" string="Branch Details">
+                                 <field name="guardname"/>
+                                 <field name="number"/>
+                                 <field name="securityco"/>
+                            </tree>
+                     </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <!--==========================Search View Begins=============================-->
+        <record  model="ir.ui.view" id="view_res_partner_filter">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='name']" position="before">
+                    <field name="cs_number"/>
+                    <field name="bank_code" />
+                    <field name="branch_code" />
+                    <field name="mobile" />
+                    <field name="phone" />
+                    <field name="email"/>
+                    <field name="payment_next_action" />
+                    <field name="payment_responsible_id" />
+                </xpath>
+            </field>
+        </record>
+         <!--==========================Search View Ends=============================-->
+
+        <!--====================================== List view of customer form for metrics Begins ====================-->
+        <record id="mutual_customer_tree" model="ir.ui.view">
+              <field name="name">res.partner.tree</field>
+              <field name="model">res.partner</field>
+              <field name="inherit_id" ref="base.view_partner_tree" />
+              <field name="arch" type="xml">
+                  <field name="phone" position="after">
+                      <field name="cs_number"/>
+                      <field name="branch_code"/>
+                      <field name="city"/>
+                  </field>
+              </field>
+        </record>
+         <!--====================================== List view of customer form for metrics Ends ===================-->
+
+        <!--====================================== List view of res.user Begins ==================================-->
+        <record id="mutual_view_users_tree" model="ir.ui.view">
+              <field name="name">res.users.tree</field>
+              <field name="model">res.users</field>
+              <field name="inherit_id" ref="base.view_users_tree" />
+              <field name="arch" type="xml">
+                  <field name="name" position="after">
+                      <field name="city"/>
+                      <field name="mobile"/>
+                  </field>
+              </field>
+        </record>
+        <!--====================================== List view of res.user Ends ==================================-->
+    </data>
+</openerp>

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <!-- =========================== Issues Logs Begins ================================ -->
+        <record id="tech_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Issues Logs</field>
+            <field name="res_model">tech.activities.issues</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem
+            name="Issues Logs"
+            action="tech_open_project_attachment_view"
+            id="menu_tech_open_project_attachment_view"
+            sequence="20"
+            parent="project.menu_project_management">
+        </menuitem>
+        <record id="tech_activities_form_view" model="ir.ui.view">
+            <field name="name">tech_activities.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">tech.activities.issues</field>
+            <field name="arch" type="xml">
+                <form string="tech_activities">
+                    <sheet>
+                        <group string="Technician Activities">
+                            <group>
+                                 <field name="technician_name"/>
+                                 <field name="tech_name"/>
+                                 <field name="total_time"/>
+                            </group>
+                            <group>
+                                 <field name="reason"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- =========================== Issues Logs Ends ================================ -->
+
+
+        <!-- =========================== Tasks Logs Begins ================================ -->
+        <record id="tech_open_project_attachment_task_view" model="ir.actions.act_window">
+	        <field name="name">Tasks Logs</field>
+            <field name="res_model">tech.activities.tasks</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem
+            name="Tasks Logs"
+            action="tech_open_project_attachment_task_view"
+            id="menu_tech_open_project_attachment_task_view"
+            sequence="30"
+            parent="project.menu_project_management">
+        </menuitem>
+        <record id="tech_activities_form_view" model="ir.ui.view">
+            <field name="name">tech_activities.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">tech.activities.tasks</field>
+            <field name="arch" type="xml">
+                <form string="tech_activities_tasks">
+                    <sheet>
+                        <group string="Technician Activities">
+                            <group>
+                                 <field name="technician_name_tasks"/>
+                                 <field name="tech_name_tasks"/>
+                                 <field name="total_time_tasks"/>
+                            </group>
+                            <group>
+                                 <field name="reason_tasks"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- =========================== Tasks Logs Ends ================================ -->
+
+        <!--====================================== List of customers showing in project module Begins ==================================-->
+
+        <record id="action_partner_customer_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_customer':1, 'search_default_customer':1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                Odoo helps you easily track all activities related to
+                a customer: discussions, history of business opportunities,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Customers"
+            action="action_partner_customer_form"
+            id="menu_action_partner_customer_form"
+            sequence="20"
+            parent="project.menu_project_management">
+        </menuitem>
+
+
+        <!--====================================== List of customers showing in project module Ends ==================================-->
+
+
+        <!--<record model="ir.ui.view" id="base.view_partner_form_inherit_inherit">-->
+            <!--<field name="name">res.partner.form</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="inherit_id" ref="base.view_partner_form" />-->
+            <!--<field name="groups_id" eval="[(4,[ref('project.group_project_user')])]"/>-->
+            <!--<field name="arch" type="xml">-->
+                 <!--<xpath expr="//page[@string='Accounting']" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</xpath>-->
+                <!--<xpath expr="//page[@string='Sales &amp; Purchases']" position="attributes">-->
+                    <!--<attribute name="invisible">True</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr='//form[@string="Partners"]' position='attributes'>-->
+                    <!--<attribute name="create">false</attribute>-->
+                <!--</xpath>-->
+
+            <!--</field>-->
+        <!--</record>-->
+       <!-- <menuitem action="open_view_project_all" id="menu_tech" name="Projects" parent="menu_project_management" sequence="1"/>-->
+
+
+        <!--====================================== Task form view Beginning ==================================-->
+        <record model="ir.ui.view" id="project.view_task">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" />
+                </field>
+                <field name="partner_id" position="replace">
+
+                </field>
+                <xpath expr="//field[@name='reviewer_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="before">
+                    <field name="reviewer_id"/>
+                    <field name="sale_order_task"/>
+                    <field name="partner_id"/>
+                    <field name="cs_number_task"/>
+                    <field name="bank_code_task"/>
+                    <field name="branch_code_task"/>
+                    <field name="city_task"/>
+                    <field name="monitoring_address_task"/>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="before">
+                    <field name="complaint_reference"/>
+                    <field name="user_id"/>
+                    <field name="timeIn"/>
+                    <field name="first_signal_time_task"/>
+                    <field name="timeOut"/>
+                    <field name="compute_total_time"/>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='categ_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Extra Info']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Description']" position="attributes">
+                    <attribute name="string">Remarks by Bank</attribute>
+                </xpath>
+                <notebook>
+                    <page string="Remarks by CMS">
+                        <field name="remark_by_cms" placeholder="Enter your remarks"/>
+                    </page>
+                </notebook>
+                <notebook>
+                    <page string="Timesheet">
+                          <field name="tech_name_tasks" colspan="4" nolabel="1">
+                            <tree editable="top" string="Timesheets">
+                                <field name="technician_name_tasks"/>
+                                <field name="reason_tasks" />
+                                <field name="total_time_tasks" widget="float_time"/>
+                                <field name="date_tasks" />
+                            </tree>
+                          </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <!--====================================== Task form view Ending ==================================-->
+
+
+        <!--====================================== Issue form view Beginning ==================================-->
+         <record model="ir.ui.view" id="project_issue.project_issue">
+            <field name="name">Project Issue Tracker Form</field>
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue.project_issue_form_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                     <field name="name" />
+                </field>
+                <field name="categ_ids" position="attributes">
+                    <attribute name="string">Other Complaints</attribute>
+                </field>
+                <field name="id" position="attributes">
+                    <attribute name="string">Complaint ID</attribute>
+                </field>
+                <field name="version_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="email_from" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="priority" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='case_escalate']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='id']" position="after">
+                    <field name="user_id"/>
+                    <field name="date_start" />
+                    <field name="first_signal_time"/>
+                    <field name="date_end" />
+                    <field name='compute_total_time'/>
+                    <field name="status" style="border:	2px solid #618fc3 !important; padding:5px; color:red;" />
+                    <field name="system_status"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                     <field name="priority" widget="priority"/>
+                     <field name="complaint_source"/>
+                     <field name="clientname" />
+                     <field name="create_uid"/>
+                     <field name="user_id_issue"/>
+                     <field name="sale_order_issue"/>
+                </xpath>
+                <xpath expr="//field[@name='create_uid']" position="attributes">
+                    <attribute name="string">Logged by</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                     <field name="cs_number_issue"/>
+                     <field name="bank_code_issue"/>
+                     <field name="branch_code_issue"/>
+                     <field name="city_issue"/>
+                     <field name="monitoring_address_issue"/>
+                </xpath>
+                <notebook>
+                    <page string="Remarks by CMS">
+                        <field name="remark_by_cms" placeholder="Add you remarks..."/>
+                    </page>
+                </notebook>
+                <notebook>
+                    <page string="Remarks by Courtesy">
+                        <field name="courtesy" placeholder="Add you remarks..."/>
+                    </page>
+                </notebook>
+                 <notebook>
+                    <page string="Timesheet">
+                          <field name="tech_name" colspan="4" nolabel="1">
+                            <tree editable="top" string="Timesheets">
+                                <field name="technician_name"/>
+                                <field name="reason" />
+                                <field name="total_time" widget="float_time"/>
+                                <field name="date" />
+                            </tree>
+                          </field>
+                    </page>
+                </notebook>
+                <notebook>
+                    <page string="Checking Criteria">
+                        <group>
+                            <lable><h2>Zone Signals</h2></lable><br/>
+                            <field name="Zone1"/>
+                            <field name="Zone2"/>
+                            <field name="Zone3"/>
+                            <field name="Zone4"/>
+                            <field name="Zone5"/>
+                            <field name="Zone6"/>
+                            <field name="Zone7"/>
+                            <field name="Zone8"/>
+                            <field name="Zone9"/>
+                        </group>
+                        <group>
+                             <lable><h2>Keypad Signals</h2></lable><br/>
+                             <field name="panic"/>
+                             <field name="duress"/>
+                             <field name="medical"/>
+                             <field name="fire"/>
+                        </group>
+                        <lable><h2>BS Connected to</h2></lable>
+                        <group colspan="4">
+                            <field name="gsm"/>
+                        </group>
+                        <group col="6">
+                             <field name="gsmNumber" />
+                             <field name="gsm_postpaid_prepaid" widget="radio"/>
+                        </group>
+                        <group col="6">
+                             <field name="ptcl" />
+                             <field name="ptcl_dedicated_shared" widget="radio"/>
+                        </group>
+                        <group>
+                             <field name="response_check" widget="radio"/>
+                            <field name="check_by" style="width:37%%"/>
+                        </group>
+                    </page>
+                </notebook>
+                <notebook>
+                    <page string="SMS">
+                        <group>
+                            <field name="techContact"/>
+                            <field name="sms"/>
+                        </group>
+                            <button name="details" string="Details" type="object" class="btn-link" />
+                            <button name="smsSent" string="Sent" type="object" class="btn-link"  />
+                    </page>
+                </notebook>
+                <xpath expr="//page[@string='Extra Info']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Description']" position="attributes">
+                    <attribute name="string">Remarks by Bank</attribute>
+                </xpath>
+            </field>
+        </record>
+        <!--====================================== Issue form view Ending ==================================-->
+
+        <!--====================================== List view of Issue form for metrics Begins ==================================-->
+        <record id="mutual_issue_tree" model="ir.ui.view">
+              <field name="name">Project Issue-Feature Tracker Tree</field>
+              <field name="model">project.issue</field>
+              <field name="inherit_id" ref="project_issue.project_feature_tree_view" />
+              <field name="priority" eval="20"/>
+              <field name="arch" type="xml">
+                  <!--<xpath expr='//tree'  position="attributes">-->
+                      <!--<attribute name="editable">Top</attribute>-->
+                  <!--</xpath>-->
+                  <field name="priority" position="after">
+                      <field name="description"/>
+                      <field name="user_id_issue"/>
+                      <field name="cs_number_issue"/>
+                      <field name="bank_code_issue"/>
+                      <field name="branch_code_issue"/>
+                      <field name="city_issue"/>
+                      <field name="monitoring_address_issue"/>
+                      <field name="task_id" />
+                      <field name="date_start"/>
+                      <field name="date_end"/>
+                      <field name="compute_total_time"/>
+                  </field>
+                  <field name="user_id" position="after">
+                      <field name="create_date"/>
+                  </field>
+                  <field name="version_id" position="replace">
+
+                  </field>
+                  <field name="description" position="attributes">
+                     <attribute name="string">Remarks by Bank</attribute>
+                  </field>
+                  <field name="name" position="attributes">
+                     <attribute name="string">Complaints</attribute>
+                  </field>
+                  <field name="partner_id" position="replace">
+
+                  </field>
+
+            </field>
+        </record>
+        <!--====================================== List view of Issue form for metrics ends ==================================-->
+
+        <!--====================================== List view of tasks form for metrics Begins ==================================-->
+        <record id="mutual_task_tree" model="ir.ui.view">
+              <field name="name">project.task.tree</field>
+              <field name="model">project.task</field>
+              <field name="inherit_id" ref="project.view_task_tree2" />
+              <field name="priority" eval="20"/>
+              <field name="arch" type="xml">
+                  <xpath expr="//field[@name='project_id']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='date_start']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='date_end']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='progress']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='name']" position="before">
+                      <field name="complaint_reference"/>
+                  </xpath>
+                  <xpath expr="//field[@name='name']" position="after">
+                      <field name="description"/>
+                      <field name="reviewer_id"/>
+                      <field name="cs_number_task"/>
+                      <field name="bank_code_task"/>
+                      <field name="branch_code_task"/>
+                      <field name="city_task"/>
+                      <field name="monitoring_address_task"/>
+                  </xpath>
+                  <xpath expr="//field[@name='user_id']" position="after">
+                      <field name="timeIn"/>
+                      <field name="timeOut"/>
+                      <field name="compute_total_time"/>
+                  </xpath>
+                  <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="string">Remarks by Bank</attribute>
+                  </xpath>
+            </field>
+        </record>
+         <!--====================================== List view of tasks form for metrics ends ==================================-->
+
+
+         <!--==========================Search View of Issues=============================-->
+        <record  model="ir.ui.view" id="project_issue.view_project_issue_filter_search">
+            <field name="name">Project Issue Tracker Search</field>
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue.view_project_issue_filter" />
+            <field name="arch" type="xml">
+                <search string="Issue Tracker Search">
+                    <field name="priority"/>
+                    <field name="create_date"/>
+                    <field name="user_id_issue"/>
+                    <field name="cs_number_issue"/>
+                    <field name="bank_code_issue"/>
+                    <field name="branch_code_issue"/>
+                    <field name="city_issue"/>
+                    <field name="monitoring_address_issue"/>
+                    <group string="Custome Filter">
+                        <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
+                        <filter name="user_id" string="Not Assigned" domain="[('user_id','=',False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+         <!--==========================Search View of tasks=============================-->
+        <record  model="ir.ui.view" id="project.view_task_search_form_search">
+            <field name="name">project.task.search.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+                 <search string="Tasks">
+                    <field name="priority"/>
+                    <field name="reviewer_id"/>
+                    <field name="cs_number_task"/>
+                    <field name="bank_code_task"/>
+                    <field name="branch_code_task"/>
+                    <field name="city_task"/>
+                    <field name="monitoring_address_task"/>
+                    <group string="Custome Filter">
+                        <filter name="reviewer_id" string="Not Forwarded" domain="[('reviewer_id','=',False)]"/>
+                        <filter name="user_id" string="Not Assigned" domain="[('user_id','=',False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--====================================== Kanban view of issue begins ==================================-->
+        <record model="ir.ui.view" id="project_issue_kanban_view">
+            <field name="name">Project Issue Kanban</field>
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue.project_issue_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr='//kanban'  position="attributes">
+                    <attribute name="quick_create">0</attribute>
+                </xpath>
+                <xpath expr='//kanban//field[@name="partner_id"]' position="after"><br/>
+                    <span style="color:green !important; font-weight:bold"><field name="cs_number_issue"/></span>
+                    <span style="margin-left:3px;color:royalblue; font-weight:bold"><field name="city_issue" /></span><br/>
+                    <field name="complaint_source" />
+                </xpath>
+            </field>
+        </record>
+        <!--====================================== Kanban view of issue ends ==================================-->
+
+         <!--====================================== Kanban view of task begins ==================================-->
+        <record model="ir.ui.view" id="project_task_kanban">
+            <field name="name">project.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr='//kanban'  position="attributes">
+                   <attribute name="quick_create">0</attribute>
+                </xpath>
+                <xpath expr='//kanban//field[@name="project_id"]' position="attributes">
+                   <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr='//kanban//field[@name="date_deadline"]' position="attributes">
+                   <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr='//kanban//field[@name="project_id"]' position="after">
+                    <field name="partner_id"/><br/>
+                    <span style="color:green !important; font-weight:bold"><field name="cs_number_task"/></span>
+                    <span style="margin-left:3px;color:royalblue; font-weight:bold"><field name="city_task" /></span>
+                </xpath>
+            </field>
+        </record>
+        <!--====================================== Kanban view of task ends ==================================-->
+    </data>
+</openerp>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="report_customer_form" 
+            string="Customer Info" 
+            model="res.partner" 
+            report_type="qweb-pdf" 
+            file="mutual_sales.report_customer" 
+            name="mutual_sales.report_customer"
+            />
+
+    </data>
+</openerp>    
