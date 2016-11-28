@@ -6,10 +6,35 @@
             <field name="model">hr.expense.expense</field>
             <field name="inherit_id" ref="hr_expense.view_expenses_form" />
             <field name="arch" type="xml">
-             <field name="name" position="after">
-                 <field name="partner_id_expense"/>
-             </field>
+                <field name="name" position="after">
+                    <field name="partner_id_expense"/>
+                    <field name="technician_amount" />
+                </field>
+                <field name="date" position="after">
+                    <field name="date_to"/>
+                </field>
             </field>
+         </record>
+          <!--====================================== List view of Employee form for metrics Begins ====================-->
+        <record id="tech_expenses" model="ir.ui.view">
+              <field name="name">hr.expense.expense.tree</field>
+              <field name="model">hr.expense.expense</field>
+              <field name="inherit_id" ref="hr_expense.view_expenses_tree" />
+              <field name="arch" type="xml">
+                  <field name="amount" position="before">
+                      <field name="technician_amount" />
+                  </field>
+                  <xpath expr="//field[@name='date']" position="attributes">
+                      <attribute name="string">From</attribute>
+                  </xpath>
+                  <field name="date" position="after">
+                      <field name="date_to"/>
+                  </field>
+                  <xpath expr="//field[@name='amount']" position="attributes">
+                      <attribute name="string">Actual Amount</attribute>
+                  </xpath>
+              </field>
         </record>
+         <!--====================================== List view of Employee form for metrics Ends ===================-->
     </data>
 </openerp>
