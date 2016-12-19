@@ -83,6 +83,8 @@ class mutual_issues(osv.osv):
       'contact': fields.related('user_id', 'mobile', type='char', size=12, string='Contact', readonly=True),
       'bm_number_issue': fields.related('partner_id', 'office', type='char', size=12, string='bm_number_issue',readonly=True),
       'om_number_issue': fields.related('partner_id', 'phone', type='char', size=12, string='om_number_issue',readonly=True),
+      'mobile_logged': fields.related('create_uid', 'mobile', type='char', size=12, string='om_number_issue',
+                                        readonly=True),
       'sms': fields.text('SMS', store=True),
       'techContact': fields.char('Contact', store=True, size=11),
       'cs_number_issue': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
@@ -178,25 +180,25 @@ class mutual_issues(osv.osv):
       'courtesy':fields.text('Courtesy Remarks', store=True),
       'clientname': fields.char('Client Name', store=True,size=30)
   }
+  @api.multi
+  def smsSent(self):
+      if self.techContact:
+          r = requests.post("http://localhost:3000", data={'sms':self.sms, 'contact':[self.techContact,self.mobile_logged]})
+          return {
+              'warning': {
+                  'title': "Something bad happened",
+                  'message': "It was very bad indeed",
+              }
+          }
+      else:
+          raise osv.except_osv('Kindly enter mobile number of technician')
+          return False;
 
-  # @api.one
-  # @api.depends('date_start')
-  # @api.onchange('date_start')
-  # def _change_stage(self):
-  #     self.sms = self.stage_id
-
-  @api.one
-  @api.depends('stage_id')
-  @api.onchange('stage_id')
-  def _change_stage(self):
-      self.complaint_status = 'New'
-      self.complaint_status = self.stage_id
 
   @api.multi
   def details(self):
-      self.techContact = self.contact
       self.sms = self.name+"\n"+\
-                 self.cs_number_issue+"\n"+self.branch_code_issue+"\n"+self.bank_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue;
+                 self.cs_number_issue+"\n"+self.branch_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue;
       return {
         'warning': {
             'title': "Something bad happened",
@@ -204,15 +206,6 @@ class mutual_issues(osv.osv):
         }
       }
 
-  @api.multi
-  def smsSent(self):
-      r = requests.post("http://localhost:3000", data={'sms':self.sms,'contact':self.techContact})
-      return {
-        'warning': {
-            'title': "Something bad happened",
-            'message': "It was very bad indeed",
-        }
-      }
 
   @api.one
   @api.depends('date_start','date_end')
