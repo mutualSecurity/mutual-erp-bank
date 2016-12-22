@@ -115,5 +115,15 @@
                 </form>
             </field>
          </record>
+         <record model="ir.ui.view" id="summary_sheet_activities">
+            <field name="name">Summary Sheet</field>
+            <field name="view_type">tree</field>
+            <field name="model">summary_sheet</field>
+            <field name="arch" type="xml">
+                <tree string="Summary Sheet">
+                  <field name="customer"/>
+                </tree>
+            </field>
+         </record>
     </data>
 </openerp>
