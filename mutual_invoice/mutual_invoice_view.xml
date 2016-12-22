@@ -20,6 +20,10 @@
                     <field name="bank_code_invoice"/>
                     <field name="branch_code_invoice"/>
                 </field>
+                <xpath expr="//page/field/tree/field[@name='product_id']" position="after">
+                    <field name="from"/>
+                    <field name="to"/>
+                </xpath>
             </field>
         </record>
         <record id="cs_invoice_id" model="ir.ui.view">
@@ -58,5 +62,58 @@
             </field>
         </record>
 
+        <record id="summary_sheet_open_project_attachment_task_view" model="ir.actions.act_window">
+	        <field name="name">Summary Sheet</field>
+            <field name="res_model">summary_sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem
+            name="Summary Sheet"
+            action="summary_sheet_open_project_attachment_task_view"
+            id="menu_summary_sheet_open_project_attachment_task_view"
+            sequence="100"
+            parent="account.menu_finance_receivables">
+        </menuitem>
+         <record id="summary_sheet_billing" model="ir.ui.view">
+            <field name="name">summary_sheet.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">summary_sheet</field>
+            <field name="arch" type="xml">
+                <form string="Summary Sheet">
+                    <sheet class="oe_form_sheet_full_screen">
+                        <group>
+                            <field name="customer" />
+                            <field name="sale_tax"/>
+                            <field name="maintenance_charges"/>
+                        </group>
+                        <group string="Summary Sheet">
+                           <field name="summary_sheet" colspan="4" nolabel="1">
+                               <tree editable="top" string="Summary Sheets">
+                                   <field name="cs_number"/>
+                                   <field name="branch_code"/>
+                                   <field name="address1"/>
+                                   <field name="address2"/>
+                                   <!--<field name="from"/>-->
+                                   <!--<field name="to"/>-->
+                                   <field name="service_period"/>
+                                   <field name="basic_amount"/>
+                                   <field name="maintenance_basic_amount"/>
+                                   <field name="total_moni"/>
+                                   <field name="total_ment"/>
+                                   <field name="sales_tax"/>
+                                   <field name="sales_tax_amount"/>
+                                   <field name="total_amount_ex_sales_tax"/>
+                                   <field name="total_amount_with_sales_tax"/>
+                               </tree>
+                           </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+         </record>
     </data>
 </openerp>
