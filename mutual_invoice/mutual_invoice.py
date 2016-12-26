@@ -60,11 +60,11 @@ class billing_period(osv.osv):
         self.total_ment = self.service_period * self.maintenance_basic_amount
         self.total_moni = self.service_period * self.basic_amount
         if self.maintenance_basic_amount > 0.0:
-            self.total_amount_ex_sales_tax = (self.service_period * self.basic_amount) + (self.service_period * self.maintenance_basic_amount)
-            self.total_amount_with_sales_tax = (self.service_period * self.basic_amount)+(self.service_period*tax) + self.total_ment
+            self.total_amount_ex_sales_tax = round((self.service_period * self.basic_amount) + (self.service_period * self.maintenance_basic_amount))
+            self.total_amount_with_sales_tax = round((self.service_period * self.basic_amount)+(self.service_period*tax) + self.total_ment)
         else:
-            self.total_amount_with_sales_tax = (self.service_period * self.basic_amount) + (self.service_period * tax)
-            self.total_amount_ex_sales_tax = (self.service_period * self.basic_amount)
+            self.total_amount_with_sales_tax = round((self.service_period * self.basic_amount) + (self.service_period * tax))
+            self.total_amount_ex_sales_tax = round((self.service_period * self.basic_amount))
 
 
 

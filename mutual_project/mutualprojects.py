@@ -104,57 +104,57 @@ class mutual_issues(osv.osv):
       'date_end': fields.datetime('Time Out', select=True, copy=True),
       'first_signal_time': fields.datetime('First Signal Time', select=True, copy=True),
       'priority': fields.selection([('0','Normal'), ('1','Urgent'), ('2','Most Urgent')], 'Priority', select=True, store=True),
-      'name': fields.selection([("PANIC BUTTON DAMAGED","PANIC BUTTON DAMAGED"),
-                                ("PCB KIT FAULTY","PCB KIT FAULTY"),
-                                ("SIM BLOCKED/OUTGOING SERVICE ISSUE","SIM BLOCKED/OUTGOING SERVICE ISSUE"),
-                                ("SIM BALANCE PROBLEM","SIM BALANCE PROBLEM"),
-                                ("SYSTEM BRIEFING REQUIRED"	,"SYSTEM BRIEFING REQUIRED"),
-                                ("HEAVY METAL PROBLEM","HEAVY METAL PROBLEM"),
-                                ("RE-INSTALLATION OF SYSTEM/DEVICES","RE-INSTALLATION OF SYSTEM/DEVICES"),
-                                ("KEYPAD DEAD	","KEYPAD DEAD"),
-                                ("BREFING REQUIRED",	"BREFING REQUIRED"),
-                                ("gsm balance issue","gsm balance issue"),
-                                ("SIGNAL ISSUE	","SIGNAL ISSUE"),
-                                ("BUGLARY ALARM PROBLEM", "BUGLARY ALARM PROBLEM"),
-                                ("Panic Button Wiring Problem", "Panic Button Wiring Problem"),
-                                ("ZONE 7", "ZONE 7"),
-                                ("NO RESPONSE	","NO RESPONSE"),
-                                ("SIM BLOCKED	","SIM BLOCKED"),
-                                ("user code provide","user code provide	"),
-                                ("DEVICES RE-INSTALL",	"DEVICES RE-INSTALL"),
-                                ("BRANCH  CLOSED","BRANCH  CLOSED	"),
-                                ("GSM INSTALL	","GSM INSTALL	"),
-                                ("SYSTEM BEEPING","SYSTEM BEEPING"	),
-                                ("REMOTE PANIC PROBLEM","REMOTE PANIC PROBLEM	"),
-                                ("Zone 7 Problem","Zone 7 Problem"),
-                                ("PANIC BUTTON INSTALL","PANIC BUTTON INSTALL"),
-                                ("hooter install","hooter install"),
-                                ("TECHNICIAN REQUIRED","TECHNICIAN REQUIRED"),
-                                ("SMOKE DECTECTOR PROBLEM","SMOKE DECTECTOR PROBLEM"),
-                                ("SMOOK DETECTOR INSTAL","SMOOK DETECTOR INSTAL"),
-                                ("PENAL LOCATION CHANGE","PENAL LOCATION CHANGE"),
-                                ("SYSTEM HANG","SYSTEM HANG"),
-                                ("BRANCH SHIFT","BRANCH SHIFT"),
-                                ("Ptcl Connect"	,"Ptcl Connect"),
-                                ("Panic Not Working","Panic Not Working"),
-                                ("SD Not Working","SD Not Working"),
-                                ("Zone 8 Problem","Zone 8 Problem"),
-                                ("Cancel","Cancel"),
-                                ("DEVICES INSTALL","DEVICES INSTALL"	),
-                                ("Programming Error Urgent Check","Programming Error Urgent Check"	),
-                                ("SIM Install In GSM","SIM Install In GSM"),
-                                ("All Panic not working"	,"All Panic not working"	),
-                                ("Ptcl Change","	Ptcl Change"),
-                                ("temper problem","temper problem"),
-                                ("Guard less Activation"	,"Guard less Activation"	),
-                                ("Most Urgent Complain","Most Urgent Complain"),
-                                ("ADDITONAL WORK IN PENDING","ADDITONAL WORK IN PENDING"),
-                                ("BENTAL PROBLEM","BENTAL PROBLEM"),
-                                ("GSM CONNECT","GSM CONNECT"),
-                                ("GSM FAULTY","GSM FAULTY"),
-                                ("GSM POWER PROBLEM","GSM POWER PROBLEM")
+      'name': fields.selection([("[I]Activation-De-Activation/Open-Close Problem ","[I]	Activation-De-Activation/Open-Close Problem "),
+                                ("[I]Battery Faulty	","[I]	Battery Faulty"),
+                                ("[I]Fixed Panic Button Faulty/Damage/Not Working/ False Alarming","[I]	Fixed Panic Button Faulty/Damage/Not Working/ False Alarming"),
+                                ("[I]Foot Panic Button Faulty/Damage/Not Working/ False Alarming","[I]	Foot Panic Button Faulty/Damage/Not Working/ False Alarming"),
+                                ("[I]GSM/Bental Faulty","[I]GSM/Bental Faulty"),
+                                ("[I]H/M Faulty/Damage/Not Working","[I]H/M Faulty/Damage/Not Working"),
+                                ("[I]Hooter Faulty/Damage/Not Working/False","[I]Hooter Faulty/Damage/Not Working/False"),
+                                ("[I]Keypad Faulty/Hang/beeping","[I]Keypad Faulty/Hang/beeping"),
+                                ("[I]Late Transmission Problem","[I]Late Transmission Problem"),("[I]O/C Faulty/Damage/Not Working","[I]O/C Faulty/Damage/Not Working"),
+                                ("[I]PCB Faulty/Burnt","[I]PCB Faulty/Burnt"),("[I]PIR Faulty/Damage/Not Working/ False Alarming","[I]	PIR Faulty/Damage/Not Working/ False Alarming"),
+                                ("[I]Programming Error","[I]Programming Error"),
+                                ("[I]PTCL Connect/Change/Dead","[I]	PTCL Connect/Change/Dead"),
+                                ("[I]R/S Faulty/Damage/Not Working","[I] R/S Faulty/Damage/Not Working"),
+                                ("[I]Remote Panic Button Faulty/Damage/Not Working/ False Alarming","[I]Remote Panic Button Faulty/Damage/Not Working/ False Alarming	"),
+                                ("[I]SIM Balance/Network Issue/Blocked/Replacement","[I]SIM Balance/Network Issue/Blocked/Replacement"),
+                                ("[I]Smoke Faulty/Damage/Not Working/ False Alarming","[I]Smoke Faulty/Damage/Not Working/ False Alarming"),
+                                ("[I]SMS Receiving Issue","[I]SMS Receiving Issue"),
+                                ("[I]System Dead","[I]System Dead"),
+                                ("[I]Transformer Faulty","[I]Transformer Faulty"),
+                                ("[I]Transmission Problem","[I]	Transmission Problem"),
+                                ("[I]V/S Faulty/Damage/Not Working","[I]V/S Faulty/Damage/Not Working"),
+                                ("[I]Wiring Faulty due to Renovation/Mices","[I]Wiring Faulty due to Renovation/Mices"),
+                                ("[I]Zone 1 Problem/Faulty/False Alarming/Wiring Problem","[I]	Zone 1 Problem/Faulty/False Alarming/Wiring Problem"),
+                                ("[I]Zone 2 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 2 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[I]Zone 3 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 3 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[I]Zone 4 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 4 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[I]Zone 5 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 5 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[I]Zone 6 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 6 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[I]Zone 7 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 7 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[I]Zone 8 Problem/Faulty/False Alarming/ Wiring Problem","[I]	Zone 8 Problem/Faulty/False Alarming/ Wiring Problem"),
+                                ("[T]Backup Battery Required", "[T]	Backup Battery Required"),
+                                ("[T]BAS Penal/Device Location Change","[T]	BAS Penal/Device Location Change"),
+                                ("[T]Fixed Panic Button Required", "[T]	Fixed Panic Button Required"),
+                                ("[T]Foot Panic Paddles Required", "[T]	Foot Panic Paddles Required"),
+                                ("[T]GSM/Bental Required", "[T]	GSM/Bental Required"),
+                                ("[T]H/M (Heavy Metal) Required", "[T]	H/M (Heavy Metal) Required"),
+                                ("[T]Hooter Required", "[T]	Hooter Required"),
+                                ("[T]Keypad Required", "[T]	Keypad Required"),
+                                ("[T]O/C (Magnetic Door Contact) Required","[T]	O/C (Magnetic Door Contact) Required"),
+                                ("[T]PCB Required", "[T]PCB Required"),
+                                ("[T]PIR (Motion Sensor) Required", "[T]PIR (Motion Sensor) Required"),
+                                ("[T]R/S (Roller Shutter) Required", "[T]R/S (Roller Shutter) Required"),
+                                ("[T]Remote / Wireless Panic Required", "[T]Remote / Wireless Panic Required"),
+                                ("[T]Re-Wiring Required", "[T]Re-Wiring Required"),
+                                ("[T]S/D (Smoke Detector) Required", "[T]S/D (Smoke Detector) Required"),
+                                ("[T]System Shifting / Re-installation","[T]System Shifting / Re-installation"),
+                                ("[T]Transformer Required", "[T]Transformer Required"),
+                                ("[T]V/S (Vibration Sensor) Required","[T]V/S (Vibration Sensor) Required"),
                                 ],
-                               'Complaint Title', required=True, read=['__export__.res_groups_52'], write=['project.group_project_user']),
+                               'Complaint Title', required=True, read=['__export__.res_groups_52'], write=['project.group_project_user'],
+                               on_change='type()'),
       'Zone1': fields.boolean('Zone1', store=True),
       'Zone2': fields.boolean('Zone2', store=True),
       'Zone3': fields.boolean('Zone3', store=True),
@@ -178,8 +178,28 @@ class mutual_issues(osv.osv):
       'complaint_log_bank': fields.char('Complaint Log By Client', size=25, select=True, store=True),
       'check_by': fields.char('Check By Client', size=25, select=True, store=True),
       'courtesy':fields.text('Courtesy Remarks', store=True),
-      'clientname': fields.char('Client Name', store=True,size=30)
+      'clientname': fields.char('Client Name', store=True,size=30),
+      'color': fields.integer(compute='_get_color', string='Color', store=False),
+      'check': fields.char('Type', store=True, compute='type')
   }
+
+  @api.one
+  @api.depends('name')
+  def type(self):
+      str = self.name
+      if str:
+          if str.find('[I]') != -1:
+              self.check = "Issue"
+          elif str.find('[T]') != -1:
+              self.check = "Task"
+
+  @api.depends('check')
+  def _get_color(self):
+      if self.check == "Issue":
+          self.color = 3
+      elif self.check == "Task":
+          self.color = 14
+
   @api.multi
   def smsSent(self):
       if self.techContact:
