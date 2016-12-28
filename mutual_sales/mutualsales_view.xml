@@ -118,6 +118,13 @@
                     <field name="payment_next_action" />
                     <field name="payment_responsible_id" />
                 </xpath>
+                <search string="Search Partner">
+                     <group string="Custom Filter">
+                         <filter string="Active" domain="[('active','=',True)]"/>
+                         <filter string="Inactive" domain="[('active','=',False)]"/>
+                         <filter string="Main Branch" domain="['&amp;',('is_company','=',True),('is_branch','=',False)]"/>
+                     </group>
+                </search>
             </field>
         </record>
          <!--==========================Search View Ends=============================-->

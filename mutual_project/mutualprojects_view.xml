@@ -567,6 +567,8 @@
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
                         <filter name="user_id" string="Not Assigned" domain="[('user_id','=',False)]"/>
                         <filter name="tech_name" string="Assigned" domain="[('tech_name.technician_name','=',False)]" />
+                        <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
+                        <filter name="check" string="Task" domain="[('check','=','Task')]" />
                     </group>
                 </search>
             </field>

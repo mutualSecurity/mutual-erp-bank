@@ -13,6 +13,9 @@
                 <field name="date" position="after">
                     <field name="date_to"/>
                 </field>
+                 <xpath expr="//field[@name='date']" position="attributes">
+                      <attribute name="string">From</attribute>
+                  </xpath>
             </field>
          </record>
           <!--====================================== List view of Employee form for metrics Begins ====================-->
