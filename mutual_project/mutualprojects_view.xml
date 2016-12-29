@@ -68,6 +68,7 @@
             <field name="model">tech.activities.issues</field>
             <field name="arch" type="xml">
                 <search string="Search Logs">
+                    <field name="issue_id"/>
                     <field name="cs_number"/>
                     <field name="branch_code"/>
                     <group string="Custom Filter">
@@ -89,13 +90,13 @@
                 <p class="oe_view_nocontent_create">click create to add a new record</p>
             </field>
         </record>
-        <menuitem
-            name="Tasks TimeIn/Out Activities"
-            action="tech_open_project_attachment_task_view"
-            id="menu_tech_open_project_attachment_task_view"
-            sequence="40"
-            parent="project.menu_project_management">
-        </menuitem>
+        <!--<menuitem-->
+            <!--name="Tasks TimeIn/Out Activities"-->
+            <!--action="tech_open_project_attachment_task_view"-->
+            <!--id="menu_tech_open_project_attachment_task_view"-->
+            <!--sequence="40"-->
+            <!--parent="project.menu_project_management">-->
+        <!--</menuitem>-->
         <record id="tech_activities_form_view" model="ir.ui.view">
             <field name="name">tech_activities.form.view</field>
             <field name="view_type">form</field>
@@ -328,6 +329,9 @@
                 <xpath expr="//field[@name='project_id']" position="attributes">
                     <attribute name="invisible">0</attribute>
                 </xpath>
+                <xpath expr="//field[@name='task_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
                 <xpath expr="//button[@name='case_escalate']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -342,6 +346,7 @@
                 <!--</xpath>-->
                 <xpath expr="//field[@name='priority']" position="after">
                      <field name="check" readonly="1" attrs="{'invisible': [('check','=',False)]}"/>
+                    +
                      <field name="complaint_source"/>
                      <field name="create_uid" readonly="1"/>
                      <field name="user_id_issue"/>
@@ -382,6 +387,7 @@
                                 <field name="compute_total_time"/>
                                 <field name="reason" />
                                 <field name="systemstatus"/>
+                                <field name="create_date"/>
                             </tree>
                           </field>
                     </page>
@@ -425,21 +431,21 @@
                         </group>
                     </page>
                 </notebook>
-                <notebook>
-                    <page string="SMS">
-                        <group>
-                            <field name="techContact"/>
-                            <field name="sms"/>
-                        </group>
-                            <button name="details" string="Details" type="object" class="btn-link" />
-                            <button name="smsSent" string="Sent" type="object" class="btn-link"  />
-                    </page>
-                </notebook>
                 <xpath expr="//page[@string='Extra Info']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
                 <xpath expr="//page[@string='Description']" position="attributes">
                     <attribute name="string">Remarks by Bank</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Remarks by Bank']" position="before">
+                        <page string="SMS">
+                            <group>
+                                <field name="techContact"/>
+                                <field name="sms"/>
+                            </group>
+                            <button name="details" string="Details" type="object" class="btn-link" />
+                            <button name="smsSent" string="Sent" type="object" class="btn-link"  />
+                        </page>
                 </xpath>
             </field>
         </record>
@@ -563,12 +569,22 @@
                     <field name="branch_code_issue"/>
                     <field name="city_issue"/>
                     <field name="monitoring_address_issue"/>
-                    <group string="Custome Filter">
+                    <group string="Custom Filter">
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
                         <filter name="user_id" string="Not Assigned" domain="[('user_id','=',False)]"/>
                         <filter name="tech_name" string="Assigned" domain="[('tech_name.technician_name','=',False)]" />
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
                         <filter name="check" string="Task" domain="[('check','=','Task')]" />
+                        <filter name="convert_to_task" string="Converted into Task" domain="[('convert_to_task','=',True)]" />
+                    </group>
+                     <group string="Stages">
+                         <filter name="stage_id" string="Complaints/Tasks" domain="[('stage_id','=','Complaints/Tasks')]" />
+                         <filter name="stage_id" string="Courtesy Call" domain="[('stage_id','=','Courtesy Call')]" />
+                         <filter name="stage_id" string="Online Resolved" domain="[('stage_id','=','Online Resolved')]" />
+                         <filter name="stage_id" string="Assigned to Technician" domain="[('stage_id','=','Assigned to Technician')]" />
+                         <filter name="stage_id" string="In Progress" domain="[('stage_id','=','In Progress')]" />
+                         <filter name="stage_id" string="Issue at bank end" domain="[('stage_id','=','Issue at bank end')]" />
+                         <filter name="stage_id" string="Resolved" domain="[('stage_id','=','Resolved')]" />
                     </group>
                 </search>
             </field>
