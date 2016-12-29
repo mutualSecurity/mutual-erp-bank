@@ -345,7 +345,10 @@
                     <!--<field name="system_status"/>-->
                 <!--</xpath>-->
                 <xpath expr="//field[@name='priority']" position="after">
+                     <!--<field name="tech"/>-->
+                    <!--<field name="stage_id" readonly="0"/>-->
                      <field name="check" readonly="1" attrs="{'invisible': [('check','=',False)]}"/>
+                     <field name="convert_to_task"/>
                      <field name="complaint_source"/>
                      <field name="create_uid" readonly="1"/>
                      <field name="user_id_issue"/>
@@ -568,9 +571,10 @@
                     <field name="branch_code_issue"/>
                     <field name="city_issue"/>
                     <field name="monitoring_address_issue"/>
+                    <field name="tech"/>
                     <group string="Custom Filter">
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
-                        <filter name="user_id" string="Not Assigned" domain="[('user_id','=',False)]"/>
+                        <filter name="tech" string="Not Assigned" domain="[('tech','=',False)]"/>
                         <filter name="tech_name" string="Assigned" domain="[('tech_name.technician_name','=',False)]" />
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
                         <filter name="check" string="Task" domain="[('check','=','Task')]" />
@@ -623,7 +627,8 @@
                 <xpath expr='//kanban//field[@name="partner_id"]' position="after"><br/>
                     <span style="color:green !important; font-weight:bold"><field name="cs_number_issue"/></span>
                     <span style="margin-left:3px;color:royalblue; font-weight:bold"><field name="city_issue" /></span><br/>
-                    <field name="complaint_source" />
+                    <field name="complaint_source" /><br/>
+                    <field name="tech"/>
                 </xpath>
             </field>
         </record>

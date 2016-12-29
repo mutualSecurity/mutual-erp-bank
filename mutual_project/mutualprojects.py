@@ -78,7 +78,7 @@ class mutual_issues(osv.osv):
   _columns = {
       'task_id': fields.many2one('project.task', ' ', domain="[('project_id','=',project_id)]"),
       'system_status':fields.char('System Status',store=True),
-      'stage_id': fields.many2one('project.task.type', 'Stage', track_visibility='onchange', select=True, on_change='_change_stage()'),
+      'stage_id': fields.many2one('project.task.type', 'Stage', select=True, on_change='assign_tech()'),
       'complaint_status':fields.char('Complaint Status',store=True),
       'sale_order_issue': fields.many2one('sale.order', 'Sale Order', store=True),
       'contact': fields.related('user_id', 'mobile', type='char', size=12, string='Contact', readonly=True),
@@ -183,8 +183,8 @@ class mutual_issues(osv.osv):
       'clientname': fields.char('Client Name', store=True,size=30),
       'color': fields.integer(compute='_get_color', string='Color', store=False),
       'check': fields.char('Type', store=True, compute='type'),
-      'convert_to_task': fields.boolean('Convert to Task', store=True)
-
+      'convert_to_task': fields.boolean('Convert to Task', store=True),
+      'tech': fields.char('Assigned to Technician', store=True, compute='assign_tech'),
   }
 
   @api.one
@@ -197,7 +197,7 @@ class mutual_issues(osv.osv):
           elif str.find('[T]') != -1:
               self.check = "Task"
 
-  @api.depends('check','convert_to_task')
+  @api.depends('check', 'convert_to_task')
   def _get_color(self):
       if self.check == "Issue"and self.convert_to_task is False:
           self.color = 3
@@ -205,6 +205,19 @@ class mutual_issues(osv.osv):
           self.color = 14
       elif self.check == "Issue" and self.convert_to_task is True:
           self.color = 10
+
+  @api.one
+  @api.depends('stage_id')
+  def assign_tech(self):
+      if self.id:
+          self.env.cr.execute('SELECT name_related FROM hr_employee where hr_employee.id = any(select technician_name from tech_activities_issues where tech_name = ' + str(self.id) + ')')
+          technicians = self.env.cr.dictfetchall()
+          if len(technicians)>0:
+              for tech in technicians:
+                  if self.tech:
+                      self.tech = self.tech+","+str(tech['name_related'])
+                  else:
+                      self.tech = str(tech['name_related'])
 
   @api.multi
   def smsSent(self):
