@@ -346,7 +346,6 @@
                 <!--</xpath>-->
                 <xpath expr="//field[@name='priority']" position="after">
                      <field name="check" readonly="1" attrs="{'invisible': [('check','=',False)]}"/>
-                    +
                      <field name="complaint_source"/>
                      <field name="create_uid" readonly="1"/>
                      <field name="user_id_issue"/>
