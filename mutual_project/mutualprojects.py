@@ -238,20 +238,20 @@ class mutual_issues(osv.osv):
               }
           }
       else:
+          print 'Kindly enter mobile number of technician'
           raise osv.except_osv('Kindly enter mobile number of technician')
-          return False;
 
 
   @api.multi
   def details(self):
-      self.sms = str(self.id)+"\n"+self.name+"\n"+\
-                 self.cs_number_issue+"\n"+self.branch_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue;
-      return {
-        'warning': {
-            'title': "Something bad happened",
-            'message': "It was very bad indeed",
-        }
-      }
+      if self.cs_number_issue and self.branch_code_issue and self.monitoring_address_issue and self.city_issue:
+          self.sms = str(self.id)+"\n"+self.name+"\n"+\
+                 self.cs_number_issue+"\n"+self.branch_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue
+          return True
+      else:
+          raise Warning('You must required complete info of customer for sending an SMS')
+
+
 
 
   @api.one
