@@ -39,5 +39,16 @@
               </field>
         </record>
          <!--====================================== List view of Employee form for metrics Ends ===================-->
+
+         <record id="tech_expenses" model="ir.ui.view">
+              <field name="name">hr.employee.tree</field>
+              <field name="model">hr.employee</field>
+              <field name="inherit_id" ref="hr.view_employee_tree" />
+              <field name="arch" type="xml">
+                  <xpath expr="//field[@name='work_phone']" position="after">
+                      <field name="work_location"/>
+                  </xpath>
+              </field>
+        </record>
     </data>
 </openerp>

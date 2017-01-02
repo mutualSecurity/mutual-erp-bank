@@ -1,4 +1,5 @@
 from openerp.osv import fields, osv
+from openerp import api
 
 
 class mutual_sales(osv.osv):
@@ -55,3 +56,31 @@ class customer_branch_details(osv.osv):
 class customer_branch_details(osv.osv):
     _name = "mutual.res.users"
     _inherit = "res.users"
+
+
+class sale_order(osv.osv):
+    _inherit = "sale.order"
+    _columns = {
+        'complaint_reference': fields.char('Complaint reference',store=True, on_change='auto_select()'),
+        'cs_number': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
+    }
+
+    defaults = {
+        'currency_id_invoices': 'auto_select()',
+    }
+
+    @api.one
+    @api.onchange('complaint_reference')
+    def auto_select(self, context=None):
+        if self.complaint_reference:
+            res = {'value': {'amenities': False}}
+            self.env.cr.execute('select id from res_partner where id = any(select partner_id from project_issue where id ='+self.complaint_reference+')')
+            customer = self.env.cr.dictfetchall()
+            list=self.env['res.partner'].search([['id', '=', customer[0]['id']], ])
+            # customers = self.pool.get('res.partner')
+            # res = customers.search(self.env.cr, self.env.uid, [('name', '=', 'Allied Bank')],context=context)
+            self.partner_id = list
+
+
+
+

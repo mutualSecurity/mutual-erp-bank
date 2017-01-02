@@ -2,6 +2,7 @@
 import openerp.addons.decimal_precision as dp
 from openerp.osv import fields, osv
 from openerp.tools.float_utils import float_round, float_compare
+from openerp import api
 
 
 
@@ -13,6 +14,11 @@ class mutual_products(osv.osv):
 
     }
 
+class mutual_stockwarhouse(osv.osv):
+    _inherit = "stock.warehouse"
+    _columns = {
+        'code': fields.char('Short Name', size=100, store=True, required=True, select=True),
+    }
 
 class mutual_templates(osv.osv):
     _inherit = "product.template"
@@ -30,5 +36,12 @@ class mutual_templates(osv.osv):
 class mutual_stock(osv.osv):
     _inherit = "stock.picking"
     _columns = {
-        'cs_number': fields.related('partner_id','cs_number',type='char', size=12,string='CS Number',readonly=True)
+        'cs_number': fields.related('partner_id', 'cs_number',type='char', size=12, string='CS Number',readonly=True),
+        'approve': fields.boolean('Approved',store=True, compute='approval', read=['stock.group_stock_user'], write=['stock.group_stock_manager'])
     }
+
+    @api.one
+    @api.depends('partner_id')
+    def approval(self):
+        if self.partner_id:
+            self.approve = True

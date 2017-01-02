@@ -87,7 +87,6 @@ class mutual_issues(osv.osv):
       'mobile_logged': fields.related('create_uid', 'mobile', type='char', size=12, string='om_number_issue',
                                         readonly=True),
       'sms': fields.text('SMS', store=True),
-      'techContact': fields.char('Contact', store=True, size=11),
       'cs_number_issue': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
       'city_issue': fields.related('partner_id', 'city', type='char', size=12, string='City',readonly=True),
       'branch_code_issue': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch Code',readonly=True),
@@ -154,6 +153,7 @@ class mutual_issues(osv.osv):
                                 ("[T]System Shifting / Re-installation","[T]System Shifting / Re-installation"),
                                 ("[T]Transformer Required", "[T]Transformer Required"),
                                 ("[T]V/S (Vibration Sensor) Required","[T]V/S (Vibration Sensor) Required"),
+                                ("Special Task[T]", "Special Task[T]"),
                                 ],
                                'Complaint Title', required=True, read=['__export__.res_groups_52'], write=['project.group_project_user'],
                                on_change='type()'),
@@ -185,6 +185,10 @@ class mutual_issues(osv.osv):
       'check': fields.char('Type', store=True, compute='type'),
       'convert_to_task': fields.boolean('Convert to Task', store=True),
       'tech': fields.char('Assigned to Technician', store=True, compute='assign_tech'),
+      'technician_name': fields.many2one('hr.employee', 'Technician Name', required=False, select=1,
+                                         track_visibility='onchange', domain="[('department_id','=','Technician')]",
+                                         defaults=''),
+      'techContact': fields.char('Contact', store=True, size=11,readonly=True,compute='get_contact'),
   }
 
   @api.one
@@ -205,6 +209,10 @@ class mutual_issues(osv.osv):
           self.color = 14
       elif self.check == "Issue" and self.convert_to_task is True:
           self.color = 10
+
+  @api.depends('technician_name')
+  def get_contact(self):
+      self.techContact = self.technician_name.work_phone
 
   @api.one
   @api.depends('stage_id')

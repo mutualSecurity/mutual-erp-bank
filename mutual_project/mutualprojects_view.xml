@@ -442,6 +442,7 @@
                 <xpath expr="//page[@string='Remarks by Bank']" position="before">
                         <page string="SMS">
                             <group>
+                                <field name="technician_name"/>
                                 <field name="techContact"/>
                                 <field name="sms"/>
                             </group>
