@@ -27,6 +27,8 @@
             'views/report_task_pdf.xml',
             'views/report_history_pdf.xml',
             'views/summary_sheet_pdf.xml',
+            'views/technician_info_pdf.xml',
+            'views/customer_biodata_pdf.xml',
     ]
 
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+       <template id="customer_biodata_pdf">
+           <t t-call='report.html_container'>
+               <t t-foreach="docs" t-as="customer_info">
+                   <t t-call="report.external_layout">
+                      <div class="page">
+                          <div class="row">
+                              <div t-if="customer_info.name"><br/>
+                                  <h3>Bank's Information</h3>
+                                  <strong>Name: </strong><span t-field="customer_info.name"/><br/>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-xs-3" t-if="customer_info.cs_number">
+                                  <strong>CS Number</strong>
+                                  <p t-field="customer_info.cs_number"/>
+                              </div>
+                              <div class="col-xs-3" t-if="customer_info.branch_code">
+                                  <strong>Branch Code</strong>
+                                  <p t-field="customer_info.branch_code"/>
+                              </div>
+                              <div class="col-xs-3" t-if="customer_info.street">
+                                  <strong>Location</strong>
+                                  <p t-field="customer_info.street"/>
+                                  <p t-field="customer_info.street2"/>
+                              </div>
+                              <div class="col-xs-3" t-if="customer_info.city">
+                                  <strong>Region</strong>
+                                  <p t-field="customer_info.city"/>
+                              </div>
+                          </div>
+                      </div>
+                   </t>
+               </t>
+           </t>
+       </template>
+    </data>
+</openerp>

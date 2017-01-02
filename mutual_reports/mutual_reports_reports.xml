@@ -41,6 +41,26 @@
         />
 
         <report
+                id="custom_technician_info_pdf"
+                model="hr.employee"
+                string="Technician Info"
+                report_type="qweb-pdf"
+                name="mutual_reports.technician_info_pdf"
+                attachment_use="False"
+                file="mutual_reports.technician_info_pdf"
+        />
+
+         <report
+                id="custom_customer_biodata_pdf"
+                model="res.partner"
+                string="Customer Biodata"
+                report_type="qweb-pdf"
+                name="mutual_reports.customer_biodata_pdf"
+                attachment_use="False"
+                file="mutual_reports.customer_biodata_pdf"
+        />
+
+        <report
                 id="custom_report_task_pdf"
                 model="project.task"
                 string="Print Task"
