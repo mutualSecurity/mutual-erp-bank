@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+       <template id="custom_monitoring_invoice_pdf">
+           <t t-call='report.html_container'>
+               <t t-foreach="docs" t-as="account_invoice">
+                   <t>
+                      <div class="page">
+                          <span t-if="account_invoice.show_tax==False">
+                          <div class="row">
+                              <strong>
+                                  <span t-field="account_invoice.partner_id"/><br/>
+                                  <span t-if="account_invoice.partner_id.street">
+                                      <span t-field="account_invoice.partner_id.street"/>
+                                  </span><br/>
+                                  <span t-if="account_invoice.partner_id.street2">
+                                      <span t-field="account_invoice.partner_id.street2"/>
+                                  </span><br/>
+                                  <span t-if="account_invoice.partner_id.city">
+                                      <span t-field="account_invoice.partner_id.city"/>
+                                  </span><br/>
+                              </strong><br/>
+                              <div class="row mt32 mb32">
+                                  <div class="col-xs-2" t-if="account_invoice.date_invoice">
+                                      <strong>Invoice Date</strong>
+                                      <p t-field="account_invoice.date_invoice"/>
+                                  </div>
+                                  <div class="col-xs-2" t-if="account_invoice.NTN">
+                                      <strong>NTN</strong>
+                                      <p t-field="account_invoice.NTN"/>
+                                  </div>
+                              </div>
+                              <h1>Invoice#
+                                  <span t-field="account_invoice.id"/>
+                              </h1>
+
+                              <table class="table table-condensed">
+                                  <thead>
+                                      <tr>
+                                          <th>Description</th>
+                                          <th colspan="2"><center>Billing Period</center></th>
+                                          <th>Quantity</th>
+                                          <th class="text-right">Unit Price</th>
+                                          <th class="text-right">Amount</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody class="invoice_tbody">
+                                      <tr t-foreach="account_invoice.invoice_line" t-as="l">
+                                          <td><span t-field="l.name"/></td>
+                                          <td><span t-field="l.from"/></td>
+                                          <td><span t-field="l.to"/></td>
+                                          <td>
+                                              <span t-field="l.quantity"/>
+                                              <span t-field="l.uos_id" groups="product.group_uom"/>
+                                          </td>
+                                          <td class="text-right">
+                                              <span t-field="l.price_unit"/>
+                                          </td>
+                                          <td class="text-right" >
+                                              <span t-if="l.invoice_line_tax_id.description == 'SRB 19%'">
+                                                  <span t-esc="round(l.price_subtotal+(l.price_subtotal*19/100))"/>
+                                              </span>
+                                              <span t-if="not l.invoice_line_tax_id">
+                                                  <span t-esc="l.price_subtotal"/>
+                                              </span>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="row">
+                              <div class="col-xs-4 pull-right">
+                                  <table class="table table-condensed">
+                                      <tr class="border-black">
+                                          <td class="text-right">
+                                              <strong>Total: </strong>
+                                              <span t-esc="round(account_invoice.amount_total)"/>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                          </div>
+                           <div class="row">
+                              <div class="col-xs-4 pull-left">
+                                  <table>
+                                      <tr>
+                                          <td>
+                                             Prepared By <span t-field="account_invoice.create_uid"/>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                          </div>
+                           <div class="row">
+                              <div class="pull-left">
+                                 <span style="margin-left:15px"><strong>Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
+                              </div>
+                          </div>
+                          </span>
+
+                          <span t-if="account_invoice.show_tax==True">
+                          <div class="row">
+                              <strong>
+                                  <span t-field="account_invoice.partner_id"/><br/>
+                                  <span t-if="account_invoice.partner_id.street">
+                                      <span t-field="account_invoice.partner_id.street"/>
+                                  </span><br/>
+                                  <span t-if="account_invoice.partner_id.street2">
+                                      <span t-field="account_invoice.partner_id.street2"/>
+                                  </span><br/>
+                                  <span t-if="account_invoice.partner_id.city">
+                                      <span t-field="account_invoice.partner_id.city"/>
+                                  </span><br/>
+                              </strong><br/>
+                              <div class="row mt32 mb32">
+                                  <div class="col-xs-2" t-if="account_invoice.date_invoice">
+                                      <strong>Invoice Date</strong>
+                                      <p t-field="account_invoice.date_invoice"/>
+                                  </div>
+                                  <div class="col-xs-2" t-if="account_invoice.NTN">
+                                      <strong>NTN</strong>
+                                      <p t-field="account_invoice.NTN"/>
+                                  </div>
+                              </div>
+                              <h1>Invoice#
+                                  <span t-field="account_invoice.id"/>
+                              </h1>
+
+                              <table class="table table-condensed">
+                                  <thead>
+                                      <tr>
+                                          <th>Description</th>
+                                          <th colspan="2"><center>Billing Period</center></th>
+                                          <th>Quantity</th>
+                                          <th class="text-right">Unit Price</th>
+                                          <th class="text-right">Amount</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody class="invoice_tbody">
+                                      <tr t-foreach="account_invoice.invoice_line" t-as="l">
+                                          <td><span t-field="l.name"/></td>
+                                          <td><span t-field="l.from"/></td>
+                                          <td><span t-field="l.to"/></td>
+                                          <td>
+                                              <span t-field="l.quantity"/>
+                                              <span t-field="l.uos_id" groups="product.group_uom"/>
+                                          </td>
+                                          <td class="text-right">
+                                              <span t-field="l.price_unit"/>
+                                          </td>
+                                          <td class="text-right" >
+                                              <span >
+                                                  <span t-esc="l.price_subtotal"/>
+                                              </span>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                              <div class="row">
+                              <div class="col-xs-4 pull-right">
+                                  <table class="table table-condensed">
+                                      <tr class="border-black">
+                                          <td><strong>Total Without Taxes</strong></td>
+                                          <td class="text-right">
+                                              <span t-field="account_invoice.amount_untaxed"/>
+                                          </td>
+                                      </tr>
+                                      <tr class="border-black">
+                                          <td><strong>Taxes</strong></td>
+                                          <td class="text-right">
+                                              <span t-field="account_invoice.amount_tax"/>
+                                          </td>
+                                      </tr>
+                                      <tr class="border-black">
+                                          <td><strong>Total</strong></td>
+                                          <td class="text-right">
+                                              <span t-esc="round(account_invoice.amount_total)"/>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                          </div>
+                           <div class="row">
+                              <div class="col-xs-4 pull-left">
+                                  <table>
+                                      <tr>
+                                          <td>
+                                             Prepared By <span t-field="account_invoice.create_uid"/>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                          </div>
+                           <div class="row">
+                              <div class="pull-left">
+                                 <span style="margin-left:15px"><strong>Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
+                              </div>
+                          </div>
+                          </span>
+                      </div>
+                   </t>
+               </t>
+           </t>
+       </template>
+    </data>
+</openerp>

@@ -12,6 +12,8 @@ class invoice_line_(osv.osv):
 class invoice_csnumber(osv.osv):
     _inherit = 'account.invoice'
     _columns = {
+        'show_tax': fields.boolean('Show Tax', store=True),
+        'NTN': fields.char('NTN', store=True, readonly=True, default="3764757-1"),
         'courier': fields.boolean('Couriered', store=True),
         'payment_received': fields.boolean('Payment Received', store=True),
         'bank_cs_invoice': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number',readonly=True),

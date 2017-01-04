@@ -29,6 +29,7 @@
             'views/summary_sheet_pdf.xml',
             'views/technician_info_pdf.xml',
             'views/customer_biodata_pdf.xml',
+            'views/custom_additional_invoice_pdf.xml',
+            'views/custom_monitoring_invoice_pdf.xml',
     ]
-
 }

@@ -49,6 +49,24 @@
                 attachment_use="False"
                 file="mutual_reports.technician_info_pdf"
         />
+         <report
+                id="additional_invoice_pdf"
+                model="account.invoice"
+                string="Additional Invoice"
+                report_type="qweb-pdf"
+                name="mutual_reports.custom_additional_invoice_pdf"
+                attachment_use="False"
+                file="mutual_reports.custom_additional_invoice_pdf"
+        />
+         <report
+                id="monitoring_invoice_pdf"
+                model="account.invoice"
+                string="Monitoring Invoice"
+                report_type="qweb-pdf"
+                name="mutual_reports.custom_monitoring_invoice_pdf"
+                attachment_use="False"
+                file="mutual_reports.custom_monitoring_invoice_pdf"
+        />
 
          <report
                 id="custom_customer_biodata_pdf"
