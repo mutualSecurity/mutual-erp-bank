@@ -97,8 +97,8 @@
                                    <field name="branch_code"/>
                                    <field name="address1"/>
                                    <field name="address2"/>
-                                   <!--<field name="from"/>-->
-                                   <!--<field name="to"/>-->
+                                   <field name="from"/>
+                                   <field name="to"/>
                                    <field name="service_period"/>
                                    <field name="basic_amount"/>
                                    <field name="maintenance_basic_amount"/>
