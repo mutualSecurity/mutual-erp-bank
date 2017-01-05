@@ -8,8 +8,8 @@
                       <div class="page">
                           <span t-if="account_invoice.show_tax==False">
                           <div class="row">
-                              <strong>
-                                  <span t-field="account_invoice.partner_id"/><br/>
+                              <strong style="font-size:18px">
+                                  <span t-field="account_invoice.partner_id.name"/><br/>
                                   <span t-if="account_invoice.partner_id.street">
                                       <span t-field="account_invoice.partner_id.street"/>
                                   </span><br/>
@@ -20,7 +20,7 @@
                                       <span t-field="account_invoice.partner_id.city"/>
                                   </span><br/>
                               </strong><br/>
-                              <div class="row mt32 mb32">
+                              <div class="row mt32 mb32" style="font-size:18px">
                                   <div class="col-xs-2" t-if="account_invoice.date_invoice">
                                       <strong>Invoice Date</strong>
                                       <p t-field="account_invoice.date_invoice"/>
@@ -29,12 +29,12 @@
                                       <strong>NTN</strong>
                                       <p t-field="account_invoice.NTN"/>
                                   </div>
-                              </div>
+                              </div><br/>
                               <h1>Invoice#
                                   <span t-field="account_invoice.id"/>
                               </h1>
 
-                              <table class="table table-condensed">
+                              <table class="table table-condensed" style="font-size:16px">
                                   <thead>
                                       <tr>
                                           <th>Description</th>
@@ -67,21 +67,21 @@
                                       </tr>
                                   </tbody>
                               </table>
-                          </div>
+                          </div><br/><br/><br/>
                           <div class="row">
                               <div class="col-xs-4 pull-right">
-                                  <table class="table table-condensed">
+                                  <table class="table table-condensed" style="font-size:16px">
                                       <tr class="border-black">
+                                         <td><strong>Total</strong></td>
                                           <td class="text-right">
-                                              <strong>Total: </strong>
-                                              <span t-esc="round(account_invoice.amount_total)"/>
+                                              <strong><span t-esc="round(account_invoice.amount_total)"/></strong>
                                           </td>
                                       </tr>
                                   </table>
                               </div>
                           </div>
-                           <div class="row">
-                              <div class="col-xs-4 pull-left">
+                           <div class="row"><br/><br/><br/><br/>
+                              <div class="col-xs-4 pull-left" style="font-size:16px">
                                   <table>
                                       <tr>
                                           <td>
@@ -93,14 +93,14 @@
                           </div>
                            <div class="row">
                               <div class="pull-left">
-                                 <span style="margin-left:15px"><strong>Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
+                                 <span style="margin-left:15px"><strong style="font-size:16px">Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
                               </div>
                           </div>
                           </span>
 
                           <span t-if="account_invoice.show_tax==True">
                           <div class="row">
-                              <strong>
+                              <strong style="font-size:18px">
                                   <span t-field="account_invoice.partner_id"/><br/>
                                   <span t-if="account_invoice.partner_id.street">
                                       <span t-field="account_invoice.partner_id.street"/>
@@ -111,8 +111,8 @@
                                   <span t-if="account_invoice.partner_id.city">
                                       <span t-field="account_invoice.partner_id.city"/>
                                   </span><br/>
-                              </strong><br/>
-                              <div class="row mt32 mb32">
+                              </strong ><br/>
+                              <div class="row mt32 mb32" style="font-size:18px">
                                   <div class="col-xs-2" t-if="account_invoice.date_invoice">
                                       <strong>Invoice Date</strong>
                                       <p t-field="account_invoice.date_invoice"/>
@@ -121,12 +121,12 @@
                                       <strong>NTN</strong>
                                       <p t-field="account_invoice.NTN"/>
                                   </div>
-                              </div>
+                              </div><br/>
                               <h1>Invoice#
                                   <span t-field="account_invoice.id"/>
                               </h1>
 
-                              <table class="table table-condensed">
+                              <table class="table table-condensed" style="font-size:16px">
                                   <thead>
                                       <tr>
                                           <th>Description</th>
@@ -156,10 +156,10 @@
                                       </tr>
                                   </tbody>
                               </table>
-                          </div>
+                          </div><br/><br/><br/>
                               <div class="row">
                               <div class="col-xs-4 pull-right">
-                                  <table class="table table-condensed">
+                                  <table class="table table-condensed" style="font-size:16px">
                                       <tr class="border-black">
                                           <td><strong>Total Without Taxes</strong></td>
                                           <td class="text-right">
@@ -175,15 +175,15 @@
                                       <tr class="border-black">
                                           <td><strong>Total</strong></td>
                                           <td class="text-right">
-                                              <span t-esc="round(account_invoice.amount_total)"/>
+                                              <strong><span t-esc="round(account_invoice.amount_total)"/></strong>
                                           </td>
                                       </tr>
                                   </table>
                               </div>
-                          </div>
+                          </div><br/><br/><br/>
                            <div class="row">
                               <div class="col-xs-4 pull-left">
-                                  <table>
+                                  <table style="font-size:16px">
                                       <tr>
                                           <td>
                                              Prepared By <span t-field="account_invoice.create_uid"/>
@@ -194,7 +194,7 @@
                           </div>
                            <div class="row">
                               <div class="pull-left">
-                                 <span style="margin-left:15px"><strong>Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
+                                 <span style="margin-left:15px"><strong style="font-size:16px">Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
                               </div>
                           </div>
                           </span>
