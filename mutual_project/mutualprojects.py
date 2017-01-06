@@ -82,6 +82,7 @@ class mutual_issues(osv.osv):
       'complaint_status':fields.char('Complaint Status',store=True),
       'sale_order_issue': fields.many2one('sale.order', 'Sale Order', store=True),
       'contact': fields.related('user_id', 'mobile', type='char', size=12, string='Contact', readonly=True),
+      'customer': fields.related('partner_id', 'name', type='char', size=12, string='Customer',readonly=True),
       'bm_number_issue': fields.related('partner_id', 'office', type='char', size=12, string='bm_number_issue',readonly=True),
       'om_number_issue': fields.related('partner_id', 'phone', type='char', size=12, string='om_number_issue',readonly=True),
       'mobile_logged': fields.related('create_uid', 'mobile', type='char', size=12, string='om_number_issue',

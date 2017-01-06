@@ -625,9 +625,13 @@
                 <xpath expr='//kanban'  position="attributes">
                     <attribute name="quick_create">0</attribute>
                 </xpath>
-                <xpath expr='//kanban//field[@name="partner_id"]' position="after"><br/>
+                <xpath expr='//kanban//field[@name="partner_id"]' position="replace">
+                    <field name="customer"/>
+                </xpath>
+                <xpath expr='//kanban//field[@name="customer"]' position="after"><br/>
                     <span style="color:green !important; font-weight:bold"><field name="cs_number_issue"/></span>
                     <span style="margin-left:3px;color:royalblue; font-weight:bold"><field name="city_issue" /></span><br/>
+                    <span style="font-weight:bold"><field name="branch_code_issue" /></span><br/>
                     <field name="complaint_source" /><br/>
                     <field name="tech"/>
                 </xpath>
