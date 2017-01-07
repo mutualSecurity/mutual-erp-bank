@@ -17,8 +17,8 @@
                                       <span t-field="account_invoice.partner_id.street"/>
                                   </span><br/>
                                   <span t-if="account_invoice.partner_id.street2">
-                                      <span t-field="account_invoice.partner_id.street2"/>
-                                  </span><br/>
+                                      <span t-field="account_invoice.partner_id.street2"/><br/>
+                                  </span>
                                   <span t-if="account_invoice.partner_id.city">
                                       <span t-field="account_invoice.partner_id.city"/>
                                   </span><br/>
@@ -77,6 +77,11 @@
                                   </table>
                               </div>
                           </div>
+                              <div class="row"><br/>
+                              <div class="pull-left" style="font-size:16px">
+                                 <span style="margin-left:15px">Amount In Words: <span t-esc="account_invoice.amount_to_text"/></span>
+                              </div>
+                          </div>
                            <div class="row"><br/><br/><br/><br/>
                               <div class="col-xs-4 pull-left">
                                   <table style="font-size:16px">
@@ -90,7 +95,7 @@
                           </div>
                            <div class="row">
                               <div class="pull-left">
-                                 <span style="margin-left:15px"><strong style="font-size:16px">Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
+                                 <span style="margin-left:15px"><strong style="font-size:16px">Payment:Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong></span>
                               </div>
                           </div>
                           </span>
@@ -106,8 +111,8 @@
                                       <span t-field="account_invoice.partner_id.street"/>
                                   </span><br/>
                                   <span t-if="account_invoice.partner_id.street2">
-                                      <span t-field="account_invoice.partner_id.street2"/>
-                                  </span><br/>
+                                      <span t-field="account_invoice.partner_id.street2"/><br/>
+                                  </span>
                                   <span t-if="account_invoice.partner_id.city">
                                       <span t-field="account_invoice.partner_id.city"/>
                                   </span><br/>
@@ -181,7 +186,13 @@
                                       </tr>
                                   </table>
                               </div>
-                          </div><br/><br/><br/>
+                          </div>
+                               <div class="row"><br/>
+                              <div class="pull-left" style="font-size:16px">
+                                 <span style="margin-left:15px">Amount In Words: <span t-esc="account_invoice.amount_to_text"/></span>
+                              </div>
+                          </div>
+                               <br/><br/><br/>
                            <div class="row">
                               <div class="col-xs-4 pull-left">
                                   <table style="font-size:16px">
@@ -195,7 +206,7 @@
                           </div>
                            <div class="row" style="font-size:16px">
                               <div class="pull-left">
-                                 <span style="margin-left:15px"><strong>Payment:Please make your payment via cheque in favour of "Mutual Security Systems Private Limited"</strong></span>
+                                 <span style="margin-left:15px"><strong>Payment:Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong></span>
                               </div>
                           </div>
                           </span>
