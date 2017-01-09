@@ -32,6 +32,14 @@
                                       <strong>NTN</strong>
                                       <p t-field="account_invoice.NTN"/>
                                   </div>
+                                  <div class="col-xs-2" t-if="account_invoice.partner_id.phone">
+                                      <strong>PTCL</strong>
+                                      <p t-field="account_invoice.partner_id.phone"/>
+                                  </div>
+                                  <div class="col-xs-2" t-if="account_invoice.partner_id.mobile">
+                                      <strong>Mobile</strong>
+                                      <p t-field="account_invoice.partner_id.mobile"/>
+                                  </div>
                               </div><br/>
                               <h1>Invoice#
                                   <span t-field="account_invoice.id"/>
@@ -125,6 +133,14 @@
                                   <div class="col-xs-2" t-if="account_invoice.NTN">
                                       <strong>NTN</strong>
                                       <p t-field="account_invoice.NTN"/>
+                                  </div>
+                                  <div class="col-xs-2" t-if="account_invoice.partner_id.phone">
+                                      <strong>PTCL</strong>
+                                      <p t-field="account_invoice.partner_id.phone"/>
+                                  </div>
+                                  <div class="col-xs-2" t-if="account_invoice.partner_id.mobile">
+                                      <strong>Mobile</strong>
+                                      <p t-field="account_invoice.partner_id.mobile"/>
                                   </div>
                               </div><br/>
                               <h1>Invoice#

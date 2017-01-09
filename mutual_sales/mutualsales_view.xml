@@ -62,7 +62,7 @@
                     <attribute name="string">Nearest Police Station No.</attribute>
                 </field>
                 <field name="phone" position="attributes">
-                    <attribute name="string">Nearest Fire Station No.</attribute>
+                    <attribute name="string">PTCL</attribute>
                 </field>
                 <label for="street" string="Address" position="replace">
                     <label for="street" string="Monitoring Address" />
