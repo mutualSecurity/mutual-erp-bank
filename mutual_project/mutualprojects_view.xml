@@ -50,7 +50,7 @@
                     <field name="issue_id" readonly="1"/>
                     <field name="cs_number" readonly="1"/>
                     <field name="branch_code" readonly="1"/>
-                    <field name="tech_name" readonly="0"/>
+                    <field name="tech_name" readonly="1"/>
                     <field name="technician_name"/>
                     <field name="multi_tech" widget="many2many_tags"/>
                     <field name="date_start"/>
