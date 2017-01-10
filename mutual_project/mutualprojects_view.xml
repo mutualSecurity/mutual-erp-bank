@@ -449,6 +449,7 @@
                             <group>
                                 <field name="technician_name"/>
                                 <field name="techContact"/>
+                                <field name="count"/>
                                 <field name="sms"/>
                             </group>
                             <button name="details" string="Details" type="object" class="btn-link" />

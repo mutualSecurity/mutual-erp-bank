@@ -4,6 +4,7 @@ from openerp import api
 from datetime import date,datetime
 import requests
 import random
+import time
 
 #======================================== Project.task class implementation Begins =====================================
 
@@ -263,6 +264,7 @@ class mutual_issues(osv.osv):
                                          track_visibility='onchange', domain="[('department_id','=','Technician')]",
                                          defaults=''),
       'techContact': fields.char('Contact', store=True, size=11,readonly=True,compute='get_contact'),
+      'count': fields.char('Count', store=True, readonly=True,compute='_count')
   }
 
   @api.one
@@ -288,6 +290,10 @@ class mutual_issues(osv.osv):
   def get_contact(self):
       self.techContact = self.technician_name.work_phone
 
+  @api.depends('sms')
+  def _count(self):
+      self.count = len(self.sms)
+
   @api.one
   @api.depends('stage_id')
   def assign_tech(self):
@@ -304,13 +310,14 @@ class mutual_issues(osv.osv):
   @api.multi
   def smsSent(self):
       if self.techContact:
-          r = requests.post("http://localhost:3000", data={'sms':self.sms, 'contact':[self.techContact,self.mobile_logged]})
-          return {
-              'warning': {
-                  'title': "Something bad happened",
-                  'message': "It was very bad indeed",
-              }
-          }
+          if len(self.sms) < 140:
+              contacts = [self.techContact,self.mobile_logged]
+              for contact in contacts:
+                  r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact': contact})
+                  time.sleep(10)
+          else:
+              raise osv.except_osv('SMS Limit Exceed', 'SMS length must be less than 140 characters')
+
       else:
           print 'Kindly enter mobile number of technician'
           raise osv.except_osv('Empty Field','Kindly enter mobile number of technician')
