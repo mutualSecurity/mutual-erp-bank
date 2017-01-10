@@ -292,7 +292,8 @@ class mutual_issues(osv.osv):
 
   @api.depends('sms')
   def _count(self):
-      self.count = len(self.sms)
+      if self.sms:
+          self.count = len(self.sms)
 
   @api.one
   @api.depends('stage_id')
