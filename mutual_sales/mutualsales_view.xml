@@ -59,10 +59,10 @@
                     <field name="office"/>
                 </field>
                 <field name="office" position="attributes">
-                    <attribute name="string">Nearest Police Station No.</attribute>
+                    <attribute name="string">PTCL1</attribute>
                 </field>
                 <field name="phone" position="attributes">
-                    <attribute name="string">PTCL</attribute>
+                    <attribute name="string">PTCL2</attribute>
                 </field>
                 <label for="street" string="Address" position="replace">
                     <label for="street" string="Monitoring Address" />
