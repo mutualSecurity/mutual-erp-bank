@@ -581,7 +581,7 @@
                     <group string="Custom Filter">
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
                         <filter name="tech" string="Not Assigned" domain="[('tech','=',False)]"/>
-                        <filter name="tech_name" string="Assigned" domain="[('tech','=',True)]" />
+                        <filter name="tech_name" string="Assigned" domain="[('tech','!=','')]" />
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
                         <filter name="check" string="Task" domain="[('check','=','Task')]" />
                         <filter name="convert_to_task" string="Converted into Task" domain="[('convert_to_task','=',True)]" />
