@@ -42,10 +42,12 @@
         <!-- =========================== Issues Logs Ends ================================ -->
 
          <record model="ir.ui.view" id="project_issue_activities">
-            <field name="name">Technician Issues History</field>
-            <field name="view_type">tree</field>
-            <field name="model">tech.activities.issues</field>
-            <field name="arch" type="xml">
+             <field name="name">Technician Issues History</field>
+             <field name="view_type">tree</field>
+             <field name="model">tech.activities.issues</field>
+              <field name="domain">[('issue_id','=',37)]</field>
+             <field name="context">{'search_default_by_issue_id':37,}</field>
+             <field name="arch" type="xml">
                 <tree string="Technician Activities" editable="top">
                     <field name="issue_id" readonly="1"/>
                     <field name="cs_number" readonly="1"/>
@@ -61,13 +63,13 @@
                     <field name="systemstatus"/>
                     <field name="create_date"  readonly="1"/>
                 </tree>
-            </field>
+             </field>
          </record>
 
          <record  model="ir.ui.view" id="Issues_log_Search">
-            <field name="name">Issues log Search</field>
-            <field name="model">tech.activities.issues</field>
-            <field name="arch" type="xml">
+             <field name="name">Issues log Search</field>
+             <field name="model">tech.activities.issues</field>
+             <field name="arch" type="xml">
                 <search string="Search Logs">
                     <field name="issue_id"/>
                     <field name="cs_number"/>
@@ -77,7 +79,7 @@
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" help="Create Date"/>
                     </group>
                 </search>
-            </field>
+             </field>
          </record>
 
 
@@ -579,7 +581,7 @@
                     <group string="Custom Filter">
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
                         <filter name="tech" string="Not Assigned" domain="[('tech','=',False)]"/>
-                        <filter name="tech_name" string="Assigned" domain="[('tech_name.technician_name','=',False)]" />
+                        <filter name="tech_name" string="Assigned" domain="[('tech','=',True)]" />
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
                         <filter name="check" string="Task" domain="[('check','=','Task')]" />
                         <filter name="convert_to_task" string="Converted into Task" domain="[('convert_to_task','=',True)]" />
@@ -589,9 +591,10 @@
                          <filter name="stage_id" string="Courtesy Call" domain="[('stage_id','=','Courtesy Call')]" />
                          <filter name="stage_id" string="Online Resolved" domain="[('stage_id','=','Online Resolved')]" />
                          <filter name="stage_id" string="Assigned to Technician" domain="[('stage_id','=','Assigned to Technician')]" />
-                         <filter name="stage_id" string="In Progress" domain="[('stage_id','=','In Progress')]" />
+                         <filter name="stage_id" string="Time In/Out" domain="[('stage_id','=','Time In/Out')]" />
                          <filter name="stage_id" string="Issue at bank end" domain="[('stage_id','=','Issue at bank end')]" />
                          <filter name="stage_id" string="Resolved" domain="[('stage_id','=','Resolved')]" />
+                         <filter name="stage_id" string="Under Process" domain="[('stage_id','=','Under Process')]" />
                     </group>
                 </search>
             </field>

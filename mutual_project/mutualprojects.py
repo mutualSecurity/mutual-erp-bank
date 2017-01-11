@@ -263,7 +263,7 @@ class mutual_issues(osv.osv):
       'technician_name': fields.many2one('hr.employee', 'Technician Name', required=False, select=1,
                                          track_visibility='onchange', domain="[('department_id','=','Technician')]",
                                          defaults=''),
-      'techContact': fields.char('Contact', store=True, size=11,readonly=True,compute='get_contact'),
+      'techContact': fields.char('Contact', store=True, size=11,readonly=False,compute='get_contact'),
       'count': fields.char('Count', store=True, readonly=True,compute='_count')
   }
 
@@ -311,11 +311,11 @@ class mutual_issues(osv.osv):
   @api.multi
   def smsSent(self):
       if self.techContact:
-          if len(self.sms) < 140:
-              contacts = [self.techContact,self.mobile_logged]
-              for contact in contacts:
-                  r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact': contact})
-                  time.sleep(10)
+          if len(self.sms) < 140 :
+              if self.techContact and self.sms:
+                  r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact':self.techContact})
+              else:
+                  raise osv.except_osv('Sorry', 'SMS sending failed')
           else:
               raise osv.except_osv('SMS Limit Exceed', 'SMS length must be less than 140 characters')
 
