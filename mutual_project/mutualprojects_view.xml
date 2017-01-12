@@ -61,6 +61,7 @@
                     <field name="compute_total_time" readonly="1"/>
                     <field name="reason"/>
                     <field name="systemstatus"/>
+                    <field name="status"/>
                     <field name="create_date"  readonly="1"/>
                 </tree>
              </field>

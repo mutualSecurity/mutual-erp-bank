@@ -390,6 +390,7 @@ class tech_activities_issues(osv.osv):
         'issue_id': fields.related('tech_name', 'id', type='integer', string='Complaint ID'),
         'branch_code': fields.related('tech_name', 'branch_code_issue', type='char', string='Branch Code'),
         'multi_tech': fields.many2many('hr.employee', string='Other Tech', domain="[('department_id','=','Technician')]"),
+        'status': fields.selection([('Resolved','Resolved'),('Under Process','Under Process'),('Time In/Out','Time In/Out')],'Complaint Marking',store=True,onchange='changestatus()'),
 
     }
 
@@ -406,6 +407,21 @@ class tech_activities_issues(osv.osv):
             # find the difference between two dates
             diff = timeOut - timeIn
             self.compute_total_time = diff
+
+    @api.one
+    @api.onchange('status')
+    def changestatus(self):
+        if self.status == "Resolved":
+            self.env.cr.execute('UPDATE project_issue SET stage_id = 15 WHERE id ='+str(self.issue_id))
+            print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+        elif self.status == "Time In/Out":
+            self.env.cr.execute('UPDATE project_issue SET stage_id = 13 WHERE id =' + str(self.issue_id))
+            print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+        elif self.status == "Under Process":
+            self.env.cr.execute('UPDATE project_issue SET stage_id = 20 WHERE id =' + str(self.issue_id))
+            print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
 
 class tech_activities_tasks(osv.osv):
