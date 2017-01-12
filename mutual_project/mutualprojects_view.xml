@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="message_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Low Battery Messages</field>
+            <field name="res_model">low.messages</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Low Battery Messages"
+            action="message_open_project_attachment_view"
+            id="menu_message_open_project_attachment_view"
+            sequence="40"
+            parent="project.menu_project_management">
+        </menuitem>
+
+        <record id="battery_messages_form_view" model="ir.ui.view">
+            <field name="name">battery_messages.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">low.messages</field>
+            <field name="arch" type="xml">
+                <form string="battery_messages">
+                    <sheet>
+                        <group string="Low Battery Messages">
+                            <group>
+                                 <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="cs"/>
+                                <field name="branch_code"/>
+                            </group>
+                            <group>
+                                <field name="address"/>
+                            </group>
+                        </group>
+                        <separator string="SMS"/>
+                        <group>
+                            <field name="number"/>
+                        </group>
+                        <group>
+                            <field name="sms"/>
+                        </group>
+                        <group>
+                            <button name="smsSent" string="Sent" type="object" class="btn-link"  />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+           <!-- =========================== Tasks Logs Ends ================================ -->
+         <record model="ir.ui.view" id="battery_message_tree">
+            <field name="name">Battery Message</field>
+            <field name="view_type">tree</field>
+            <field name="model">low.messages</field>
+            <field name="arch" type="xml">
+                <tree string="Messages" >
+                    <field name="partner_id" />
+                    <field name="cs" />
+                    <field name="branch_code" />
+                    <field name="number" />
+                    <field name="create_uid"/>
+                </tree>
+            </field>
+         </record>
+
+
          <!-- =========================== Issues Logs Begins ================================ -->
         <record id="tech_open_project_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Issues Logs</field>
@@ -340,18 +409,7 @@
                 <xpath expr="//button[@name='case_escalate']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <!--<xpath expr="//field[@name='id']" position="after">-->
-                    <!--<field name="user_id"/>-->
-                    <!--<field name="date_start" />-->
-                    <!--<field name="first_signal_time"/>-->
-                    <!--<field name="date_end" />-->
-                    <!--<field name='compute_total_time'/>-->
-                    <!--<field name="status" style="border:	2px solid #618fc3 !important; padding:5px; color:red;" />-->
-                    <!--<field name="system_status"/>-->
-                <!--</xpath>-->
                 <xpath expr="//field[@name='priority']" position="after">
-                     <!--<field name="tech"/>-->
-                    <!--<field name="stage_id" readonly="0"/>-->
                      <field name="check" readonly="1" attrs="{'invisible': [('check','=',False)]}"/>
                      <field name="convert_to_task"/>
                      <field name="complaint_source"/>
@@ -375,17 +433,15 @@
                      <field name="city_issue"/>
                      <field name="monitoring_address_issue"/>
                 </xpath>
-                <notebook>
+                <xpath expr="//page[@string='Description']" position="before">
                     <page string="Remarks by CMS">
                         <field name="remark_by_cms" placeholder="Add you remarks..."/>
                     </page>
-                </notebook>
-                <notebook>
                     <page string="Remarks by Courtesy">
                         <field name="courtesy" placeholder="Add you remarks..."/>
                     </page>
-                </notebook>
-                <xpath expr="//page[@string='Description']" position="before">
+                </xpath>
+                <xpath expr="//page[@string='Description']" position="after">
                     <page string="Timesheet">
                           <field name="tech_name" colspan="4" nolabel="1">
                             <tree editable="top" string="Timesheets">
@@ -447,7 +503,7 @@
                 <xpath expr="//page[@string='Description']" position="attributes">
                     <attribute name="string">Remarks by Bank</attribute>
                 </xpath>
-                <xpath expr="//page[@string='Remarks by Bank']" position="before">
+                <xpath expr="//page[@string='Timesheet']" position="after">
                         <page string="SMS">
                             <group>
                                 <field name="technician_name"/>
@@ -478,12 +534,9 @@
                       <field name="branch_code_issue"/>
                       <field name="city_issue"/>
                       <field name="monitoring_address_issue"/>
-                      <field name="task_id" />
-                      <!--<field name="date_start"/>-->
-                      <!--<field name="date_end"/>-->
-                      <!--<field name="compute_total_time"/>-->
+                      <field name="complaint_source" />
                   </field>
-                  <field name="stage_id" position="after">
+                  <field name="id" position="before">
                       <field name="create_date"/>
                   </field>
                   <field name="version_id" position="replace">
@@ -569,18 +622,21 @@
             <field name="model">project.issue</field>
             <field name="inherit_id" ref="project_issue.view_project_issue_filter" />
             <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='partner_id']" position="before">
+                    <field name="cs_number_issue"/>
+                    <field name="branch_code_issue"/>
+                    <field name="bank_code_issue"/>
+                    <field name="city_issue"/>
+                    <field name="monitoring_address_issue"/>
+                    <field name="user_id_issue"/>
+                    <field name="tech"/>
+                </xpath>
                 <search string="Issue Tracker Search">
                     <field name="priority"/>
                     <field name="create_date"/>
-                    <field name="user_id_issue"/>
-                    <field name="cs_number_issue"/>
-                    <field name="bank_code_issue"/>
-                    <field name="branch_code_issue"/>
-                    <field name="city_issue"/>
-                    <field name="monitoring_address_issue"/>
-                    <field name="tech"/>
                     <group string="Custom Filter">
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
+                        <filter name="user_id_issue" string="Forwarded" domain="[('user_id_issue','!=',False)]"/>
                         <filter name="tech" string="Not Assigned" domain="[('tech','=',False)]"/>
                         <filter name="tech_name" string="Assigned" domain="[('tech','!=','')]" />
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
@@ -633,14 +689,17 @@
                     <attribute name="quick_create">0</attribute>
                 </xpath>
                 <xpath expr='//kanban//field[@name="partner_id"]' position="replace">
-                    <field name="customer"/>
+                    <span style="color:green !important; font-weight:bold">
+                        <field name="cs_number_issue"/>
+                        <field name="bank_code_issue"/>
+                    </span>
                 </xpath>
-                <xpath expr='//kanban//field[@name="customer"]' position="after"><br/>
-                    <span style="color:green !important; font-weight:bold"><field name="cs_number_issue"/></span>
+                <xpath expr='//kanban//field[@name="bank_code_issue"]' position="after">
+                    <br/><span style="font-weight:bold">BC<field name="branch_code_issue" /></span>
                     <span style="margin-left:3px;color:royalblue; font-weight:bold"><field name="city_issue" /></span><br/>
-                    <span style="font-weight:bold"><field name="branch_code_issue" /></span><br/>
-                    <field name="complaint_source" /><br/>
-                    <field name="tech"/>
+                    <span style="color:black; font-weight:bold"><field name="create_date"/></span><br/>
+                    <field name="complaint_source"/><br/>
+                    <span style="color:purple; font-weight:bold"><field name="tech"/></span>
                 </xpath>
             </field>
         </record>
