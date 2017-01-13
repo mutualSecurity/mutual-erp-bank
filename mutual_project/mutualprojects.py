@@ -381,8 +381,8 @@ class tech_activities_issues(osv.osv):
     _columns = {
         'tech_name': fields.many2one('project.issue', 'Complaint Title'),
         'technician_name': fields.many2one('hr.employee', 'Technician Name', required=False, select=1, track_visibility='onchange', domain="[('department_id','=','Technician')]", defaults=''),
-        'reason': fields.char('Final Status',size=100,store=True),
-        'systemstatus': fields.char('System Status', size=100, store=True),
+        'reason': fields.char('Final Status',store=True),
+        'systemstatus': fields.char('System Status', store=True),
         'total_time': fields.float('Total Time', store=True),
         'date': fields.date('Date',store=True),
         'compute_total_time': fields.char('T/T', store=True, readonly=True, compute='_compute_total_time', ),

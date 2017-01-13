@@ -141,9 +141,9 @@
              <field name="model">tech.activities.issues</field>
              <field name="arch" type="xml">
                 <search string="Search Logs">
-                    <field name="issue_id"/>
                     <field name="cs_number"/>
                     <field name="branch_code"/>
+                    <field name="issue_id"/>
                     <group string="Custom Filter">
                         <filter string="Create Day" context="{'group_by':'create_date:day'}" help="Create Date"/>
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" help="Create Date"/>
