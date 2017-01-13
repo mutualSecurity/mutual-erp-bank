@@ -450,7 +450,10 @@ class low_messages(osv.osv):
     @api.multi
     def smsSent(self):
         if self.number  and self.sms:
-            r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact': self.number})
+            if len(self.sms)<140 :
+                r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact': self.number})
+            else:
+                raise osv.except_osv('Error....', 'SMS Length must be within 150 characters')
         else:
             raise osv.except_osv('Error....', 'Kindly enter contact number')
 
