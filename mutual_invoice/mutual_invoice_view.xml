@@ -31,6 +31,11 @@
                     <field name="from"/>
                     <field name="to"/>
                 </xpath>
+                <xpath expr="//page[@string='Payments']" position="after">
+                    <page string="Follow-Ups">
+                        <field name="remarks"/>
+                    </page>
+                </xpath>
             </field>
         </record>
         <record id="cs_invoice_id" model="ir.ui.view">

@@ -19,6 +19,7 @@ class invoice_csnumber(osv.osv):
         'bank_cs_invoice': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number',readonly=True),
         'bank_code_invoice': fields.related('partner_id','bank_code',type='char', size=12,string='Bank code',readonly=True),
         'branch_code_invoice': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch code',readonly=True),
+        'remarks': fields.text('Follow Up', store=True)
     }
 
 
