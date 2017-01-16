@@ -20,9 +20,14 @@
                     <field name="bank_cs_invoice"/>
                     <field name="bank_code_invoice"/>
                     <field name="branch_code_invoice"/>
+                    <!--<field name="round_amount"/>-->
                 </field>
                 <xpath expr="//field[@name='journal_id']" position="after">
                     <field name="NTN"/>
+                </xpath>
+                <xpath expr="//field[@name='fiscal_position']" position="after">
+                   <separator string="Round Off"/>
+                    <br/><button name="compute_roundoff" string="Roundoff" type="object" class="btn-link" />
                 </xpath>
                 <xpath expr="//field[@name='account_id']" position="after">
                     <field name="show_tax"/>

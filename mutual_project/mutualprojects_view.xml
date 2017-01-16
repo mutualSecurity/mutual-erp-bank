@@ -28,7 +28,7 @@
                     <sheet>
                         <group string="Low Battery Messages">
                             <group>
-                                 <field name="partner_id"/>
+                                 <field name="partner_id" options="{'limit': 0, 'create': false, 'create_edit': false}"/>
                             </group>
                             <group>
                                 <field name="cs"/>
@@ -514,6 +514,9 @@
                             <button name="details" string="Details" type="object" class="btn-link" />
                             <button name="smsSent" string="Sent" type="object" class="btn-link"  />
                         </page>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'limit': 0, 'create': false, 'create_edit': false}</attribute>
                 </xpath>
             </field>
         </record>

@@ -13,7 +13,7 @@ class invoice_csnumber(osv.osv):
     _inherit = 'account.invoice'
     _columns = {
         'show_tax': fields.boolean('Show Tax', store=True),
-        'NTN': fields.char('NTN', store=True, readonly=True, default="3764757-1"),
+        'NTN': fields.char('NTN', store=True, default="3764757-1",readonly=True),
         'courier': fields.boolean('Couriered', store=True),
         'payment_received': fields.boolean('Payment Received', store=True),
         'bank_cs_invoice': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number',readonly=True),
@@ -21,6 +21,11 @@ class invoice_csnumber(osv.osv):
         'branch_code_invoice': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch code',readonly=True),
         'remarks': fields.text('Follow Up', store=True)
     }
+
+    @api.multi
+    def compute_roundoff(self):
+        print 'Round off amount >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+str(round(self.amount_total))
+        self.amount_total = round(self.amount_total)
 
 
 class summary_sheet(osv.osv):
