@@ -721,6 +721,9 @@
                     <field name="complaint_source"/><br/>
                     <span style="color:purple; font-weight:bold"><field name="tech"/></span>
                 </xpath>
+                <xpath expr="//kanban" position="attributes">
+                      <attribute name="default_order">create_date desc</attribute>
+                </xpath>
             </field>
         </record>
         <!--====================================== Kanban view of issue ends ==================================-->
