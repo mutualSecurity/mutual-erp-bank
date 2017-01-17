@@ -114,13 +114,12 @@
              <field name="name">Technician Issues History</field>
              <field name="view_type">tree</field>
              <field name="model">tech.activities.issues</field>
-              <field name="domain">[('issue_id','=',37)]</field>
-             <field name="context">{'search_default_by_issue_id':37,}</field>
              <field name="arch" type="xml">
-                <tree string="Technician Activities" editable="top">
+                <tree string="Technician Activities" editable="top" default_order="date_start asce">
                     <field name="issue_id" readonly="1"/>
                     <field name="cs_number" readonly="1"/>
                     <field name="branch_code" readonly="1"/>
+                    <field name="monitoring_address_issue" readonly="1"/>
                     <field name="tech_name" readonly="1"/>
                     <field name="technician_name"/>
                     <field name="multi_tech" widget="many2many_tags"/>
@@ -133,8 +132,23 @@
                     <field name="status"/>
                     <field name="create_date"  readonly="1"/>
                 </tree>
+                <!--<xpath expr="//field[@name='multi_tech']" position="attributes">-->
+                    <!--<attribute name="string">Combine with</attribute>-->
+                <!--</xpath>-->
+
              </field>
          </record>
+
+         <record model="ir.ui.view" id="timein/out_issues">
+            <field name="name">Technician Issues History</field>
+            <field name="model">tech.activities.issues</field>
+            <field name="inherit_id" ref="mutual_project.project_issue_activities" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='multi_tech']" position="attributes">
+                    <attribute name="string">Combine with</attribute>
+                </xpath>
+            </field>
+        </record>
 
          <record  model="ir.ui.view" id="Issues_log_Search">
              <field name="name">Issues log Search</field>
@@ -529,6 +543,9 @@
               <field name="inherit_id" ref="project_issue.project_feature_tree_view" />
               <field name="priority" eval="20"/>
               <field name="arch" type="xml">
+                  <xpath expr="//tree[@string='Feature Tracker Tree']" position="attributes">
+                      <attribute name="default_order">create_date desc</attribute>
+                  </xpath>
                   <field name="priority" position="after">
                       <field name="description"/>
                       <field name="user_id_issue"/>
@@ -648,7 +665,7 @@
                     </group>
                      <group string="Stages">
                          <filter name="stage_id" string="Complaints/Tasks" domain="[('stage_id','=','Complaints/Tasks')]" />
-                         <filter name="stage_id" string="Courtesy Call" domain="[('stage_id','=','Courtesy Call')]" />
+                         <filter name="stage_id" string="Device Replacement" domain="[('stage_id','=','Additional/Device Replacement')]" />
                          <filter name="stage_id" string="Online Resolved" domain="[('stage_id','=','Online Resolved')]" />
                          <filter name="stage_id" string="Assigned to Technician" domain="[('stage_id','=','Assigned to Technician')]" />
                          <filter name="stage_id" string="Time In/Out" domain="[('stage_id','=','Time In/Out')]" />

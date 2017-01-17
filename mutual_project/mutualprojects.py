@@ -390,12 +390,12 @@ class tech_activities_issues(osv.osv):
         'date_start': fields.datetime('T/I', select=True, copy=True,store=True),
         'date_end': fields.datetime('T/O', select=True, copy=True, store=True),
         'cs_number': fields.related('tech_name', 'cs_number_issue', type='char', string='CS Number'),
+        'monitoring_address_issue': fields.related('tech_name', 'monitoring_address_issue', type='char', string='Address'),
         #'stage_id': fields.related('tech_name','stage_id',type='many2one',relation='project.issue',string='Stage_id'),
         'issue_id': fields.related('tech_name', 'id', type='integer', string='Complaint ID'),
         'branch_code': fields.related('tech_name', 'branch_code_issue', type='char', string='Branch Code'),
         'multi_tech': fields.many2many('hr.employee', string='Other Tech', domain="[('department_id','=','Technician')]"),
-        'status': fields.selection([('Resolved','Resolved'),('Under Process','Under Process'),('Time In/Out','Time In/Out')],'Complaint Marking',store=True,onchange='changestatus()'),
-
+        'status': fields.selection([('Time In/Out','Time In/Out'),('Resolved','Resolved'),('Under Process','Under Process'),('Issue at bank end','Issue at bank end'),('Additional/Device Replacement','Additional/Device Replacement'),('Assigned to Technician','Assigned to Technician')],'Complaint Marking',store=True,onchange='changestatus()'),
     }
 
     @api.one
@@ -427,6 +427,18 @@ class tech_activities_issues(osv.osv):
             self.env.cr.execute('UPDATE project_issue SET stage_id = 20 WHERE id =' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
+        elif self.status == "Assigned to Technician":
+            self.env.cr.execute('UPDATE project_issue SET stage_id = 12 WHERE id =' + str(self.issue_id))
+            print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+        elif self.status == "Additional/Device Replacement":
+            self.env.cr.execute('UPDATE project_issue SET stage_id = 10 WHERE id =' + str(self.issue_id))
+            print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+        elif self.status == "Issue at bank end":
+            self.env.cr.execute('UPDATE project_issue SET stage_id = 14 WHERE id =' + str(self.issue_id))
+            print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
 
 
 
@@ -437,7 +449,7 @@ class low_messages(osv.osv):
         'cs': fields.char('CS Number',store=True,readonly=True),
         'branch_code': fields.char('Branch Code', store=True, readonly=True),
         'address': fields.text('Address',store=True, readonly=True),
-        'sms': fields.text('SMS',store=True),
+        'sms': fields.text('SMS',store=True, default='Backup Battery is running low due to long electric failures. Please recharge it within 1.5hr for smooth working of system(MSS 111-238-222)'),
         'number': fields.char('Contact Number',store=True,size=11,required=True)
     }
 
@@ -460,6 +472,7 @@ class low_messages(osv.osv):
 
 class tech_activities_tasks(osv.osv):
     _name = "tech.activities.tasks"
+    _order = "date_start desc"
     _columns = {
         'systemstatus': fields.char('System Status', size=100, store=True),
         'tech_name_tasks': fields.many2one('project.task', 'Task Title'),
