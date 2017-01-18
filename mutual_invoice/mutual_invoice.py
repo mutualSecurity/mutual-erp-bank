@@ -35,9 +35,15 @@ class summary_sheet(osv.osv):
         'name': fields.char('Name', store=True),
         'summary_sheet': fields.one2many('billing_period', 'dummy', 'Summary Sheets', store=True),
         'sale_tax': fields.boolean('Sales Tax',store=True),
-        'maintenance_charges': fields.boolean('Maintenance Charges', store=True)
+        'maintenance_charges': fields.boolean('Maintenance Charges', store=True),
+        'total': fields.float('Total Amount', store=True, compute='_compute_total_ss')
     }
 
+    @api.one
+    @api.depends('summary_sheet.total_amount_with_sales_tax')
+    def _compute_total_ss(self):
+        total = sum(float(line.total_amount_with_sales_tax) for line in self.summary_sheet)
+        self.total = total
 
 class billing_period(osv.osv):
     _name = 'billing_period'
