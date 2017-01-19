@@ -159,8 +159,9 @@
                     <field name="branch_code"/>
                     <field name="issue_id"/>
                     <group string="Custom Filter">
-                        <filter string="Create Day" context="{'group_by':'create_date:day'}" help="Create Date"/>
-                        <filter string="Create Month" context="{'group_by':'create_date:month'}" help="Create Date"/>
+                        <filter string="Create Day" context="{'group_by':'create_date:day'}" />
+                        <filter string="Create Month" context="{'group_by':'create_date:month'}" />
+                        <filter string="TimeIn by day" context="{'group_by':'date_start:day'}" />
                     </group>
                 </search>
              </field>

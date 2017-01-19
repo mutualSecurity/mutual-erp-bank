@@ -297,17 +297,13 @@ class mutual_issues(osv.osv):
           self.count = len(self.sms)
 
   @api.one
-  @api.depends('stage_id')
+  @api.depends('tech_name.technician_name')
   def assign_tech(self):
-      if self.id:
-          self.env.cr.execute('SELECT name_related FROM hr_employee where hr_employee.id = any(select technician_name from tech_activities_issues where tech_name = ' + str(self.id) + ')')
-          technicians = self.env.cr.dictfetchall()
-          if len(technicians)>0:
-              for tech in technicians:
-                  if self.tech:
-                      self.tech = self.tech+","+str(tech['name_related'])
-                  else:
-                      self.tech = str(tech['name_related'])
+      print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Technician Name"
+      technician = ''
+      for technicians in self.tech_name:
+          technician += str(technicians.technician_name.name) + ' '
+      self.tech = technician
 
   @api.depends('stage_id')
   def restrictAssignedtoTech(self):
