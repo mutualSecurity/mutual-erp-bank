@@ -7,14 +7,11 @@
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="arch" type="xml">
                 <field name="date_invoice" position="after">
-                    <field name="courier" />
+                    <field name="courier"  />
                     <field name="payment_received"/>
-                    <!--<field name="css"></field>
-                    <field name="ntn_num"></field>
-                    <field name="gst_num"></field>
-                    <field name="phone"></field>
-                    <field name="mobile"></field>
-                    <field name="uplink_date"></field>-->
+                    <field name="po_dd" attrs="{'invisible': [('payment_received','=',False)]}"/>
+                    <field name="cheque_no" attrs="{'invisible': [('payment_received','=',False)]}"/>
+                    <field name="cheque_date" attrs="{'invisible': [('payment_received','=',False)]}"/>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="bank_cs_invoice"/>
@@ -65,10 +62,12 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter" />
             <field name="arch" type="xml">
-                <search string="Search Invoice">
+                <xpath expr="//search/field[@name='number']" position="before">
                     <field name="bank_cs_invoice" />
-                    <field name="bank_code_invoice" />
                     <field name="branch_code_invoice" />
+                    <field name="bank_code_invoice" />
+                </xpath>
+                <search string="Search Invoice">
                     <group string="Group By">
                         <filter name="courier" string="Couriered" domain="[('courier','=',True)]"/>
                         <filter name="courier" string="Not Couriered" domain="[('courier','=',False)]"/>

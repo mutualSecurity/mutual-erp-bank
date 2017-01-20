@@ -8,6 +8,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="cs_number" readonly="1"/>
+                    <field name="branch_code"/>
+                    <field name="address"/>
+                    <field name="city"/>
                 </xpath>
             </field>
         </record>
@@ -18,6 +21,22 @@
             <field name="arch" type="xml">
                 <xpath expr="//search/field[@name='name']" position="before">
                     <field name="cs_number"/>
+                    <field name="branch_code"/>
+                    <field name="bank_code"/>
+                </xpath>
+            </field>
+        </record>
+        <record  model="ir.ui.view" id="mutual_account">
+            <field name="name">account.analytic.account.list</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_list" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="cs_number"/>
+                    <field name="branch_code"/>
+                </xpath>
+                <xpath expr="//field[@name='code']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
         </record>

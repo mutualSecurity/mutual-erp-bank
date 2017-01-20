@@ -53,7 +53,7 @@
             </field>
         </record>
 
-           <!-- =========================== Tasks Logs Ends ================================ -->
+
          <record model="ir.ui.view" id="battery_message_tree">
             <field name="name">Battery Message</field>
             <field name="view_type">tree</field>
@@ -752,5 +752,81 @@
             </field>
         </record>
         <!--====================================== Kanban view of task ends ==================================-->
+
+        <!--====================================== Messages views ==================================-->
+
+          <record id="complaint_message_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Messages</field>
+            <field name="res_model">complaint.messages</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Messages"
+            action="complaint_message_open_project_attachment_view"
+            id="menu_complaint_message_open_project_attachment_view"
+            sequence="50"
+            parent="project.menu_project_management">
+        </menuitem>
+
+        <record id="complaint_messages_form_view" model="ir.ui.view">
+            <field name="name">complaint_messages.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">complaint.messages</field>
+            <field name="arch" type="xml">
+                <form string="complaint_messages">
+                    <sheet>
+                        <group string="Complaint Messages">
+                            <group>
+                                 <field name="sender_name"/>
+                            </group>
+                            <group>
+                                <field name="receiver_name"/>
+                                <field name="receiver_contact"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+                        <separator string="SMS"/>
+                        <group>
+                            <field name="message"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+         <record model="ir.ui.view" id="complaint_message_tree">
+            <field name="name">Complaint Messages</field>
+            <field name="view_type">tree</field>
+            <field name="model">complaint.messages</field>
+            <field name="arch" type="xml">
+                <tree string="Complaint Messages" >
+                    <field name="message"/>
+                    <!--<field name="sender_name" />-->
+                    <field name="receiver_name" />
+                    <field name="receiver_contact" />
+                    <field name="status"/>
+                    <field name="date_now"/>
+                </tree>
+            </field>
+         </record>
+
+        <record  model="ir.ui.view" id="complaint_messages_log_search">
+             <field name="name">Messages log Search</field>
+             <field name="model">complaint.messages</field>
+             <field name="arch" type="xml">
+                <search string="Search Logs">
+                    <group string="Custom Filter">
+                        <filter string="Create Day" context="{'group_by':'date_now:day'}" />
+                        <filter string="Create Month" context="{'group_by':'date_now:month'}" />
+                    </group>
+                </search>
+             </field>
+         </record>
     </data>
 </openerp>
