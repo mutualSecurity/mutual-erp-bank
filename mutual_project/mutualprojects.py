@@ -228,6 +228,8 @@ class mutual_issues(osv.osv):
                                 ("System Shifting/Re-installation (T)","System Shifting/Re-installation (T)"),
                                 ("Transformer Required (T)", "Transformer Required (T)"),
                                 ("V/S (Vibration Sensor) Required (T)","V/S (Vibration Sensor) Required (T)"),
+                                ("Survey (T)", "Survey (T)"),
+                                ("New Installation (T)", "New Installation (T)"),
                                 ("Special Task (T)", "Special Task (T)"),
                                 ],
                                'Complaint Title', required=True, read=['__export__.res_groups_52'], write=['project.group_project_user'],
@@ -316,6 +318,7 @@ class mutual_issues(osv.osv):
       if self.techContact:
           if len(self.sms) < 140 :
               if self.techContact and self.sms:
+                  self.env.cr.execute("insert into complaint_messages(message,receiver_name,receiver_contact,status,date_now)values('"+self.sms.replace('\n',' ')+"','"+str(self.technician_name.name)+"','"+self.techContact+"','0','"+str(datetime.now().date())+"')")
                   r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact':self.techContact})
               else:
                   raise osv.except_osv('Sorry', 'SMS sending failed')
@@ -332,7 +335,10 @@ class mutual_issues(osv.osv):
       if self.cs_number_issue and self.bank_code_issue and self.branch_code_issue and self.monitoring_address_issue and self.city_issue and self.description:
           self.sms = str(self.id)+"\n"+self.name+"\n"+self.description+"\n"+ \
                      self.bank_code_issue+"\n"+self.cs_number_issue+"\n"+"BC"+self.branch_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue
-          return True
+
+      elif self.cs_number_issue and self.bank_code_issue and self.branch_code_issue and self.monitoring_address_issue and self.city_issue:
+          self.sms = str(self.id)+"\n"+self.name+"\n"+ \
+                     self.bank_code_issue+"\n"+self.cs_number_issue+"\n"+"BC"+self.branch_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue
       else:
           raise osv.except_osv('Information Incomplete', 'You must have full information before sending an SMS')
 
@@ -504,6 +510,18 @@ class tech_activities_tasks(osv.osv):
             # find the difference between two dates
             diff = timeOut - timeIn
             self.compute_total_time = diff
+
+class messages(osv.osv):
+    _name = "complaint.messages"
+    _columns = {
+        'message': fields.text('Message', store=True),
+        'receiver_contact': fields.char('Receiver Contact', store=True),
+        'status': fields.char('Status',store=True, default='0'),
+        'receiver_name': fields.char('Receiver Name', store=True),
+        'sender_name': fields.char('Sender', store=True),
+        'date_now': fields.date('Date', store=True)
+    }
+
 
 
 
