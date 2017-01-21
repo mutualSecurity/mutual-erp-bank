@@ -267,7 +267,8 @@ class mutual_issues(osv.osv):
                                          defaults=''),
       'techContact': fields.char('Contact', store=True, size=11,readonly=False,compute='get_contact'),
       'count': fields.char('Count', store=True, readonly=True,compute='_count'),
-      'restrict': fields.char('Restrict', store=True, readonly=True, compute='restrictAssignedtoTech')
+      'restrict': fields.char('Restrict', store=True, readonly=True, compute='restrictAssignedtoTech'),
+      'pending': fields.boolean('Pending',store=True, read=['project.group_project_manager'], write=['project.group_project_manager'])
   }
 
   @api.one

@@ -430,6 +430,7 @@
                      <field name="complaint_source"/>
                      <field name="create_uid" readonly="1"/>
                      <field name="user_id_issue"/>
+                    <field name="pending" groups="project.group_project_manager"/>
                 </xpath>
                 <xpath expr="//field[@name='priority']" position="before">
                     <field name="create_date"/>
@@ -668,6 +669,7 @@
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
                         <filter name="check" string="Task" domain="[('check','=','Task')]" />
                         <filter name="convert_to_task" string="Converted into Task" domain="[('convert_to_task','=',True)]" />
+                        <filter name="pending" string="Old complaints" domain="[('pending','=',True)]" />
                     </group>
                     <group string="Complaint Sources">
                         <filter name="complaint_source" string="By Email" domain="[('complaint_source','=','By Email')]"/>
