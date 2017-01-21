@@ -648,14 +648,19 @@
                     <field name="branch_code_issue"/>
                     <field name="bank_code_issue"/>
                     <field name="city_issue"/>
+                    <field name="priority"/>
                     <field name="monitoring_address_issue"/>
                     <field name="user_id_issue"/>
                     <field name="tech"/>
                 </xpath>
                 <search string="Issue Tracker Search">
-                    <field name="priority"/>
                     <field name="create_date"/>
+                    <group string="By Bank Remarks">
+                        <filter name="description" string="Attended" domain="[('description','!=',False)]" />
+                        <filter name="description" string="Unattended" domain="[('description','=',False)]" />
+                    </group>
                     <group string="Custom Filter">
+                        <filter name="user_id_issue" string="My" domain="[('user_id_issue','=',uid)]" />
                         <filter name="user_id_issue" string="Not Forwarded" domain="[('user_id_issue','=',False)]"/>
                         <filter name="user_id_issue" string="Forwarded" domain="[('user_id_issue','!=',False)]"/>
                         <filter name="tech" string="Not Assigned" domain="[('tech','=',False)]"/>
@@ -663,6 +668,13 @@
                         <filter name="check" string="Complaints" domain="[('check','=','Issue')]" />
                         <filter name="check" string="Task" domain="[('check','=','Task')]" />
                         <filter name="convert_to_task" string="Converted into Task" domain="[('convert_to_task','=',True)]" />
+                    </group>
+                    <group string="Complaint Sources">
+                        <filter name="complaint_source" string="By Email" domain="[('complaint_source','=','By Email')]"/>
+                        <filter name="complaint_source" string="By LSR" domain="[('complaint_source','=','By LSR')]" />
+                        <filter name="complaint_source" string="By CMS" domain="[('complaint_source','=','By CMS')]" />
+                        <filter name="complaint_source" string="By Anwar Zaib" domain="[('complaint_source','=','By Anwar Zaib')]" />
+                        <filter name="complaint_source" string="Direct" domain="[('complaint_source','=','Direct')]" />
                     </group>
                      <group string="Stages">
                          <filter name="stage_id" string="Complaints/Tasks" domain="[('stage_id','=','Complaints/Tasks')]" />
