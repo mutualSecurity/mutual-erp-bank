@@ -310,9 +310,12 @@ class mutual_issues(osv.osv):
 
   @api.depends('stage_id')
   def restrictAssignedtoTech(self):
-      self.sms = "DOne"
+      self.restrict = self.stage_id.name
       if self.tech == False and self.stage_id.name == "Assigned to Technician":
           raise osv.except_osv('Must assign technician', 'You cannot move this card into this bucket')
+      else:
+          self.env.cr.execute('UPDATE tech_activities_issues SET status='+"'"+self.stage_id.name+"'"+' WHERE tech_name = ' + str(self.id))
+          print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   @api.multi
   def smsSent(self):
