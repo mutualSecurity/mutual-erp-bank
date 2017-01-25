@@ -168,5 +168,26 @@
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="sale.view_order_complaint_id">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="complaint_reference"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale.view_order_complaint_id_filter">
+            <field name="name">sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="complaint_reference"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>
