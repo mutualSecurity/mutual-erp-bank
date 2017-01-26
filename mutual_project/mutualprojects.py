@@ -402,7 +402,7 @@ class tech_activities_issues(osv.osv):
         'issue_id': fields.related('tech_name', 'id', type='integer', string='Complaint ID'),
         'branch_code': fields.related('tech_name', 'branch_code_issue', type='char', string='Branch Code'),
         'multi_tech': fields.many2many('hr.employee', string='Other Tech', domain="[('department_id','=','Technician')]"),
-        'status': fields.selection([('Time In/Out','Time In/Out'),('Resolved','Resolved'),('Under Process','Under Process'),('Issue at bank end','Issue at bank end'),('Additional/Device Replacement','Additional/Device Replacement'),('Assigned to Technician','Assigned to Technician')],'Complaint Marking',store=True,onchange='changestatus()'),
+        'status': fields.selection([('Time In/Out','Time In/Out'),('Resolved','Resolved'),('Under Process','Under Process'),('Issue at bank end','Issue at bank end'),('Additional/Device Replacement','Additional/Device Replacement'),('Assigned to Technician','Assigned to Technician'),('Complaints/Tasks','Complaints/Tasks'),('Online Resolved','Online Resolved')],'Complaint Marking',store=True,onchange='changestatus()'),
     }
 
     @api.one
@@ -445,6 +445,8 @@ class tech_activities_issues(osv.osv):
         elif self.status == "Issue at bank end":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 14 WHERE id =' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        else:
+            raise osv.except_osv('Error....', 'You do not have rights to move this card into this bucket')
 
 
 
