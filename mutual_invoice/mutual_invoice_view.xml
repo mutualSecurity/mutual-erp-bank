@@ -12,6 +12,7 @@
                     <field name="po_dd" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="cheque_no" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="cheque_date" attrs="{'invisible': [('payment_received','=',False)]}"/>
+                    <field name="cheque_date_customer" attrs="{'invisible': [('payment_received','=',False)]}"/>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="bank_cs_invoice"/>
@@ -24,7 +25,7 @@
                 </xpath>
                 <xpath expr="//field[@name='fiscal_position']" position="after">
                    <separator string="Round Off"/>
-                    <br/><button name="compute_roundoff" string="Roundoff" type="object" class="btn-link" />
+                    <br/><button name="compute_roundoff" string="Roundoff" type="object" class="oe_highlight" />
                 </xpath>
                 <xpath expr="//field[@name='account_id']" position="after">
                     <field name="show_tax"/>

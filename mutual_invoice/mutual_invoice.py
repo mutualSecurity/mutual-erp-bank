@@ -22,7 +22,8 @@ class invoice_csnumber(osv.osv):
         'remarks': fields.text('Follow Up', store=True),
         'po_dd':fields.selection([('PO','PO'),('DD','DD')], 'PO/DD', store=True),
         'cheque_date': fields.date('Cheque Received Date', store=True, track_visibility='onchange'),
-        'cheque_no':fields.char('Cheque no.',store=True,track_visibility='onchange')
+        'cheque_no':fields.char('Cheque no.',store=True,track_visibility='onchange'),
+        'cheque_date_customer': fields.date('Cheque Date', store=True, track_visibility='onchange'),
     }
 
     @api.multi
