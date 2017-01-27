@@ -657,6 +657,11 @@
                 </xpath>
                 <search string="Issue Tracker Search">
                     <field name="create_date"/>
+                    <group string="By Day">
+                        <filter name="date_last_stage_update" string="Daily" context="{'group_by':'date_last_stage_update:day'}"/>
+                        <filter name="date_last_stage_update" string="Monthly" context="{'group_by':'date_last_stage_update:month'}"/>
+                        <filter name="date_last_stage_update" string="Yearly" context="{'group_by':'date_last_stage_update:year'}"/>
+                    </group>
                     <group string="By Bank Remarks">
                         <filter name="description" string="Attended" domain="[('description','!=',False)]" />
                         <filter name="description" string="Unattended" domain="[('description','=',False)]" />
