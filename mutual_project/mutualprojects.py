@@ -398,6 +398,7 @@ class tech_activities_issues(osv.osv):
         'date_start': fields.datetime('T/I', select=True, copy=True,store=True),
         'date_end': fields.datetime('T/O', select=True, copy=True, store=True),
         'cs_number': fields.related('tech_name', 'cs_number_issue', type='char', string='CS Number'),
+        'complaint_source': fields.related('tech_name', 'complaint_source', type='char', string='Complaint Source'),
         'monitoring_address_issue': fields.related('tech_name', 'monitoring_address_issue', type='char', string='Address'),
         #'stage_id': fields.related('tech_name','stage_id',type='many2one',relation='project.issue',string='Stage_id'),
         'issue_id': fields.related('tech_name', 'id', type='integer', string='Complaint ID'),

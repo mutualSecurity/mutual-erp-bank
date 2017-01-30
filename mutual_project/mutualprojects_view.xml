@@ -131,11 +131,8 @@
                     <field name="systemstatus"/>
                     <field name="status" class="demo"/>
                     <field name="create_date"  readonly="1"/>
+                    <!--<field name="complaint_source"/>-->
                 </tree>
-                <!--<xpath expr="//field[@name='multi_tech']" position="attributes">-->
-                    <!--<attribute name="string">Combine with</attribute>-->
-                <!--</xpath>-->
-
              </field>
          </record>
 
@@ -162,6 +159,13 @@
                         <filter string="Create Day" context="{'group_by':'create_date:day'}" />
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" />
                         <filter string="TimeIn by day" context="{'group_by':'date_start:day'}" />
+                    </group>
+                    <group string="Complaint Sources">
+                        <filter name="complaint_source" string="By Email" domain="[('complaint_source','=','By Email')]"/>
+                        <filter name="complaint_source" string="By LSR" domain="[('complaint_source','=','By LSR')]" />
+                        <filter name="complaint_source" string="By CMS" domain="[('complaint_source','=','By CMS')]" />
+                        <filter name="complaint_source" string="By Anwar Zaib" domain="[('complaint_source','=','By Anwar Zaib')]" />
+                        <filter name="complaint_source" string="Direct" domain="[('complaint_source','=','Direct')]" />
                     </group>
                 </search>
              </field>
