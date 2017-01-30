@@ -144,6 +144,9 @@
                 <xpath expr="//field[@name='multi_tech']" position="attributes">
                     <attribute name="string">Combine with</attribute>
                 </xpath>
+                <xpath expr="//field[@name='issue_id']" position="attributes">
+                    <attribute name="string">C#</attribute>
+                </xpath>
             </field>
         </record>
 
