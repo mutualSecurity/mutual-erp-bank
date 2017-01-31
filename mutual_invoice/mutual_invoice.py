@@ -20,10 +20,11 @@ class invoice_csnumber(osv.osv):
         'bank_code_invoice': fields.related('partner_id','bank_code',type='char', size=12,string='Bank code',readonly=True),
         'branch_code_invoice': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch code',readonly=True),
         'remarks': fields.text('Follow Up', store=True),
-        'po_dd':fields.selection([('PO','PO'),('DD','DD')], 'PO/DD', store=True),
+        'po_dd':fields.selection([('PO','PO'),('DD','DD')], 'PO/DD', store=True, track_visibility='onchange'),
         'cheque_date': fields.date('Cheque Received Date', store=True, track_visibility='onchange'),
         'cheque_no':fields.char('Cheque no.',store=True,track_visibility='onchange'),
         'cheque_date_customer': fields.date('Cheque Date', store=True, track_visibility='onchange'),
+        'actual_amount':fields.float('Actual received amount',store=True,track_visibility='onchange')
     }
 
     @api.multi

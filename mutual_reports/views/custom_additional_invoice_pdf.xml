@@ -42,7 +42,7 @@
                                       <p t-field="account_invoice.NTN"/>
                                   </div>
                               </div><br/>
-                              <h1>Invoice
+                              <h1>Invoice#<span t-field="account_invoice.id"/>
                               </h1>
 
                               <table class="table table-condensed" style="font-size:16px">
@@ -144,7 +144,7 @@
                                       <p t-field="account_invoice.NTN"/>
                                   </div>
                               </div><br/>
-                              <h1>Invoice
+                              <h1>Invoice#<span t-field="account_invoice.id"/>
                               </h1>
 
                               <table class="table table-condensed" style="font-size:16px">
