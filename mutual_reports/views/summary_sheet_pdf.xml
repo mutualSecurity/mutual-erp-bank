@@ -15,7 +15,7 @@
                            <thead style="background:#D3D3D3">
                                <tr>
                                    <th>Serial Number</th>
-                                   <th>CS Number</th>
+                                   <th>Branch Code</th>
                                    <th>First Address</th>
                                    <th>Second Address</th>
                                    <th>Service Period</th>
@@ -33,7 +33,7 @@
                                        <t t-set="i" t-value="i+1"/>
                                    </td>
                                    <td>
-                                       <span t-field="l.cs_number"/>
+                                       <span t-field="l.branch_code"/>
                                    </td>
                                    <td>
                                        <span t-field="l.address1"/>
@@ -84,7 +84,7 @@
                            <thead style="background:#D3D3D3">
                                <tr>
                                    <th>Serial Number</th>
-                                   <th>CS Number</th>
+                                   <th>Branch Code</th>
                                    <th>First Address</th>
                                    <th>Second Address</th>
                                    <th>Service Period</th>
@@ -101,7 +101,7 @@
                                        <t t-set="i" t-value="i+1"/>
                                    </td>
                                    <td>
-                                       <span t-field="l.cs_number"/>
+                                       <span t-field="l.branch_code"/>
                                    </td>
                                    <td>
                                        <span t-field="l.address1"/>
@@ -149,7 +149,7 @@
                            <thead style="background:#D3D3D3">
                                <tr>
                                    <th>Serial Number</th>
-                                   <th>CS Number</th>
+                                   <th>Branch Code</th>
                                    <th>First Address</th>
                                    <th>Second Address</th>
                                    <th>Service Period</th>
@@ -168,7 +168,7 @@
                                        <t t-set="i" t-value="i+1"/>
                                    </td>
                                    <td>
-                                       <span t-field="l.cs_number"/>
+                                       <span t-field="l.branch_code"/>
                                    </td>
                                    <td>
                                        <span t-field="l.address1"/>
