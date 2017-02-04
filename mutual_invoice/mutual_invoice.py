@@ -76,8 +76,8 @@ class billing_period(osv.osv):
     def total_in_sales_tax(self):
         tax = (self.sales_tax * self.basic_amount)/100
         self.sales_tax_amount = self.service_period * tax
-        self.total_ment = self.service_period * self.maintenance_basic_amount
-        self.total_moni = self.service_period * self.basic_amount
+        self.total_ment = round(self.service_period * self.maintenance_basic_amount)
+        self.total_moni = round(self.service_period * self.basic_amount)
         if self.maintenance_basic_amount > 0.0:
             self.total_amount_ex_sales_tax = round((self.service_period * self.basic_amount) + (self.service_period * self.maintenance_basic_amount))
             self.total_amount_with_sales_tax = round((self.service_period * self.basic_amount)+(self.service_period*tax) + self.total_ment)
