@@ -426,32 +426,32 @@ class tech_activities_issues(osv.osv):
     def changestatus(self):
         if self.status == "Resolved":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 15 WHERE id ='+str(self.issue_id))
-            self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
+            #self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         elif self.status == "Time In/Out":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 13 WHERE id =' + str(self.issue_id))
-            self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
+            #self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         elif self.status == "Under Process":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 20 WHERE id =' + str(self.issue_id))
-            self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
+           # self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         elif self.status == "Assigned to Technician":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 12 WHERE id =' + str(self.issue_id))
-            self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
+            #self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         elif self.status == "Additional/Device Replacement":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 10 WHERE id =' + str(self.issue_id))
-            self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
+           # self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         elif self.status == "Issue at bank end":
             self.env.cr.execute('UPDATE project_issue SET stage_id = 14 WHERE id =' + str(self.issue_id))
-            self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
+            #self.env.cr.execute('UPDATE tech_activities_issues SET status=' + "'" + self.status + "'" + ' WHERE tech_name = ' + str(self.issue_id))
             print "Record Updated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         else:
             raise osv.except_osv('Error....', 'You do not have rights to move this card into this bucket')
