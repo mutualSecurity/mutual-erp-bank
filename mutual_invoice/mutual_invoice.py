@@ -48,7 +48,7 @@ class summary_sheet(osv.osv):
     @api.depends('summary_sheet.total_amount_with_sales_tax')
     def _compute_total_ss(self):
         total = sum(float(line.total_amount_with_sales_tax) for line in self.summary_sheet)
-        self.total = total
+        self.total = round(total)
 
 class billing_period(osv.osv):
     _name = 'billing_period'
@@ -67,8 +67,8 @@ class billing_period(osv.osv):
         'maintenance_basic_amount': fields.float('Maintenance Amount per month', store=True),
         'total_moni': fields.float('Total Monitoring', store=True, compute='total_in_sales_tax'),
         'total_ment': fields.float('Total Maintenance', store=True,compute='total_in_sales_tax'),
-        'total_amount_ex_sales_tax': fields.char('Total billing amount excluding sales tax', store=True, compute='total_in_sales_tax'),
-        'total_amount_with_sales_tax': fields.char('Total billing amount including sales tax', store=True, compute='total_in_sales_tax'),
+        'total_amount_ex_sales_tax': fields.float('Total billing amount excluding sales tax', store=True, compute='total_in_sales_tax'),
+        'total_amount_with_sales_tax': fields.float('Total billing amount including sales tax', store=True, compute='total_in_sales_tax'),
     }
 
     @api.one
@@ -82,8 +82,9 @@ class billing_period(osv.osv):
             self.total_amount_ex_sales_tax = round((self.service_period * self.basic_amount) + (self.service_period * self.maintenance_basic_amount))
             self.total_amount_with_sales_tax = round((self.service_period * self.basic_amount)+(self.service_period*tax) + self.total_ment)
         else:
-            self.total_amount_with_sales_tax = round((self.service_period * self.basic_amount) + (self.service_period * tax))
-            self.total_amount_ex_sales_tax = round((self.service_period * self.basic_amount))
+            self.total_amount_ex_sales_tax = round(self.service_period * self.basic_amount)
+            self.total_amount_with_sales_tax = float(self.total_amount_ex_sales_tax) + float(self.sales_tax_amount)
+
 
 
 
