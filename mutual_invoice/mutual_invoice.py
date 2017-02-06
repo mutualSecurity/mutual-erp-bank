@@ -47,7 +47,8 @@ class summary_sheet(osv.osv):
     @api.one
     @api.depends('summary_sheet.total_amount_with_sales_tax')
     def _compute_total_ss(self):
-        total = sum(float(line.total_amount_with_sales_tax) for line in self.summary_sheet)
+        total = sum(round(float(line.total_amount_with_sales_tax),2) for line in self.summary_sheet)
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Amount :"+str(total)+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         self.total = round(total)
 
 class billing_period(osv.osv):
