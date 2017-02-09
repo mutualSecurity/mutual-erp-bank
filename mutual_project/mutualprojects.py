@@ -210,6 +210,7 @@ class mutual_issues(osv.osv):
                                 ("Zone 6 Problem (I)","Zone 6 Problem (I)"),
                                 ("Zone 7 Problem (I)","Zone 7 Problem (I)"),
                                 ("Zone 8 Problem (I)","Zone 8 Problem (I)"),
+                                ("Additional(T)", "Additional(T)"),
                                 ("Backup Battery Required(T)", "Backup Battery Required (T)"),
                                 ("BAS Penal/Device Location Change (T)","BAS Penal/Device Location Change (T)"),
                                 ("Fixed Panic Button Required (T)", "Fixed Panic Button Required (T)"),
@@ -326,6 +327,7 @@ class mutual_issues(osv.osv):
               if self.techContact and self.sms:
                   self.env.cr.execute("insert into complaint_messages(message,receiver_name,receiver_contact,status,date_now)values('"+self.sms.replace('\n',' ')+"','"+str(self.technician_name.name)+"','"+self.techContact+"','0','"+str(datetime.now().date())+"')")
                   r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact':self.techContact})
+                  self.sms = requests.data
               else:
                   raise osv.except_osv('Sorry', 'SMS sending failed')
           else:
@@ -536,6 +538,22 @@ class messages(osv.osv):
         'sender_name': fields.char('Sender', store=True),
         'date_now': fields.date('Date', store=True)
     }
+
+
+class guardtracking(osv.osv):
+    _name = "guard.tracking"
+    _columns = {
+        'card_no': fields.char('RF_ID',store=True),
+        'customer': fields.many2one('res.partner','Customer',store=True, compute='fetch_customer_details'),
+        'branch_code': fields.related('customer', 'branch_code', type='char', string='Branch Code', store=True),
+    }
+
+    @api.depends('card_no')
+    def fetch_customer_details(self):
+        if self.card_no:
+            list = self.env['res.partner'].search([['rf_id', '=', self.card_no],])
+            self.customer = list
+
 
 
 

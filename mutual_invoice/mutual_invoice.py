@@ -14,6 +14,7 @@ class invoice_csnumber(osv.osv):
     _columns = {
         'show_tax': fields.boolean('Show Tax', store=True),
         'NTN': fields.char('NTN', store=True, default="3764757-1",readonly=True),
+        'sales_tax_no': fields.char('STN', store=True,default="17-00-3764-757-19",readonly=True),
         'courier': fields.boolean('Couriered', store=True),
         'payment_received': fields.boolean('Payment Received', store=True),
         'bank_cs_invoice': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number',readonly=True),

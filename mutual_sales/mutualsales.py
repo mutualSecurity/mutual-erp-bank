@@ -24,7 +24,7 @@ class mutual_sales(osv.osv):
         'guard_less_branch': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Guard Less Branch', store=True, default='No'),
         'locker_available': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Locker Available', store=True),
         'saturday_open': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Saturday Open', store=True),
-
+        'rf_id': fields.char('RF_ID', select=True, store=True),
     }
 
 mutual_sales()

@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <!--========================================================= Guard Tracking Begins ================================================-->
+        <record id="guard_tracking_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Guard Tracking</field>
+            <field name="res_model">guard.tracking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Guard Tracking"
+            action="guard_tracking_open_project_attachment_view"
+            id="menu_guard_tracking_open_project_attachment_view"
+            sequence="60"
+            parent="project.menu_project_management">
+        </menuitem>
+
+        <record id="guard_tracking_form_view" model="ir.ui.view">
+            <field name="name">guard_tracking.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">guard.tracking</field>
+            <field name="arch" type="xml">
+                <form string="guard_tracking">
+                    <sheet>
+                        <group string="Guard Tracking">
+                            <group>
+                                 <field name="card_no"/>
+                            </group>
+                            <group>
+                                <field name="customer"  options="{'limit': 0, 'create': false, 'create_edit': false}"/>
+                                <field name="branch_code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="guard_tracking_tree">
+            <field name="name">Guard Tracking</field>
+            <field name="view_type">tree</field>
+            <field name="model">guard.tracking</field>
+            <field name="arch" type="xml">
+                <tree string="Guard Tracking" >
+                    <field name="branch_code" />
+                    <field name="customer" />
+                </tree>
+            </field>
+        </record>
+
+          <!--======================================================================= Guard Tracking Ends =================================================================================================-->
+
         <record id="message_open_project_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Low Battery Messages</field>
             <field name="res_model">low.messages</field>
@@ -159,6 +213,7 @@
                     <field name="branch_code"/>
                     <field name="issue_id"/>
                     <field name="technician_name"/>
+                    <field name="multi_tech"/>
                     <group string="Custom Filter">
                         <filter string="Create Day" context="{'group_by':'create_date:day'}" />
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" />

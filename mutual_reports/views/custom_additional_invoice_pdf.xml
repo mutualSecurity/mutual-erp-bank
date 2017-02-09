@@ -33,13 +33,18 @@
                                   </span><br/>
                               </strong><br/>
                               <div class="row mt32 mb32" style="font-size:18px">
-                                  <div class="col-xs-2" t-if="account_invoice.date_invoice">
+                                  <div class="col-xs-3" t-if="account_invoice.date_invoice">
                                       <strong>Invoice Date</strong>
                                       <p t-field="account_invoice.date_invoice"/>
                                   </div>
-                                  <div class="col-xs-2" t-if="account_invoice.NTN">
+                                  <div class="col-xs-3" t-if="account_invoice.NTN">
                                       <strong>NTN</strong>
                                       <p t-field="account_invoice.NTN"/>
+                                  </div>
+                                     <div class="col-xs-3" t-if="account_invoice.partner_id.bank_code == 'TMBL' or account_invoice.partner_id.bank_code == 'JSBL' ">
+                                       <strong>STN</strong><br/>
+                                      17-00-3764-757-19
+                                     <!-- <p t-field="account_invoice.sales_tax_no"/>-->
                                   </div>
                               </div><br/>
                               <h1>Invoice#<span t-field="account_invoice.id"/>
@@ -135,13 +140,18 @@
                                   </span><br/>
                               </strong><br/>
                               <div class="row mt32 mb32" style="font-size:18px">
-                                  <div class="col-xs-2" t-if="account_invoice.date_invoice">
+                                  <div class="col-xs-3" t-if="account_invoice.date_invoice">
                                       <strong>Invoice Date</strong>
                                       <p t-field="account_invoice.date_invoice"/>
                                   </div>
-                                  <div class="col-xs-2" t-if="account_invoice.NTN">
+                                  <div class="col-xs-3" t-if="account_invoice.NTN">
                                       <strong>NTN</strong>
                                       <p t-field="account_invoice.NTN"/>
+                                  </div>
+                                     <div class="col-xs-3" t-if="account_invoice.partner_id.bank_code == 'TMBL' or account_invoice.partner_id.bank_code == 'JSBL' ">
+                                        <strong>STN</strong><br/>
+                                      17-00-3764-757-19
+                                     <!-- <p t-field="account_invoice.sales_tax_no"/>-->
                                   </div>
                               </div><br/>
                               <h1>Invoice#<span t-field="account_invoice.id"/>

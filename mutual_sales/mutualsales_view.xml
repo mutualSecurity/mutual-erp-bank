@@ -100,6 +100,9 @@
                      </field>
                     </group>
                 </xpath>
+                <xpath expr="//field[@name='mobile']" position="after">
+                    <field name="rf_id"/>
+                </xpath>
             </field>
         </record>
         <!--==========================Search View Begins=============================-->
