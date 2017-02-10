@@ -327,7 +327,6 @@ class mutual_issues(osv.osv):
               if self.techContact and self.sms:
                   self.env.cr.execute("insert into complaint_messages(message,receiver_name,receiver_contact,status,date_now)values('"+self.sms.replace('\n',' ')+"','"+str(self.technician_name.name)+"','"+self.techContact+"','0','"+str(datetime.now().date())+"')")
                   r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact':self.techContact})
-                  self.sms = requests.data
               else:
                   raise osv.except_osv('Sorry', 'SMS sending failed')
           else:
