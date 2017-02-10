@@ -178,6 +178,8 @@
             <field name="inherit_id" ref="sale.view_order_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="cs_number"/>
+                    <field name="branch_code"/>
                     <field name="complaint_reference"/>
                 </xpath>
             </field>
@@ -191,6 +193,17 @@
                     <field name="complaint_reference"/>
                 </xpath>
             </field>
+        </record>
+         <record id="mutual_filter" model="ir.ui.view">
+              <field name="name">sale.order.list.select</field>
+              <field name="model">sale.order</field>
+              <field name="inherit_id" ref="sale.view_sales_order_filter" />
+              <field name="arch" type="xml">
+                  <field name="name" position="before">
+                      <field name="cs_number"/>
+                      <field name="branch_code"/>
+                  </field>
+              </field>
         </record>
     </data>
 </openerp>
