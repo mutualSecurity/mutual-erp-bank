@@ -144,6 +144,7 @@
         <record id="tech_activities_form_view" model="ir.ui.view">
             <field name="name">tech_activities.form.view</field>
             <field name="view_type">form</field>
+            <field name="domain">[('gender','=','female')]</field>
             <field name="model">tech.activities.issues</field>
             <field name="arch" type="xml">
                 <form string="tech_activities">
@@ -712,6 +713,7 @@
                     <field name="branch_code_issue"/>
                     <field name="bank_code_issue"/>
                     <field name="city_issue"/>
+                    <field name="write_uid"/>
                     <field name="priority"/>
                     <field name="monitoring_address_issue"/>
                     <field name="user_id_issue"/>
@@ -719,7 +721,7 @@
                 </xpath>
                 <search string="Issue Tracker Search">
                     <field name="create_date"/>
-                    <group string="By Day">
+                    <group string="By Day Update">
                         <filter name="date_last_stage_update" string="Daily" context="{'group_by':'date_last_stage_update:day'}"/>
                         <filter name="date_last_stage_update" string="Monthly" context="{'group_by':'date_last_stage_update:month'}"/>
                         <filter name="date_last_stage_update" string="Yearly" context="{'group_by':'date_last_stage_update:year'}"/>
