@@ -543,15 +543,15 @@ class guardtracking(osv.osv):
     _name = "guard.tracking"
     _columns = {
         'card_no': fields.char('RF_ID',store=True),
-        'customer': fields.many2one('res.partner','Customer',store=True, compute='fetch_customer_details'),
+        'customer': fields.many2one('res.partner','Customer',store=True),
         'branch_code': fields.related('customer', 'branch_code', type='char', string='Branch Code', store=True),
     }
 
-    @api.depends('card_no')
-    def fetch_customer_details(self):
-        if self.card_no:
-            list = self.env['res.partner'].search([['rf_id', '=', self.card_no],])
-            self.customer = list
+    # @api.depends('card_no')
+    # def fetch_customer_details(self):
+    #     if self.card_no:
+    #         list = self.env['res.partner'].search([['rf_id', '=', self.card_no],])
+    #         self.customer = list
 
 
 

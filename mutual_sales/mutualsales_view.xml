@@ -82,6 +82,9 @@
                      </field>
                 </group>
                 </xpath>
+                <xpath expr="//field[@name='parent_root_id']" position="attributes">
+                    <attribute name="domain">['|',('is_company','=',True),('is_branch','=',True)]</attribute>
+                </xpath>
                 <xpath expr="//form/sheet/group" position="after" >
                     <br/>
                     <separator string="Branch Details"/>
