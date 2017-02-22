@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <menuitem name="Guard Tracking" id="guard_tracking_top_menu" sequence="50"/>
+        <menuitem name="Guard Tracking" id="guard_tracking_side_top_menu" parent="guard_tracking_top_menu" sequence="10"/>
+
+        <record id="mutual_device_tracking" model="ir.actions.act_window">
+	        <field name="name">Device Tracking</field>
+            <field name="res_model">mutual.device.tracking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem name="Scanner Holders" action="mutual_device_tracking" id="menu_mutual_device_tracking" sequence="10" parent="guard_tracking_side_top_menu"/>
+
+        <!-- ================================================== Begin Form view of Scanner Holders ================================================ -->
+        <record id="form_device_tracking" model="ir.ui.view">
+            <field name="name">view.device.tracking</field>
+            <field name="model">mutual.device.tracking</field>
+            <field name="arch" type="xml">
+                <form string="Scanner Holders" version="8.0">
+                    <sheet>
+                        <group string="Scanner Holders">
+                            <field name="scanner_id"/>
+                            <field name="force_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- ================================================== End Form view of Scanner Holders ================================================ -->
+
+        <!-- ================================================== Begin tree view of Scanner Holders ================================================ -->
+        <record id="tree_device_tracking" model="ir.ui.view">
+            <field name="name">view.device.tracking</field>
+            <field name="model">mutual.device.tracking</field>
+            <field name="arch" type="xml">
+                <tree string="Scanner Holders" version="8.0">
+                    <field name="scanner_id"/>
+                    <field name="force_id"/>
+                </tree>
+            </field>
+        </record>
+        <!-- ================================================== End tree view of Scanner Holders ================================================ -->
+
+        <!-- ================================================== Begin Search view of Scanner Holders ================================================ -->
+        <record id="search_device_tracking" model="ir.ui.view">
+            <field name="name">view.device.tracking</field>
+            <field name="model">mutual.device.tracking</field>
+            <field name="arch" type="xml">
+                <search string="Scanner Holders" version="8.0">
+                    <field name="scanner_id"/>
+                    <field name="force_id"/>
+                </search>
+            </field>
+        </record>
+        <!-- ================================================== End Search view of Scanner Holders ================================================ -->
+
+        <record id="mutual_guard_tracking" model="ir.actions.act_window">
+	        <field name="name">Guard Tracking</field>
+            <field name="res_model">mutual.guard.tracking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem name="Guard Patrolling" action="mutual_guard_tracking" id="menu_mutual_guard_tracking" sequence="20" parent="guard_tracking_side_top_menu"/>
+
+        <!-- ================================================== Begin Form view of Guard Patrolling ================================================ -->
+        <record id="form_guard_tracking" model="ir.ui.view">
+            <field name="name">view.guard.tracking</field>
+            <field name="model">mutual.guard.tracking</field>
+            <field name="arch" type="xml">
+                <form string="Guard Patrolling" version="8.0">
+                    <sheet>
+                        <group string="Guard Patrolling">
+                            <field name="bank_code"/>
+                            <field name="branch_code"/>
+                            <field name="address"/>
+                            <field name="visit_time"/>
+                            <field name="visit_date"/>
+                            <field name="device_no"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- ================================================== End Form view of Guard Patrolling ================================================ -->
+
+        <!-- ================================================== Begin tree view of Guard Patrolling ================================================ -->
+        <record id="tree_guard_tracking" model="ir.ui.view">
+            <field name="name">view.guard.tree.tracking</field>
+            <field name="model">mutual.guard.tracking</field>
+            <field name="arch" type="xml">
+                <tree string="Guard Patrolling" version="8.0">
+                    <field name="bank_code"/>
+                    <field name="branch_code"/>
+                    <field name="address"/>
+                    <field name="visit_time"/>
+                    <field name="visit_date"/>
+                    <field name="device_no"/>
+                </tree>
+            </field>
+        </record>
+        <!-- ================================================== End tree view of Guard Patrolling ================================================ -->
+
+        <!-- ================================================== Begin Search view of Guard Patrolling ================================================ -->
+        <record id="search_guard_tracking" model="ir.ui.view">
+            <field name="name">view.guard.search.tracking</field>
+            <field name="model">mutual.guard.tracking</field>
+            <field name="arch" type="xml">
+                <search string="Guard Patrolling" version="8.0">
+                    <field name="bank_code"/>
+                    <field name="branch_code"/>
+                </search>
+            </field>
+        </record>
+        <!-- ================================================== End Search view of Guard Patrolling ================================================ -->
+
+    </data>
+</openerp>
