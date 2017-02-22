@@ -203,8 +203,14 @@
                                               <span t-field="account_invoice.amount_untaxed"/>
                                           </td>
                                       </tr>
-                                      <tr class="border-black">
-                                          <td><strong>Taxes</strong></td>
+                                      <tr class="border-black" t-if="account_invoice.partner_id.bank_code == 'JSBL'">
+                                          <td><strong>Sindh Sales Tax</strong></td>
+                                          <td class="text-right">
+                                              <span t-field="account_invoice.amount_tax"/>
+                                          </td>
+                                      </tr>
+                                      <tr class="border-black" t-if="not account_invoice.partner_id.bank_code == 'JSBL'">
+                                          <td><strong>Tax</strong></td>
                                           <td class="text-right">
                                               <span t-field="account_invoice.amount_tax"/>
                                           </td>

@@ -463,19 +463,27 @@ class tech_activities_issues(osv.osv):
 class low_messages(osv.osv):
     _name = "low.messages"
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Customer', old='customer',store=True,required=True),
+        'bank': fields.many2one('res.partner', 'Customer',store=True,required=True),
+        'employee_name': fields.many2one('hr.employee', 'Technician Name',domain="[('department_id','=','Technician')]", defaults='',old='technician_name'),
         'cs': fields.char('CS Number',store=True,readonly=True),
         'branch_code': fields.char('Branch Code', store=True, readonly=True),
         'address': fields.text('Address',store=True, readonly=True),
         'sms': fields.text('SMS',store=True, default='Backup Battery is running low due to long electric failures. Please recharge it within 1.5hr for smooth working of system(MSS 111-238-222)'),
-        'number': fields.char('Contact Number',store=True,size=11,required=True)
+        'number': fields.char('Contact Number',store=True,size=11,required=True),
+        'technician':fields.boolean('Technician',store=True),
     }
 
-    @api.onchange('partner_id')
+    @api.onchange('bank')
     def customer_details(self):
-        self.cs = self.partner_id.cs_number
-        self.branch_code = self.partner_id.branch_code
-        self.address = str(self.partner_id.street) + "\n"+str(self.partner_id.street2) +"\n"+str(self.partner_id.city)
+        if self.technician == False:
+            self.cs = self.bank.cs_number
+            self.branch_code = self.bank.branch_code
+            self.address = str(self.bank.street) + "\n"+str(self.bank.street2) +"\n"+str(self.bank.city)
+
+    @api.onchange('employee_name')
+    def technician_contact(self):
+        if self.technician == True:
+            self.number = self.employee_name.work_phone
 
     @api.multi
     def smsSent(self):
