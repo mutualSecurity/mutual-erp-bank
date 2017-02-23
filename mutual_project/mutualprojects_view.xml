@@ -2,23 +2,23 @@
 <openerp>
     <data>
         <!--========================================================= Guard Tracking Begins ================================================-->
-        <record id="guard_tracking_open_project_attachment_view" model="ir.actions.act_window">
-	        <field name="name">Guard Tracking</field>
-            <field name="res_model">guard.tracking</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">click create to add a new record</p>
-            </field>
-        </record>
+        <!--<record id="guard_tracking_open_project_attachment_view" model="ir.actions.act_window">-->
+	        <!--<field name="name">Guard Tracking</field>-->
+            <!--<field name="res_model">guard.tracking</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="help" type="html">-->
+                <!--<p class="oe_view_nocontent_create">click create to add a new record</p>-->
+            <!--</field>-->
+        <!--</record>-->
 
-        <menuitem
-            name="Guard Tracking"
-            action="guard_tracking_open_project_attachment_view"
-            id="menu_guard_tracking_open_project_attachment_view"
-            sequence="60"
-            parent="project.menu_project_management">
-        </menuitem>
+        <!--<menuitem-->
+            <!--name="Guard Tracking"-->
+            <!--action="guard_tracking_open_project_attachment_view"-->
+            <!--id="menu_guard_tracking_open_project_attachment_view"-->
+            <!--sequence="60"-->
+            <!--parent="project.menu_project_management">-->
+        <!--</menuitem>-->
 
         <record id="guard_tracking_form_view" model="ir.ui.view">
             <field name="name">guard_tracking.form.view</field>
@@ -217,6 +217,7 @@
                     <field name="issue_id"/>
                     <field name="technician_name" filter_domain="['|',('technician_name','ilike',self),('multi_tech','ilike',self)]"/>
                     <field name="multi_tech"/>
+                    <field name="reason"/>
                     <group string="Custom Filter">
                         <filter string="Create Day" context="{'group_by':'create_date:day'}" />
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" />
