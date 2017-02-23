@@ -106,6 +106,9 @@
                 <xpath expr="//field[@name='mobile']" position="after">
                     <field name="rf_id"/>
                 </xpath>
+                <xpath expr="//field[@name='title']" position="after">
+                    <field name="parent" />
+                </xpath>
             </field>
         </record>
         <!--==========================Search View Begins=============================-->
@@ -126,6 +129,7 @@
                 </xpath>
                 <search string="Search Partner">
                      <group string="Custom Filter">
+                         <filter  string="Main Heads" domain="[('parent','=',True)]"/>
                          <filter string="Active" domain="[('active','=',True)]"/>
                          <filter string="Inactive" domain="[('active','=',False)]"/>
                          <filter string="Main Branch" domain="['&amp;',('is_company','=',True),('is_branch','=',False)]"/>
