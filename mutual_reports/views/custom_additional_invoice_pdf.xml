@@ -116,7 +116,7 @@
                            <span t-if="account_invoice.show_tax==True">
                           <div class="row">
                               <strong style="font-size:18px">
-                                  <span t-field="account_invoice.partner_id"/><br/>
+                                  <span t-field="account_invoice.partner_id.name"/><br/>
                                   <span t-if="account_invoice.partner_id.branch_code">
                                       <span t-field="account_invoice.partner_id.branch_code"/>
                                   </span><br/>
