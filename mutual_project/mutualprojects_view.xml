@@ -222,6 +222,9 @@
                         <filter string="Create Day" context="{'group_by':'create_date:day'}" />
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" />
                         <filter string="TimeIn by day" context="{'group_by':'date_start:day'}" />
+                        <filter string="No TimeIn" domain="[('date_start','=',False)]"/>
+                        <filter string="No TimeOut" domain="[('date_end','=',False)]"/>
+                        <filter string="No TimeIn/Out" domain="[('date_start','=',False),('date_end','=',False)]"/>
                     </group>
                     <group string="Complaint Sources">
                         <filter name="complaint_source" string="By Email" domain="[('complaint_source','=','By Email')]"/>

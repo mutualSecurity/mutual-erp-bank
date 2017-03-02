@@ -231,6 +231,7 @@ class mutual_issues(osv.osv):
                                 ("V/S (Vibration Sensor) Required (T)","V/S (Vibration Sensor) Required (T)"),
                                 ("Survey (T)", "Survey (T)"),
                                 ("New Installation (T)", "New Installation (T)"),
+                                ("Disco (T)", "Disco (T)"),
                                 ("Special Task (T)", "Special Task (T)"),
                                 ],
                                'Complaint Title', required=True, read=['__export__.res_groups_52'], write=['project.group_project_user'],
