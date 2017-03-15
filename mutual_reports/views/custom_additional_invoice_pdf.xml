@@ -100,8 +100,8 @@
                                   <table style="font-size:16px">
                                       <tr>
                                           <td>
-                                              <span t-field="account_invoice.create_uid.signature_image" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
-                                              <br/>Prepared By <span t-field="account_invoice.create_uid"/>
+                                              <span t-field="user.signature_image" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+                                              <br/>Prepared By <span t-esc="user.name"/>
                                           </td>
                                       </tr>
                                   </table>
@@ -225,8 +225,8 @@
                                   <table style="font-size:16px">
                                       <tr>
                                           <td>
-                                             <span t-field="account_invoice.create_uid.signature_image" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
-                                              <br/>Prepared By <span t-field="account_invoice.create_uid"/>
+                                             <span t-field="user.signature_image" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+                                              <br/>Prepared By <span t-esc="user.name"/>
                                           </td>
                                       </tr>
                                   </table>
