@@ -54,9 +54,12 @@ class customer_branch_details(osv.osv):
     }
 
 
-class customer_branch_details(osv.osv):
-    _name = "mutual.res.users"
+class branch_details(osv.osv):
+    _name = "res.users"
     _inherit = "res.users"
+    _columns = {
+        'signature_image': fields.binary('Signature', store=True),
+    }
 
 
 class sale_order(osv.osv):
