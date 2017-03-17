@@ -62,7 +62,14 @@
                                   </thead>
                                   <tbody class="invoice_tbody">
                                       <tr t-foreach="account_invoice.invoice_line" t-as="l">
-                                          <td><span t-field="l.name"/></td>
+                                          <td>
+                                              <span t-if="account_invoice.partner_id.name=='National Bank of Pakistan' and l.product_id.name=='Monitoring charges'">
+                                                  Monitoring charges Including Provincial Sales Tax
+                                              </span>
+                                              <span t-if=" not (account_invoice.partner_id.name=='National Bank of Pakistan' and l.product_id.name=='Monitoring charges')">
+                                                 <span t-field="l.name"/>
+                                              </span>
+                                          </td>
                                           <td><span t-field="l.from"/></td>
                                           <td><span t-field="l.to"/></td>
                                           <td>
