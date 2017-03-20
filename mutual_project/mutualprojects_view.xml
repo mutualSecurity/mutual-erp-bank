@@ -525,8 +525,16 @@
                     <page string="Remarks by CMS">
                         <field name="remark_by_cms" placeholder="Add you remarks..."/>
                     </page>
+                </xpath>
+                <xpath expr="//page[@string='Description']" position="after">
                     <page string="Remarks by Courtesy">
-                        <field name="courtesy" placeholder="Add you remarks..."/>
+                          <field name="courtesy_remarks" colspan="4" nolabel="1">
+                            <tree editable="bottom" string="Courtesy Remarks">
+                                <field name="remarks"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                            </tree>
+                          </field>
                     </page>
                 </xpath>
                 <xpath expr="//page[@string='Description']" position="after">
