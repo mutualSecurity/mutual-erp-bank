@@ -341,7 +341,7 @@ class mutual_issues(osv.osv):
 
   @api.multi
   def details(self):
-      if (self.cs_number_issue.find('Lh')!= -1):
+      if (self.partner_id.is_company == False):
           self.sms = str(self.id)+"\n"+self.name+"\n"+self.cs_number_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue
 
       elif self.cs_number_issue and self.bank_code_issue and self.branch_code_issue and self.monitoring_address_issue and self.city_issue and self.description:
