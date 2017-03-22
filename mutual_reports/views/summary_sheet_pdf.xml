@@ -20,9 +20,10 @@
                                    <th>Second Address</th>
                                    <th>Service Period</th>
                                    <!--<th colspan="2" align="center" style="vertical-align:middle"><center>Billing Period</center></th>-->
+                                   <th>Total Monitoring</th>
                                    <th>Provincial Sales Tax</th>
-                                   <th>Total Billing amount excluding sales tax</th>
-                                   <th>Total Billing amount including sales tax</th>
+                                   <!--<th>Total Billing amount excluding sales tax</th>-->
+                                   <th>Grand Total</th>
                                </tr>
                            </thead>
                            <tbody>
@@ -51,11 +52,14 @@
                                        <!--<span t-field="l.to"/>-->
                                    <!--</td>-->
                                     <td>
-                                       <span t-field="l.sales_tax_amount"/>
+                                       <span t-field="l.total_moni"/>
                                    </td>
                                     <td>
-                                       <span t-field="l.total_amount_ex_sales_tax"/>
-                                    </td>
+                                       <span t-field="l.sales_tax_amount"/>
+                                   </td>
+                                    <!--<td>-->
+                                       <!--<span t-field="l.total_amount_ex_sales_tax"/>-->
+                                    <!--</td>-->
                                    <td>
                                        <span t-field="l.total_amount_with_sales_tax"/>
                                     </td>
@@ -89,8 +93,8 @@
                                    <th>Second Address</th>
                                    <th>Service Period</th>
                                    <!--<th colspan="2" align="center" style="vertical-align:middle"><center>Billing Period</center></th>-->
-                                   <th>Total Billing amount excluding sales tax</th>
-                                   <th>Total Billing amount including sales tax</th>
+                                   <!--<th>Total Billing amount excluding sales tax</th>-->
+                                   <th>Grand Total</th>
                                </tr>
                            </thead>
                            <tbody>
@@ -118,9 +122,9 @@
                                    <!--<td>-->
                                        <!--<span t-field="l.to"/>-->
                                    <!--</td>-->
-                                    <td>
-                                       <span t-field="l.total_amount_ex_sales_tax"/>
-                                    </td>
+                                    <!--<td>-->
+                                       <!--<span t-field="l.total_amount_ex_sales_tax"/>-->
+                                    <!--</td>-->
                                    <td>
                                        <span t-field="l.total_amount_with_sales_tax"/>
                                     </td>
@@ -154,10 +158,11 @@
                                    <th>Second Address</th>
                                    <th>Service Period</th>
                                    <!--<th colspan="2" align="center" style="vertical-align:middle">Billing Period</th>-->
+                                   <th>Total Monitoring</th>
                                    <th>Provincial Sales Tax</th>
                                    <th>Maintenance Charges</th>
-                                   <th>Total Billing amount excluding sales tax</th>
-                                   <th>Total Billing amount including sales tax</th>
+                                   <!--<th>Total Billing amount excluding sales tax</th>-->
+                                   <th>Grand Total</th>
                                </tr>
                            </thead>
                            <tbody>
@@ -186,14 +191,17 @@
                                        <!--<span t-field="l.to"/>-->
                                    <!--</td>-->
                                     <td>
+                                       <span t-field="l.total_moni"/>
+                                   </td>
+                                    <td>
                                        <span t-field="l.sales_tax_amount"/>
                                    </td>
                                    <td>
                                        <span t-field="l.total_ment"/>
                                    </td>
-                                    <td>
-                                       <span t-field="l.total_amount_ex_sales_tax"/>
-                                    </td>
+                                    <!--<td>-->
+                                       <!--<span t-field="l.total_amount_ex_sales_tax"/>-->
+                                    <!--</td>-->
                                    <td>
                                        <span t-field="l.total_amount_with_sales_tax"/>
                                     </td>
