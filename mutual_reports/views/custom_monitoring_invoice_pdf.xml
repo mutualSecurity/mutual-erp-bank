@@ -55,8 +55,8 @@
                                       <tr>
                                           <th>Description</th>
                                           <th colspan="2"><center>Billing Period</center></th>
-                                          <th>Quantity</th>
-                                          <th class="text-right">Unit Price</th>
+                                          <!--<th>Quantity</th>-->
+                                          <!--<th class="text-right">Unit Price</th>-->
                                           <th class="text-right">Amount</th>
                                       </tr>
                                   </thead>
@@ -80,13 +80,13 @@
                                                   <span t-field="account_invoice.to"/>
                                               </span>
                                           </td>
-                                          <td>
-                                              <span t-field="l.quantity"/>
-                                              <!--<span t-field="l.uos_id" groups="product.group_uom"/>-->
-                                          </td>
-                                          <td class="text-right">
-                                              <span t-field="l.price_unit"/>
-                                          </td>
+                                          <!--<td>-->
+                                              <!--<span t-field="l.quantity"/>-->
+                                              <!--&lt;!&ndash;<span t-field="l.uos_id" groups="product.group_uom"/>&ndash;&gt;-->
+                                          <!--</td>-->
+                                          <!--<td class="text-right">-->
+                                              <!--<span t-field="l.price_unit"/>-->
+                                          <!--</td>-->
                                           <td class="text-right" >
                                               <span t-if="l.invoice_line_tax_id.description == 'SRB 19%'">
                                                   <span t-esc="round(l.price_subtotal+(l.price_subtotal*19/100))"/>
@@ -130,7 +130,7 @@
                           </div>
                            <div class="row">
                               <div class="pull-left">
-                                 <span style="margin-left:15px"><strong style="font-size:16px">Payment:Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong></span>
+                                 <span style="margin-left:15px"><strong style="font-size:16px">Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong></span>
                               </div>
                           </div>
                           </span>
@@ -259,7 +259,7 @@
                           </div>
                            <div class="row">
                               <div class="pull-left">
-                                 <span style="margin-left:15px"><strong style="font-size:16px">Payment:Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong></span>
+                                 <span style="margin-left:15px"><strong style="font-size:16px">Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong></span>
                               </div>
                           </div>
                           </span>
