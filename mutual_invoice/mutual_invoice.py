@@ -25,7 +25,9 @@ class invoice_csnumber(osv.osv):
         'cheque_date': fields.date('Cheque Received Date', store=True, track_visibility='onchange'),
         'cheque_no':fields.char('Cheque no.',store=True,track_visibility='onchange'),
         'cheque_date_customer': fields.date('Cheque Date', store=True, track_visibility='onchange'),
-        'actual_amount':fields.float('Actual received amount',store=True,track_visibility='onchange')
+        'actual_amount': fields.float('Actual received amount',store=True,track_visibility='onchange'),
+        'from': fields.date('From',store=True),
+        'to': fields.date('To',store=True),
     }
 
     @api.multi

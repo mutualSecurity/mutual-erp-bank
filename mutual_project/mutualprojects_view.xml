@@ -223,6 +223,7 @@
                     <group string="Custom Filter">
                         <filter string="Create Day" context="{'group_by':'create_date:day'}" />
                         <filter string="Create Month" context="{'group_by':'create_date:month'}" />
+                        <filter string="Today TimeIn" domain="[('date_start', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date_start', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
                         <filter string="TimeIn by day" context="{'group_by':'date_start:day'}" />
                         <filter string="No TimeIn" domain="[('date_start','=',False)]"/>
                         <filter string="No TimeOut" domain="[('date_end','=',False)]"/>
