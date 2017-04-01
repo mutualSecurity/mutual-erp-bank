@@ -183,13 +183,13 @@
                     <field name="multi_tech" widget="many2many_tags"/>
                     <field name="date_start"/>
                     <field name="date_end"/>
+                    <field name="compute_total_time" readonly="1"/>
                     <field name="reason"/>
                     <field name="systemstatus"/>
                     <field name="bas"/>
                     <field name="sim_status"/>
                     <field name="pending"/>
                     <!--<field name="first_signal"/>-->
-                    <field name="compute_total_time" readonly="1"/>
                     <field name="status" class="demo"/>
                     <field name="create_date"  readonly="1"/>
                     <!--<field name="complaint_source"/>-->

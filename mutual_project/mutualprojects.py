@@ -395,10 +395,10 @@ class tech_activities_issues(osv.osv):
     _columns = {
         'bas': fields.selection([('GSM Only','GSM Only'),('Bentel Only','Bentel Only'),
                                  ('PTCL Only','PTCL Only'),('Bentel and PTCL','Bentel and PTCL')
-                                ,('GSM and PTCL', 'GSM and PTCL')], string='BAS Connected To',store=True),
-        'sim_status': fields.selection([('Postpaid', 'Postpaid'), ('Prepaid', 'Prepaid'),('Inactive', 'Inactive')],
+                                ,('GSM and PTCL', 'GSM and PTCL'),('Nil','Nil')], string='BAS Connected To',store=True),
+        'sim_status': fields.selection([('Postpaid', 'Postpaid'), ('Prepaid', 'Prepaid'),('Inactive', 'Inactive'),('Nil','Nil')],
                                        string='Sim Status', store=True),
-        'pending': fields.selection([('Yes', 'Yes'), ('No', 'No')],string='Work is Pending', store=True),
+        'pending': fields.selection([('Yes', 'Yes'), ('No', 'No'),('Nil','Nil')],string='Work is Pending', store=True),
         'tech_name': fields.many2one('project.issue', 'Complaint Title'),
         'technician_name': fields.many2one('hr.employee', 'Technician Name', required=True, select=1, track_visibility='onchange', domain="[('department_id','=','Technician')]", defaults=''),
         'reason': fields.char('Final Status',store=True),
