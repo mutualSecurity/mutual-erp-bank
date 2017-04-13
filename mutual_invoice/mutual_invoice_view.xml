@@ -58,6 +58,9 @@
                       <field name="bank_code_invoice"/>
                       <field name="branch_code_invoice"/>
                   </field>
+                  <xpath expr="//tree[@string='Invoice']" position="attributes">
+                    <attribute name="colors">green:payment_received==True</attribute>
+                  </xpath>
               </field>
         </record>
         <!--==========================Search View=============================-->

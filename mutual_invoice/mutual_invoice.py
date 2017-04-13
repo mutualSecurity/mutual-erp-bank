@@ -1,6 +1,7 @@
 from openerp.osv import fields, osv
 from openerp import api
-
+from datetime import date, timedelta,datetime
+import re
 class invoice_line_(osv.osv):
     _inherit = 'account.invoice.line'
     _columns = {
@@ -12,7 +13,7 @@ class invoice_line_(osv.osv):
 class invoice_csnumber(osv.osv):
     _inherit = 'account.invoice'
     _columns = {
-        'show_tax': fields.boolean('Show Tax', store=True),
+        'show_tax': fields.boolean('Show Tax', store=True, compute='select_auto_tax'),
         'NTN': fields.char('NTN', store=True, default="3764757-1",readonly=True),
         'sales_tax_no': fields.char('STN', store=True,default="17-00-3764-757-19",readonly=True),
         'courier': fields.boolean('Couriered', store=True),
@@ -29,6 +30,18 @@ class invoice_csnumber(osv.osv):
         'from': fields.date('From',store=True),
         'to': fields.date('To',store=True),
     }
+
+    @api.one
+    @api.depends('invoice_line.invoice_line_tax_id')
+    def select_auto_tax(self):
+        for line in self.invoice_line:
+            if line.invoice_line_tax_id != False:
+                self.show_tax = True
+
+    @api.onchange('remarks')
+    def followup_date(self):
+        if len(re.findall('\d', self.remarks))==0:
+            self.remarks = self.remarks+str(datetime.now().date())
 
     @api.multi
     def compute_roundoff(self):
