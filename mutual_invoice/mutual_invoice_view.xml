@@ -6,6 +6,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="arch" type="xml">
+                <xpath expr="//button[@string='Validate']" position="attributes">
+                    <attribute name="groups">account.group_account_manager</attribute>
+                </xpath>
                 <field name="date_invoice" position="after">
                     <field name="from"/>
                     <field name="to"/>
