@@ -74,6 +74,7 @@
                     <field name="branch_code_invoice" />
                     <field name="id"/>
                     <field name="bank_code_invoice" />
+                    <field name="cheque_no"/>
                 </xpath>
                 <search string="Search Invoice">
                     <group string="Group By">
