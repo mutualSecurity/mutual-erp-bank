@@ -40,8 +40,9 @@ class invoice_csnumber(osv.osv):
 
     @api.onchange('remarks')
     def followup_date(self):
-        if len(re.findall('\d', self.remarks))==0:
-            self.remarks = self.remarks+str(datetime.now().date())
+        if self.remarks!=False:
+            if len(re.findall(str(datetime.now().date()), self.remarks))==0:
+                self.remarks = self.remarks+"\n"+str(datetime.now().date())
 
     @api.multi
     def compute_roundoff(self):
