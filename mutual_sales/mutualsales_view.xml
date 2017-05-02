@@ -54,6 +54,7 @@
                 <field name="title" position="after">
                     <field name="is_technician"  class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
                     <field name="is_rider"  class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
+                    <field name="customer_visit"/>
                 </field>
                 <field name="function" position="after">
                     <field name="office"/>

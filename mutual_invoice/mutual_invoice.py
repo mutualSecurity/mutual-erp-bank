@@ -29,6 +29,8 @@ class invoice_csnumber(osv.osv):
         'actual_amount': fields.float('Actual received amount',store=True,track_visibility='onchange'),
         'from': fields.date('From',store=True),
         'to': fields.date('To',store=True),
+        'pay_remarks':fields.char('Payment Remarks',store=True,track_visibility='onchange'),
+        'invoice_date': fields.date('Invoice Date', store=True, track_visibility='onchange'),
     }
 
     @api.one

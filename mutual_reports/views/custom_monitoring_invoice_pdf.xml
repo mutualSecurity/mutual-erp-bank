@@ -33,9 +33,9 @@
                                   </span><br/>
                               </strong><br/>
                               <div class="row mt32 mb32" style="font-size:18px">
-                                  <div class="col-xs-3" t-if="account_invoice.date_invoice">
+                                  <div class="col-xs-3" t-if="account_invoice.invoice_date">
                                       <strong>Invoice Date</strong>
-                                      <p t-field="account_invoice.date_invoice"/>
+                                      <p t-field="account_invoice.invoice_date"/>
                                   </div>
                                   <div class="col-xs-3" t-if="account_invoice.NTN">
                                       <strong>NTN</strong>
@@ -162,9 +162,9 @@
                                   </span><br/>
                               </strong><br/>
                               <div class="row mt32 mb32" style="font-size:18px">
-                                  <div class="col-xs-3" t-if="account_invoice.date_invoice">
+                                  <div class="col-xs-3" t-if="account_invoice.invoice_date">
                                       <strong>Invoice Date</strong>
-                                      <p t-field="account_invoice.date_invoice"/>
+                                      <p t-field="account_invoice.invoice_date"/>
                                   </div>
                                   <div class="col-xs-3" t-if="account_invoice.NTN">
                                       <strong>NTN</strong>
@@ -184,23 +184,31 @@
                                       <tr>
                                           <th>Description</th>
                                           <th colspan="2"><center>Billing Period</center></th>
-                                          <th>Quantity</th>
-                                          <th class="text-right">Unit Price</th>
+                                          <!--<th>Quantity</th>-->
+                                          <!--<th class="text-right">Unit Price</th>-->
                                           <th class="text-right">Amount</th>
                                       </tr>
                                   </thead>
                                   <tbody class="invoice_tbody">
                                       <tr t-foreach="account_invoice.invoice_line" t-as="l">
                                           <td><span t-field="l.name"/></td>
-                                          <td><span t-field="l.from"/></td>
-                                          <td><span t-field="l.to"/></td>
                                           <td>
-                                              <span t-field="l.quantity"/>
-                                              <!--<span t-field="l.uos_id" groups="product.group_uom"/>-->
+                                              <span t-if="l.product_id.name=='Monitoring charges'">
+                                                  <span t-field="account_invoice.from"/>
+                                              </span>
                                           </td>
-                                          <td class="text-right">
-                                              <span t-field="l.price_unit"/>
+                                          <td>
+                                              <span t-if="l.product_id.name=='Monitoring charges'">
+                                                  <span t-field="account_invoice.to"/>
+                                              </span>
                                           </td>
+                                          <!--<td>-->
+                                              <!--<span t-field="l.quantity"/>-->
+                                              <!--&lt;!&ndash;<span t-field="l.uos_id" groups="product.group_uom"/>&ndash;&gt;-->
+                                          <!--</td>-->
+                                          <!--<td class="text-right">-->
+                                              <!--<span t-field="l.price_unit"/>-->
+                                          <!--</td>-->
                                           <td class="text-right" >
                                               <span >
                                                   <span t-esc="l.price_subtotal"/>

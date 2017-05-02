@@ -33,9 +33,9 @@
                                   </span><br/>
                               </strong><br/>
                               <div class="row mt32 mb32" style="font-size:18px">
-                                  <div class="col-xs-3" t-if="account_invoice.date_invoice">
+                                  <div class="col-xs-3" t-if="account_invoice.invoice_date">
                                       <strong>Invoice Date</strong>
-                                      <p t-field="account_invoice.date_invoice"/>
+                                      <p t-field="account_invoice.invoice_date"/>
                                   </div>
                                   <div class="col-xs-3" t-if="account_invoice.NTN">
                                       <strong>NTN</strong>

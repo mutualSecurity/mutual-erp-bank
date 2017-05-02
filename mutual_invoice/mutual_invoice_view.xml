@@ -40,10 +40,22 @@
                     <field name="from" readonly="1"/>
                     <field name="to" readonly="1"/>
                 </xpath>
+                <!--<xpath expr="//field[@name='address_criteria']" position="after">-->
+                    <!--<field name="pay_remarks"/>-->
+                <!--</xpath>-->
                 <xpath expr="//page[@string='Payments']" position="after">
                     <page string="Follow-Ups">
                         <field name="remarks"/>
                     </page>
+                </xpath>
+                <xpath expr="//field[@name='date_invoice']" position="before">
+                    <field name="invoice_date"/>
+                </xpath>
+                 <xpath expr="//field[@name='date_invoice']" position="attributes">
+                    <attribute name="string">Validation Date</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fiscal_position']" position="after">
+                    <field name="pay_remarks"/>
                 </xpath>
             </field>
         </record>

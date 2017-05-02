@@ -1,5 +1,6 @@
 from openerp.osv import fields, osv
 from openerp import api
+import requests
 
 
 class mutual_sales(osv.osv):
@@ -25,11 +26,23 @@ class mutual_sales(osv.osv):
         'locker_available': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Locker Available', store=True),
         'saturday_open': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Saturday Open', store=True),
         'rf_id': fields.char('RF_ID', select=True, store=True),
-        'parent':fields.boolean('Parent',store=True)
+        'parent':fields.boolean('Parent',store=True),
+        'customer_visit': fields.boolean('Force Visit Required', store=True)
     }
 
-mutual_sales()
-
+    @api.onchange('customer_visit')
+    def new_visit(self):
+        if self.customer_visit == True:
+            r = requests.post("http://localhost:2020/createcustomer",
+                              data={
+                                  'name': self.name,
+                                  'cs': self.cs_number,
+                                  'bank_code': self.bank_code,
+                                  'branch_code': self.branch_code,
+                                  'street1': self.street,
+                                  'street2': self.street2,
+                                  'city': self.city
+                              })
 
 
 class customer_relatives(osv.osv):
