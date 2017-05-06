@@ -11,6 +11,7 @@ class mutual_guard_tracking(osv.osv):
         'visit_date': fields.date('Visit Date', store=True, readonly=True),
         'card_no': fields.char('RF_ID', store=True),
         'device_no': fields.char('Device#', store=True),
+        'remarks': fields.char('Remarks',store=True)
     }
 
 

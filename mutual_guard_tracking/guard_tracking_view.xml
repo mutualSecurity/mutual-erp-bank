@@ -82,6 +82,7 @@
                             <field name="address"/>
                             <field name="visit_time"/>
                             <field name="visit_date"/>
+                            <field name="remarks"/>
                             <field name="device_no"/>
                         </group>
                     </sheet>
@@ -95,12 +96,13 @@
             <field name="name">view.guard.tree.tracking</field>
             <field name="model">mutual.guard.tracking</field>
             <field name="arch" type="xml">
-                <tree string="Guard Patrolling" version="8.0">
+                <tree string="Guard Patrolling" version="8.0" editable="top">
                     <field name="bank_code"/>
                     <field name="branch_code"/>
                     <field name="address"/>
                     <field name="visit_time"/>
                     <field name="visit_date"/>
+                    <field name="remarks"/>
                     <field name="device_no"/>
                 </tree>
             </field>
