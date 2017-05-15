@@ -182,7 +182,7 @@
              <field name="view_type">tree</field>
              <field name="model">tech.activities.issues</field>
              <field name="arch" type="xml">
-                <tree string="Technician Activities" editable="top" default_order="date_start asce">
+                <tree string="Technician Activities" editable="top" default_order="date_start desc">
                     <field name="issue_id" readonly="1"/>
                     <field name="bank_code" readonly="1"/>
                     <field name="cs_number" readonly="1"/>
@@ -614,7 +614,7 @@
                     <attribute name="string">Remarks by Bank</attribute>
                 </xpath>
                 <xpath expr="//page[@string='Timesheet']" position="after">
-                        <page string="SMS">
+                        <page string="SMS" groups="project.group_project_user">
                             <group>
                                 <field name="technician_name"/>
                                 <field name="techContact"/>
@@ -624,6 +624,12 @@
                             <button name="details" string="Details" type="object" class="btn-link" />
                             <button name="smsSent" string="Sent" type="object" class="btn-link"  />
                         </page>
+                </xpath>
+                 <xpath expr="//page[@string='Remarks by Bank']" position="attributes">
+                    <attribute name="groups">project.group_project_user</attribute>
+                </xpath>
+                 <xpath expr="//page[@string='Remarks by CMS']" position="attributes">
+                    <attribute name="groups">project.group_project_user</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="options">{'limit': 0, 'create': false, 'create_edit': false}</attribute>
