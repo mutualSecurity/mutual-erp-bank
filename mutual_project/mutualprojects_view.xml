@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!--========================================================= Guard Tracking Begins ================================================-->
-        <!--<record id="guard_tracking_open_project_attachment_view" model="ir.actions.act_window">-->
-	        <!--<field name="name">Guard Tracking</field>-->
-            <!--<field name="res_model">guard.tracking</field>-->
-            <!--<field name="view_type">form</field>-->
-            <!--<field name="view_mode">tree,form</field>-->
-            <!--<field name="help" type="html">-->
-                <!--<p class="oe_view_nocontent_create">click create to add a new record</p>-->
-            <!--</field>-->
-        <!--</record>-->
-
-        <!--<menuitem-->
-            <!--name="Guard Tracking"-->
-            <!--action="guard_tracking_open_project_attachment_view"-->
-            <!--id="menu_guard_tracking_open_project_attachment_view"-->
-            <!--sequence="60"-->
-            <!--parent="project.menu_project_management">-->
-        <!--</menuitem>-->
-
-        <record id="guard_tracking_form_view" model="ir.ui.view">
-            <field name="name">guard_tracking.form.view</field>
+        <!--========================================================= Old Time Begins ================================================-->
+        <record id="old_time_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Old TimeInOut</field>
+            <field name="res_model">old.time</field>
             <field name="view_type">form</field>
-            <field name="model">guard.tracking</field>
-            <field name="arch" type="xml">
-                <form string="guard_tracking">
-                    <sheet>
-                        <group string="Guard Tracking">
-                            <group>
-                                 <field name="card_no"/>
-                            </group>
-                            <group>
-                                <field name="customer"  options="{'limit': 0, 'create': false, 'create_edit': false}"/>
-                                <field name="branch_code"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
             </field>
         </record>
+
+        <menuitem
+            name="Old TimeIn/Out"
+            action="old_time_open_project_attachment_view"
+            id="menu_old_time_open_project_attachment_view"
+            sequence="60"
+            parent="project.menu_project_management">
+        </menuitem>
+
+        <record id="old_time_tree_view" model="ir.ui.view">
+            <field name="name">old_time_tree.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">old.time</field>
+            <field name="arch" type="xml">
+                <tree string="Old TimeIn/Out">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="cs"/>
+                    <field name="timein"/>
+                    <field name="timeout"/>
+                    <field name="status1"/>
+                    <field name="status2"/>
+                    <field name="bas"/>
+                    <field name="branch"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  model="ir.ui.view" id="old_time_log_search">
+             <field name="name">Old Time Search</field>
+             <field name="model">old.time</field>
+             <field name="arch" type="xml">
+                <search string="Search Logs">
+                    <field name="cs"/>
+                    <field name="branch"/>
+                    <field name="name"/>
+                </search>
+             </field>
+         </record>
 
         <record model="ir.ui.view" id="guard_tracking_tree">
             <field name="name">Guard Tracking</field>

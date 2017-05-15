@@ -583,6 +583,20 @@ class courtesy_remarks(osv.osv):
     #         self.customer = list
 
 
+class oldTimeInOut(osv.osv):
+    _name = "old.time"
+    _columns = {
+        'date': fields.date('Date', store=True),
+        'name': fields.char('Name', store=True),
+        'cs': fields.char('CS Number', store=True),
+        'timein': fields.char('TimeIn', store=True),
+        'timeout': fields.char('TimeOut', store=True),
+        'status1': fields.char('Status1', store=True),
+        'status2': fields.char('Status2', store=True),
+        'bas': fields.char('BAS', store=True),
+        'branch': fields.char('Branch', store=True),
+    }
+
 
 
 
