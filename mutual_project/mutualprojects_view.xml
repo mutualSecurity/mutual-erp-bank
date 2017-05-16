@@ -182,7 +182,7 @@
              <field name="view_type">tree</field>
              <field name="model">tech.activities.issues</field>
              <field name="arch" type="xml">
-                <tree string="Technician Activities" editable="top" default_order="date_start desc">
+                <tree string="Technician Activities" editable="top" default_order="date_start asce">
                     <field name="issue_id" readonly="1"/>
                     <field name="bank_code" readonly="1"/>
                     <field name="cs_number" readonly="1"/>
