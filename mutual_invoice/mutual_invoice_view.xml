@@ -19,6 +19,8 @@
                     <field name="cheque_date" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="cheque_date_customer" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="actual_amount" attrs="{'invisible': [('payment_received','=',False)]}"/>
+                    <!--<field name="product_check"/>-->
+                    <field name="product_line" readonly="1"/>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="bank_cs_invoice"/>

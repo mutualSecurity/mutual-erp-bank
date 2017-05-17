@@ -13,6 +13,8 @@ class invoice_line_(osv.osv):
 class invoice_csnumber(osv.osv):
     _inherit = 'account.invoice'
     _columns = {
+        'product_line': fields.char('Products', store=True, defaults=' '),
+        'product_check': fields.boolean('Show Product', store=True),
         'show_tax': fields.boolean('Show Tax', store=True, compute='select_auto_tax'),
         'NTN': fields.char('NTN', store=True, default="3764757-1",readonly=True),
         'sales_tax_no': fields.char('STN', store=True,default="17-00-3764-757-19",readonly=True),
@@ -32,6 +34,12 @@ class invoice_csnumber(osv.osv):
         'pay_remarks':fields.char('Payment Remarks',store=True,track_visibility='onchange'),
         'invoice_date': fields.date('Invoice Date', store=True, track_visibility='onchange'),
     }
+
+    @api.onchange('courier')
+    def fetch_product(self):
+        if self.courier == True:
+            for line in self.invoice_line:
+                self.product_line = (str(self.product_line)+ "," +line.name).replace('False,','')
 
     @api.one
     @api.depends('invoice_line.invoice_line_tax_id')
