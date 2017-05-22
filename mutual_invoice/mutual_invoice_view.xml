@@ -26,6 +26,8 @@
                     <field name="bank_cs_invoice"/>
                     <field name="bank_code_invoice"/>
                     <field name="branch_code_invoice"/>
+                    <field name="create_date" readonly="1"/>
+                    <field name="create_uid" readonly="1"/>
                     <!--<field name="round_amount"/>-->
                 </field>
                 <xpath expr="//field[@name='journal_id']" position="after">
@@ -77,6 +79,30 @@
                   </field>
                   <xpath expr="//tree[@string='Invoice']" position="attributes">
                     <attribute name="colors">green:payment_received==True</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='partner_id']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='origin']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='residual']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='residual']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                   <xpath expr="//field[@name='residual']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                   <xpath expr="//field[@name='date_due']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='user_id']" position="after">
+                      <field name="create_date"/>
                   </xpath>
               </field>
         </record>
@@ -168,5 +194,44 @@
                 </tree>
             </field>
          </record>
+
+        <!-- ================================================== customer payments form View ===============================================-->
+         <record id="account.view_form_move_tree_mutual" model="ir.ui.view">
+              <field name="name">account.voucher.receipt.form</field>
+              <field name="model">account.voucher</field>
+              <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form" />
+              <field name="arch" type="xml">
+                  <xpath expr="//field[@name='journal_id']" position="after">
+                      <field name="create_date" readonly="1"/>
+                      <field name="create_uid" readonly="1"/>
+                  </xpath>
+              </field>
+        </record>
+
+
+        <!-- ================================================== Customer Payments Search View ===============================================-->
+        <record  model="ir.ui.view" id="account.view_account_move_filter_search">
+            <field name="name">account.voucher.customer.pay.select</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_customer_pay" />
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='number']" position="after">
+                    <field name="reference"/>
+                    <field name="create_uid"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ================================================== customer Tree View ===============================================-->
+         <record id="account.voucher_move_tree_mutual" model="ir.ui.view">
+              <field name="name">account.voucher.tree</field>
+              <field name="model">account.voucher</field>
+              <field name="inherit_id" ref="account_voucher.view_voucher_tree" />
+              <field name="arch" type="xml">
+                  <xpath expr="//field[@name='state']" position="after">
+                      <field name="create_uid" readonly="1"/>
+                  </xpath>
+              </field>
+        </record>
     </data>
 </openerp>
