@@ -122,6 +122,7 @@
                     <field name="cs_number"/>
                     <field name="branch_code" />
                     <field name="bank_code" />
+                    <field name="rf_id"/>
                     <field name="mobile" />
                     <field name="phone" />
                     <field name="email"/>
