@@ -47,7 +47,7 @@ class invoice_csnumber(osv.osv):
     @api.depends('invoice_line.invoice_line_tax_id')
     def select_auto_tax(self):
         for line in self.invoice_line:
-            if line.invoice_line_tax_id != False:
+            if line.invoice_line_tax_id.description != False:
                 self.show_tax = True
                 print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Tax>>>>>>>>>>>>>>>>>>>"
                 print line.invoice_line_tax_id
