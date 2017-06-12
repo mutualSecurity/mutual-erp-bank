@@ -33,7 +33,13 @@ class invoice_csnumber(osv.osv):
         'to': fields.date('To',store=True),
         'pay_remarks':fields.char('Payment Remarks',store=True,track_visibility='onchange'),
         'invoice_date': fields.date('Invoice Date', store=True, track_visibility='onchange'),
-        'sales_tax': fields.float('Total Sales Tax 17%',store=True,readonly=True,compute='select_auto_tax')
+        'sales_tax': fields.float('Total Sales Tax 17%',store=True,readonly=True,compute='select_auto_tax'),
+        'srb_tax': fields.float('SRB 19%', store=True, readonly=True, compute='select_auto_tax'),
+        'product_sales_amount': fields.float('Product Sales Amount',store=True,readonly=True,compute='select_auto_tax'),
+        'monitoring_sales_amount': fields.float('Monitoring Sales Amount', store=True, readonly=True,compute='select_auto_tax'),
+        'maintenance_amount': fields.float('Maintenance Amount', store=True, readonly=True,compute='select_auto_tax'),
+        'installation_amount': fields.float('Installation Amount',store=True,readonly=True,compute='select_auto_tax'),
+        'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
     }
 
     @api.one
@@ -47,15 +53,28 @@ class invoice_csnumber(osv.osv):
     @api.depends('invoice_line.invoice_line_tax_id')
     def select_auto_tax(self):
         for line in self.invoice_line:
-            if line.invoice_line_tax_id.description != False:
+            if line.account_id.name == 'Product Sales' and line.invoice_line_tax_id.description == 'Sales Tax Output 17.00%':
                 self.show_tax = True
-                print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Tax>>>>>>>>>>>>>>>>>>>"
-                print line.invoice_line_tax_id
-                if line.invoice_line_tax_id.description == 'Sales Tax Output 17.00%':
-                    print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Inside Tax>>>>>>>>>>>>>>>>>>>"
-                    print line.invoice_line_tax_id
-                    self.sales_tax += line.price_subtotal*17/100
-
+                self.sales_tax += line.price_subtotal*17/100
+                self.product_sales_amount += line.price_subtotal
+            elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'SRB 19%':
+                self.show_tax = True
+                self.srb_tax += line.price_subtotal * 19 / 100
+                self.monitoring_sales_amount += line.price_subtotal
+            elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'PRB 19.5%':
+                self.show_tax = True
+                self.srb_tax += line.price_subtotal * 19.5 / 100
+                self.monitoring_sales_amount += line.price_subtotal
+            elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'KPK 19.5%':
+                self.show_tax = True
+                self.srb_tax += line.price_subtotal * 19.5 / 100
+                self.monitoring_sales_amount += line.price_subtotal
+            elif line.account_id.name == 'Maintenance Revenue':
+                self.maintenance_amount += line.price_subtotal
+            elif line.account_id.name == 'Installation Revenue':
+                self.installation_amount += line.price_subtotal
+            elif line.account_id.name == 'Product Sales':
+                self.shifting_amount += line.price_subtotal
 
     @api.onchange('remarks')
     def followup_date(self):

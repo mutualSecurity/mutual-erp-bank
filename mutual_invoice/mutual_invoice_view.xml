@@ -19,9 +19,10 @@
                     <field name="cheque_date" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="cheque_date_customer" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="actual_amount" attrs="{'invisible': [('payment_received','=',False)]}"/>
+                    <field name="maintenance_amount"/>
+                    <field name="installation_amount"/>
+                    <field name="shifting_amount"/>
                     <!--<field name="product_check"/>-->
-                    <field name="product_line" readonly="1"/>
-                    <field name="sales_tax"/>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="bank_cs_invoice"/>
@@ -29,6 +30,11 @@
                     <field name="branch_code_invoice"/>
                     <field name="create_date" readonly="1"/>
                     <field name="create_uid" readonly="1"/>
+                    <field name="product_line" readonly="1"/>
+                    <field name="product_sales_amount"/>
+                    <field name="sales_tax"/>
+                    <field name="monitoring_sales_amount"/>
+                    <field name="srb_tax"/>
                     <!--<field name="round_amount"/>-->
                 </field>
                 <xpath expr="//field[@name='journal_id']" position="after">
