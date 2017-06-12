@@ -33,6 +33,7 @@ class invoice_csnumber(osv.osv):
         'to': fields.date('To',store=True),
         'pay_remarks':fields.char('Payment Remarks',store=True,track_visibility='onchange'),
         'invoice_date': fields.date('Invoice Date', store=True, track_visibility='onchange'),
+        'sales_tax': fields.float('Total Sales Tax 17%',store=True,readonly=True,compute='select_auto_tax')
     }
 
     @api.one
@@ -48,6 +49,13 @@ class invoice_csnumber(osv.osv):
         for line in self.invoice_line:
             if line.invoice_line_tax_id != False:
                 self.show_tax = True
+                print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Tax>>>>>>>>>>>>>>>>>>>"
+                print line.invoice_line_tax_id
+                if line.invoice_line_tax_id.description == 'Sales Tax Output 17.00%':
+                    print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Inside Tax>>>>>>>>>>>>>>>>>>>"
+                    print line.invoice_line_tax_id
+                    self.sales_tax += line.price_subtotal*17/100
+
 
     @api.onchange('remarks')
     def followup_date(self):

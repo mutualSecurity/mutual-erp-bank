@@ -21,6 +21,7 @@
                     <field name="actual_amount" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <!--<field name="product_check"/>-->
                     <field name="product_line" readonly="1"/>
+                    <field name="sales_tax"/>
                 </field>
                 <field name="partner_id" position="after">
                     <field name="bank_cs_invoice"/>
