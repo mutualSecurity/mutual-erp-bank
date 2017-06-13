@@ -36,7 +36,7 @@ class invoice_csnumber(osv.osv):
         'sales_tax': fields.float('Total Sales Tax 17%',store=True,readonly=True,compute='select_auto_tax'),
         'srb_tax': fields.float('SRB 19%', store=True, readonly=True, compute='select_auto_tax'),
         'product_sales_amount': fields.float('Net Product Sales Amount',store=True,readonly=True,compute='select_auto_tax'),
-        'monitoring_sales_amount': fields.float(' Net Monitoring Sales Amount', store=True, readonly=True,compute='select_auto_tax'),
+        'monitoring_sales_amount': fields.float('Net Monitoring Sales Amount', store=True, readonly=True,compute='select_auto_tax'),
         'maintenance_amount': fields.float('Maintenance Amount', store=True, readonly=True,compute='select_auto_tax'),
         'installation_amount': fields.float('Installation Amount',store=True,readonly=True,compute='select_auto_tax'),
         'total_monitoring_amount': fields.float('Total Monitoring', store=True, readonly=True,
