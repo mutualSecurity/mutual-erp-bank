@@ -35,10 +35,14 @@ class invoice_csnumber(osv.osv):
         'invoice_date': fields.date('Invoice Date', store=True, track_visibility='onchange'),
         'sales_tax': fields.float('Total Sales Tax 17%',store=True,readonly=True,compute='select_auto_tax'),
         'srb_tax': fields.float('SRB 19%', store=True, readonly=True, compute='select_auto_tax'),
-        'product_sales_amount': fields.float('Product Sales Amount',store=True,readonly=True,compute='select_auto_tax'),
-        'monitoring_sales_amount': fields.float('Monitoring Sales Amount', store=True, readonly=True,compute='select_auto_tax'),
+        'product_sales_amount': fields.float('Net Product Sales Amount',store=True,readonly=True,compute='select_auto_tax'),
+        'monitoring_sales_amount': fields.float(' Net Monitoring Sales Amount', store=True, readonly=True,compute='select_auto_tax'),
         'maintenance_amount': fields.float('Maintenance Amount', store=True, readonly=True,compute='select_auto_tax'),
         'installation_amount': fields.float('Installation Amount',store=True,readonly=True,compute='select_auto_tax'),
+        'total_monitoring_amount': fields.float('Total Monitoring', store=True, readonly=True,
+                                                compute='select_auto_tax'),
+        'total_product_amount': fields.float('Total Product Sales', store=True, readonly=True,
+                                                compute='select_auto_tax'),
         # 'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
     }
 
@@ -57,18 +61,22 @@ class invoice_csnumber(osv.osv):
                 self.show_tax = True
                 self.sales_tax += line.price_subtotal*17/100
                 self.product_sales_amount += line.price_subtotal
+                self.total_product_amount += self.sales_tax + self.product_sales_amount
             elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'SRB 19%':
                 self.show_tax = True
                 self.srb_tax += line.price_subtotal * 19 / 100
                 self.monitoring_sales_amount += line.price_subtotal
+                self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
             elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'PRB 19.5%':
                 self.show_tax = True
                 self.srb_tax += line.price_subtotal * 19.5 / 100
                 self.monitoring_sales_amount += line.price_subtotal
+                self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
             elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'KPK 19.5%':
                 self.show_tax = True
                 self.srb_tax += line.price_subtotal * 19.5 / 100
                 self.monitoring_sales_amount += line.price_subtotal
+                self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
             elif line.account_id.name == 'Maintenance Revenue':
                 self.maintenance_amount += line.price_subtotal
             elif line.account_id.name == 'Installation Revenue':

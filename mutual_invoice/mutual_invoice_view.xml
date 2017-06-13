@@ -21,6 +21,8 @@
                     <field name="actual_amount" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="maintenance_amount"/>
                     <field name="installation_amount"/>
+                    <field name="total_monitoring_amount"/>
+                    <field name="total_product_amount"/>
                     <!--<field name="shifting_amount"/>-->
                     <!--<field name="product_check"/>-->
                 </field>
