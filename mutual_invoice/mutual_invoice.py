@@ -39,7 +39,7 @@ class invoice_csnumber(osv.osv):
         'monitoring_sales_amount': fields.float('Monitoring Sales Amount', store=True, readonly=True,compute='select_auto_tax'),
         'maintenance_amount': fields.float('Maintenance Amount', store=True, readonly=True,compute='select_auto_tax'),
         'installation_amount': fields.float('Installation Amount',store=True,readonly=True,compute='select_auto_tax'),
-        'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
+        # 'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
     }
 
     @api.one
@@ -73,8 +73,7 @@ class invoice_csnumber(osv.osv):
                 self.maintenance_amount += line.price_subtotal
             elif line.account_id.name == 'Installation Revenue':
                 self.installation_amount += line.price_subtotal
-            elif line.account_id.name == 'Product Sales':
-                self.shifting_amount += line.price_subtotal
+
 
     @api.onchange('remarks')
     def followup_date(self):
