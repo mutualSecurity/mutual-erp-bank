@@ -21,15 +21,15 @@
                                   </span>
                                   <span t-if="account_invoice.partner_id.city">
                                       <span t-field="account_invoice.partner_id.city"/><br/>
-                                      <span t-if="account_invoice.partner_id.office">
-                                          <span t-field="account_invoice.partner_id.office"/>
-                                      </span>
-                                      <span t-if="account_invoice.partner_id.phone">
-                                          <span t-field="account_invoice.partner_id.phone"/>
-                                      </span>
-                                      <span t-if="account_invoice.partner_id.mobile">
-                                          <span t-field="account_invoice.partner_id.mobile"/>
-                                      </span>
+                                  </span>
+                                  <span t-if="account_invoice.partner_id.office">
+                                      <span t-field="account_invoice.partner_id.office"/>
+                                  </span>
+                                  <span t-if="account_invoice.partner_id.phone">
+                                      <span t-field="account_invoice.partner_id.phone"/>
+                                  </span>
+                                  <span t-if="account_invoice.partner_id.mobile">
+                                      <span t-field="account_invoice.partner_id.mobile"/>
                                   </span><br/>
                               </strong><br/>
                               <div class="row mt32 mb32" style="font-size:18px">
@@ -129,15 +129,15 @@
                                   </span>
                                   <span t-if="account_invoice.partner_id.city">
                                       <span t-field="account_invoice.partner_id.city"/><br/>
-                                      <span t-if="account_invoice.partner_id.office">
-                                          <span t-field="account_invoice.partner_id.office"/>
-                                      </span>
-                                      <span t-if="account_invoice.partner_id.phone">
-                                          <span t-field="account_invoice.partner_id.phone"/>
-                                      </span>
-                                      <span t-if="account_invoice.partner_id.mobile">
-                                          <span t-field="account_invoice.partner_id.mobile"/>
-                                      </span>
+                                  </span>
+                                   <span t-if="account_invoice.partner_id.office">
+                                       <span t-field="account_invoice.partner_id.office"/>
+                                   </span>
+                                  <span t-if="account_invoice.partner_id.phone">
+                                      <span t-field="account_invoice.partner_id.phone"/>
+                                  </span>
+                                  <span t-if="account_invoice.partner_id.mobile">
+                                      <span t-field="account_invoice.partner_id.mobile"/>
                                   </span><br/>
                               </strong>
                               <div class="row mt32 mb32" style="font-size:18px">
