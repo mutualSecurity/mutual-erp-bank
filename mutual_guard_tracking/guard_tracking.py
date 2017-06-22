@@ -7,6 +7,7 @@ class mutual_guard_tracking(osv.osv):
         'bank_code': fields.char('Bank Code', store=True, readonly=True),
         'branch_code': fields.char('Branch Code', store=True, readonly=True),
         'address': fields.char('Address', store=True, readonly=True),
+        'city': fields.char('City', store=True),
         'visit_time': fields.char('Visit Time', store=True, readonly=True),
         'visit_date': fields.date('Visit Date', store=True, readonly=True),
         'card_no': fields.char('RF_ID', store=True),

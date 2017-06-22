@@ -82,6 +82,7 @@
                                 <field name="bank_code"/>
                                 <field name="branch_code"/>
                                 <field name="address"/>
+                                <field name="city"/>
                                 <field name="archive_signal"/>
                                 <field name="device_no"/>
                             </group>
@@ -106,6 +107,7 @@
                     <field name="bank_code"/>
                     <field name="branch_code"/>
                     <field name="address"/>
+                    <field name="city"/>
                     <field name="visit_time"/>
                     <field name="visit_date"/>
                     <field name="remarks"/>
@@ -123,6 +125,7 @@
                 <search string="Guard Patrolling" version="8.0">
                     <field name="bank_code"/>
                     <field name="branch_code"/>
+                    <field name="city"/>
                 </search>
             </field>
         </record>
