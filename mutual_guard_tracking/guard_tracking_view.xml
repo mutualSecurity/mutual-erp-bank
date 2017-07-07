@@ -111,6 +111,7 @@
                     <field name="visit_time"/>
                     <field name="visit_date"/>
                     <field name="remarks"/>
+                    <field name="force_code"/>
                     <field name="device_no"/>
                 </tree>
             </field>
@@ -126,6 +127,7 @@
                     <field name="bank_code"/>
                     <field name="branch_code"/>
                     <field name="city"/>
+                    <field name="force_code"/>
                 </search>
             </field>
         </record>

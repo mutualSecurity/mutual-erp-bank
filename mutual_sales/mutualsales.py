@@ -26,6 +26,7 @@ class mutual_sales(osv.osv):
         'locker_available': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Locker Available', store=True),
         'saturday_open': fields.selection([('Yes', 'Yes'), ('No', 'No')], 'Saturday Open', store=True),
         'rf_id': fields.char('RF_ID', select=True, store=True),
+        'force_code': fields.char('Force Code', select=True, store=True),
         'parent':fields.boolean('Parent',store=True),
         'customer_visit': fields.boolean('Force Visit Required', store=True)
     }
