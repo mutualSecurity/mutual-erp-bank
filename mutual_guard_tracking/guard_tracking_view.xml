@@ -79,6 +79,7 @@
                     <sheet>
                         <group string="Guard Patrolling">
                             <group>
+                                <field name="bank"/>
                                 <field name="bank_code"/>
                                 <field name="branch_code"/>
                                 <field name="address"/>
