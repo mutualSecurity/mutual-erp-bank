@@ -86,9 +86,11 @@
                                 <field name="city"/>
                                 <field name="archive_signal"/>
                                 <field name="device_no"/>
+                                <field name="card_no"/>
                             </group>
                             <group>
                                 <field name="visit_time"/>
+                                <field name="visit_time_two"/>
                                 <field name="visit_date"/>
                                 <field name="remarks"/>
                             </group>
@@ -110,10 +112,12 @@
                     <field name="address"/>
                     <field name="city"/>
                     <field name="visit_time"/>
+                    <field name="visit_time_two"/>
                     <field name="visit_date"/>
                     <field name="remarks"/>
                     <field name="force_code"/>
                     <field name="device_no"/>
+                    <field name="card_no"/>
                 </tree>
             </field>
         </record>
