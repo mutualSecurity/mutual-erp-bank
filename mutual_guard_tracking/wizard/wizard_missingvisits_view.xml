@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+        <!-- ================================================== Begin Form view of Missing Visits ================================================ -->
+        <record id="form_missing_visits" model="ir.ui.view">
+            <field name="name">view.form.missing.visits</field>
+            <field name="model">wiz.missing.visits</field>
+            <field name="arch" type="xml">
+                <form string="Guard Patrolling" version="8.0">
+                    <group>
+                        <field name="bank_code"/>
+                    </group>
+                    <footer>
+                        <button name="createvisits" type="object" string="Proceed" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- ================================================== End Form view of Missing Visits ================================================ -->
+        <record id="action_form_missing_visits" model="ir.actions.act_window">
+            <field name="name">Missing Visits</field>
+            <field name="res_model">wiz.missing.visits</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>
+

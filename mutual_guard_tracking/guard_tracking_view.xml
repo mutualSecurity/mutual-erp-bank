@@ -70,6 +70,8 @@
         </record>
         <menuitem name="Guard Patrolling" action="mutual_guard_tracking" id="menu_mutual_guard_tracking" sequence="20" parent="guard_tracking_side_top_menu"/>
 
+        <menuitem name="Missing Visits" action="action_form_missing_visits" id="menu_action_form_missing_visits" sequence="30" parent="guard_tracking_side_top_menu"/>
+
         <!-- ================================================== Begin Form view of Guard Patrolling ================================================ -->
         <record id="form_guard_tracking" model="ir.ui.view">
             <field name="name">view.guard.tracking</field>
@@ -77,6 +79,9 @@
             <field name="arch" type="xml">
                 <form string="Guard Patrolling" version="8.0">
                     <sheet>
+                        <!--<header>-->
+                            <!--<button type="action" name="%(action_form_missing_visits)d" string="Missing Visits" icon="gtk-execute"/>-->
+                        <!--</header>-->
                         <group string="Guard Patrolling">
                             <group>
                                 <field name="bank"/>
@@ -106,18 +111,18 @@
             <field name="name">view.guard.tree.tracking</field>
             <field name="model">mutual.guard.tracking</field>
             <field name="arch" type="xml">
-                <tree string="Guard Patrolling" version="8.0">
-                    <field name="bank_code"/>
-                    <field name="branch_code"/>
-                    <field name="address"/>
-                    <field name="city"/>
+                <tree string="Guard Patrolling" version="8.0" editable="top">
+                    <field name="bank_code" readonly="1"/>
+                    <field name="branch_code" readonly="1"/>
+                    <field name="address" readonly="1"/>
+                    <field name="city" readonly="1"/>
                     <field name="visit_time"/>
                     <field name="visit_time_two"/>
-                    <field name="visit_date"/>
+                    <!--<field name="visit_date"/>-->
                     <field name="remarks"/>
-                    <field name="force_code"/>
-                    <field name="device_no"/>
-                    <field name="card_no"/>
+                    <field name="force_code" readonly="1"/>
+                    <field name="device_no" readonly="1"/>
+                    <!--<field name="card_no"/>-->
                 </tree>
             </field>
         </record>

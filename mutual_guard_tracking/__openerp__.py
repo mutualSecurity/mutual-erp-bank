@@ -29,7 +29,7 @@
 'category': 'GT',
 'description': """Guard Tracking Module V8""",
 'depends':['base'],
-'data':['guard_tracking_view.xml',],
+'data':['wizard/wizard_missingvisits_view.xml','guard_tracking_view.xml'],
 'installable':True,
 'auto_install':False,
 'application':True,
