@@ -97,6 +97,7 @@
                                 <field name="visit_time"/>
                                 <field name="visit_time_two"/>
                                 <field name="visit_date"/>
+                                <field name="visit_date_two"/>
                                 <field name="remarks"/>
                             </group>
                         </group>
@@ -117,8 +118,9 @@
                     <field name="address" readonly="1"/>
                     <field name="city" readonly="1"/>
                     <field name="visit_time"/>
+                    <field name="visit_date" readonly="1"/>
                     <field name="visit_time_two"/>
-                    <field name="visit_date"/>
+                    <field name="visit_date_two" readonly="1"/>
                     <field name="remarks"/>
                     <field name="force_code" readonly="1"/>
                     <field name="device_no" readonly="1"/>
