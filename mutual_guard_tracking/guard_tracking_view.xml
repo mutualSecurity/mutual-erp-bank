@@ -145,5 +145,47 @@
         </record>
         <!-- ================================================== End Search view of Guard Patrolling ================================================ -->
 
+   <!-- ================================================== Begin sms Logs view of Guard Patrolling ================================================ -->
+         <record id="mutual_sms_logs" model="ir.actions.act_window">
+	        <field name="name">Sms Logs</field>
+            <field name="res_model">sms.logs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem name="SMS LOGS" action="mutual_sms_logs" id="menu_mutual_sms_logs" sequence="140" parent="guard_tracking_side_top_menu"/>
+
+          <!-- ================================================== Begin tree view of sms lOGS ================================================ -->
+        <record id="tree_sms_logs" model="ir.ui.view">
+            <field name="name">view.sms.logs</field>
+            <field name="model">sms.logs</field>
+            <field name="arch" type="xml">
+                <tree string="SMS Logs" version="8.0">
+                    <field name="card_id" readonly="1"/>
+                    <field name="device_id" readonly="1"/>
+                    <field name="date" readonly="1"/>
+                    <field name="time" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+            <!-- ================================================== End tree view of sms lOGS ================================================ -->
+
+           <!-- ================================================== Begin GRAPH view of sms lOGS ================================================ -->
+        <record id="graph_sms_logs" model="ir.ui.view">
+            <field name="name">view.sms.logs</field>
+            <field name="model">sms.logs</field>
+            <field name="arch" type="xml">
+                <graph string="SMS logs" version="8.0">
+                    <field name="card_id" readonly="1"/>
+                    <field name="device_id" readonly="1"/>
+                    <field name="date" readonly="1"/>
+                    <field name="time" readonly="1"/>
+                </graph>
+            </field>
+        </record>
+        <!-- ================================================== End GRAPH view of sms lOGS ================================================ -->
+
     </data>
 </openerp>

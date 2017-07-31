@@ -2,6 +2,16 @@ from openerp.osv import fields, osv
 from openerp import api
 
 
+class smsLogs(osv.osv):
+    _name = "sms.logs"
+    _columns = {
+        'device_id':fields.char('Device ID',store=True),
+        'card_id': fields.char('Card ID',store=True),
+        'date': fields.date('Date',store=True),
+        'time': fields.char('Time',store=True),
+    }
+
+
 class mutual_guard_tracking(osv.osv):
     _name = "mutual.guard.tracking"
     _columns = {
