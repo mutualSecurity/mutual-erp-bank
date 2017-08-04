@@ -82,9 +82,11 @@
                       <field name="payment_received"/>
                   </field>
                   <field name="partner_id" position="after">
+                      <field name="bank_name"/>
                       <field name="bank_cs_invoice" />
                       <field name="bank_code_invoice"/>
                       <field name="branch_code_invoice"/>
+                      <field name="invoice_date"/>
                   </field>
                   <xpath expr="//tree[@string='Invoice']" position="attributes">
                     <attribute name="colors">green:payment_received==True</attribute>
@@ -107,7 +109,10 @@
                    <xpath expr="//field[@name='residual']" position="attributes">
                       <attribute name="invisible">1</attribute>
                   </xpath>
-                   <xpath expr="//field[@name='date_due']" position="attributes">
+                  <xpath expr="//field[@name='date_due']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='date_invoice']" position="attributes">
                       <attribute name="invisible">1</attribute>
                   </xpath>
                   <xpath expr="//field[@name='user_id']" position="after">
@@ -134,6 +139,9 @@
                         <filter name="courier" string="Not Couriered" domain="[('courier','=',False)]"/>
                         <filter name="payment_received" string="Payment Received" domain="[('payment_received','=',True)]"/>
                         <filter name="payment_received" string="Payment Not Received" domain="[('payment_received','=',False)]"/>
+                    </group>
+                    <group string="Head Office">
+                        <filter name="bank_cs_invoice" string="Main Branch" domain="[('bank_cs_invoice','=',False)]"/>
                     </group>
                 </search>
             </field>

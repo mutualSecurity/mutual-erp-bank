@@ -20,6 +20,9 @@ class invoice_csnumber(osv.osv):
         'sales_tax_no': fields.char('STN', store=True,default="17-00-3764-757-19",readonly=True),
         'courier': fields.boolean('Couriered', store=True),
         'payment_received': fields.boolean('Payment Received', store=True),
+        'bank_name': fields.related('partner_id', 'name', type='char',string='Name',
+                                          readonly=True),
+
         'bank_cs_invoice': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number',readonly=True),
         'bank_code_invoice': fields.related('partner_id','bank_code',type='char', size=12,string='Bank code',readonly=True),
         'branch_code_invoice': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch code',readonly=True),

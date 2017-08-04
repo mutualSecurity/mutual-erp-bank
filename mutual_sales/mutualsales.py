@@ -7,6 +7,7 @@ class mutual_sales(osv.osv):
     _inherit = "res.partner"
     _name = "res.partner"
     _columns = {
+        'is_employee': fields.boolean('Is a Employee?', store=True),
         'is_rider': fields.boolean('Is a Rider?',help="Check if the contact is a company, otherwise it is a person"),
         'is_technician': fields.boolean('Is a Technician?',help="Check if the contact is a company, otherwise it is a person"),
         'customer_branch_det': fields.one2many('customer.branch.details','customer_branch_details','Branch Details'),

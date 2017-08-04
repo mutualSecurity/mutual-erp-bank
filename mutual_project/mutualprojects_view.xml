@@ -196,7 +196,7 @@
                     <field name="compute_total_time" readonly="1"/>
                     <field name="reason"/>
                     <field name="systemstatus"/>
-                    <!--<field name="bas" attrs="{'required': [('compute_total_time', '!=', False)]}"/>-->
+                    <field name="bas" attrs="{'required': [('compute_total_time', '!=', False)]}"/>
                     <!--<field name="sim_status" attrs="{'required': [('compute_total_time', '!=', False)]}"/>-->
                     <!--<field name="pending" attrs="{'required': [('compute_total_time', '!=', False)]}"/>-->
                     <!--<field name="first_signal"/>-->

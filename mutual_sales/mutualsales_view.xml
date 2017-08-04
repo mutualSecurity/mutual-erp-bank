@@ -52,6 +52,7 @@
                     <field string="Uplink Date" name="uplink_date" placeholder="Uplink Date"/>
                 </field>
                 <field name="title" position="after">
+                    <field name="is_employee" class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
                     <field name="is_technician"  class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
                     <field name="is_rider"  class="oe_inline" attrs="{'invisible': [('customer','=',True)]}"/>
                     <field name="customer_visit"/>
@@ -83,9 +84,9 @@
                      </field>
                 </group>
                 </xpath>
-                <xpath expr="//field[@name='parent_root_id']" position="attributes">
-                    <attribute name="domain">['|',('is_company','=',True),('is_branch','=',True)]</attribute>
-                </xpath>
+                <!--<xpath expr="//field[@name='parent_root_id']" position="attributes">-->
+                    <!--<attribute name="domain">[('is_company','=',True)]</attribute>-->
+                <!--</xpath>-->
                 <xpath expr="//form/sheet/group" position="after" >
                     <br/>
                     <separator string="Branch Details"/>
@@ -137,6 +138,9 @@
                          <filter string="Active" domain="[('active','=',True)]"/>
                          <filter string="Inactive" domain="[('active','=',False)]"/>
                          <filter string="Main Branch" domain="['&amp;',('is_company','=',True),('is_branch','=',False)]"/>
+                     </group>
+                     <group string="Employee">
+                         <filter name='is_employee' string="Employee" domain="[('is_employee','=',True)]"/>
                      </group>
                 </search>
             </field>
