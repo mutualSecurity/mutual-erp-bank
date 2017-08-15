@@ -171,6 +171,8 @@
                     <field name="device_id" readonly="1"/>
                     <field name="date" readonly="1"/>
                     <field name="time" readonly="1"/>
+                    <field name="sys_date" readonly="1"/>
+
                 </tree>
             </field>
         </record>

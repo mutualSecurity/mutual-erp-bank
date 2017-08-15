@@ -9,6 +9,7 @@ class smsLogs(osv.osv):
         'card_id': fields.char('Card ID',store=True),
         'date': fields.date('Date',store=True),
         'time': fields.char('Time',store=True),
+        'sys_date': fields.char('System Time',store=True),
     }
 
 
