@@ -28,7 +28,10 @@ Dashboard / Reports for Project Management will include:
 * Tasks Analysis
 * Cumulative Flow
     """,
-    'data': ['mutualprojects_view.xml','views/project.xml'],
+    'data': ['wizard/wizard_customer_inventory_view.xml',
+             'customer_inventory_report.xml',
+             'views/report_customer_inventory.xml',
+             'mutualprojects_view.xml',],
     'installable': True,
     'auto_install': False,
     'application': True,

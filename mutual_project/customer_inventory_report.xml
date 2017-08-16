@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_customer_inventory"
+            model="wiz.customer.inventory"
+            string="Stock Report"
+            report_type="qweb-pdf"
+            name="mutual_project.report_customer_inventory"
+            file="mutual_project.report_customer_inventory"
+            menu="False"
+        />
+    </data>
+</openerp>

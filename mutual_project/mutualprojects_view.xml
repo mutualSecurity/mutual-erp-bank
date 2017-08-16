@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <!--========================================================= Parent MenuItem for Customer Inventory Report Begins ================================================-->
+        <menuitem
+            name="Reports"
+            id="report_menu_old_time_open_project_attachment_view"
+            sequence="2"
+            parent="base.menu_main_pm" />
+        <!--========================================================= Parent MenuItem for Customer Inventory Report End ================================================-->
+
+        <menuitem
+            name="Customer Inventory"
+            action="action_customer_form_wiz_inventory"
+            id="menu_customer_inventory_project_attachment_view"
+            sequence="1"
+            parent="report_menu_old_time_open_project_attachment_view">
+        </menuitem>
+
         <!--========================================================= Old Time Begins ================================================-->
         <record id="old_time_open_project_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Old TimeInOut</field>
@@ -948,5 +964,6 @@
                 </search>
              </field>
          </record>
+
     </data>
 </openerp>
