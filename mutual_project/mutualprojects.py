@@ -274,6 +274,32 @@ class mutual_issues(osv.osv):
       'pending': fields.boolean('Pending',store=True, read=['project.group_project_manager'], write=['project.group_project_manager'])
   }
 
+  def write(self, cr, uid, ids, vals, context=None):
+      # stage change: update date_last_stage_update
+      obj = self.browse(cr, uid, ids[0], context=context)
+      if 'stage_id' in vals:
+          if obj.stage_id['name']=='Online Resolved' or obj.stage_id['name']=='Resolved':
+              raise osv.except_osv('Alert....', 'You are not able to move this card')
+          else:
+              vals.update(self.onchange_stage_id(cr, uid, ids, vals.get('stage_id'), context=context)['value'])
+              vals['date_last_stage_update'] = fields.datetime.now()
+              if 'kanban_state' not in vals:
+                  vals['kanban_state'] = 'normal'
+      # user_id change: update date_open
+      if vals.get('user_id') and 'date_open' not in vals:
+          vals['date_open'] = fields.datetime.now()
+
+      return super(mutual_issues, self).write(cr, uid, ids, vals, context)
+
+  @api.model
+  def create(self, vals):
+      self.env.cr.execute("SELECT project_issue.name,project_issue.partner_id,project_task_type.name FROM project_issue INNER JOIN project_task_type ON project_issue.stage_id = project_task_type.id WHERE project_task_type.name = 'Resolved' or project_task_type.name = 'Online Resolved' and project_issue.check = 'Issue' and project_issue.partner_id="+str(vals['partner_id']))
+      list_of_customers = self.env.cr.dictfetchall()
+      if len(list_of_customers) == 0:
+          return super(mutual_issues, self).create(vals)
+      else:
+          raise osv.except_osv('Alert..................', 'Complaint of this branch has been logged already')
+
   @api.one
   @api.depends('name')
   def type(self):
@@ -305,7 +331,6 @@ class mutual_issues(osv.osv):
   @api.one
   @api.depends('tech_name.technician_name')
   def assign_tech(self):
-      print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Technician Name"
       technician = ''
       for technicians in self.tech_name:
           technician += str(technicians.technician_name.name) + ' '
