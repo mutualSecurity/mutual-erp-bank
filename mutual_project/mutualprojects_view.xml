@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+         <!--========================================================= Parent MenuItem for Basic Package Begins ================================================-->
+        <menuitem
+            name="Basic Packages"
+            id="basic_packages_menu_old_time_open_project_attachment_view"
+            sequence="3"
+            parent="base.menu_main_pm" />
+        <!--========================================================= Parent MenuItem for Basic Package End ================================================-->
+
+         <!--========================================================= Child Menu of Parent MenuItem for Basic Package Begins ================================================-->
+        <record id="basic_package_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Basic Packages</field>
+            <field name="res_model">basic.package</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Basic Package"
+            action="basic_package_open_project_attachment_view"
+            id="menu_basic_package_open_project_attachment_view"
+            sequence="1"
+            parent="basic_packages_menu_old_time_open_project_attachment_view">
+        </menuitem>
+
+         <record id="basic_package_form_view" model="ir.ui.view">
+            <field name="name">basic_package.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">basic.package</field>
+            <field name="arch" type="xml">
+                <form string="Basic Package">
+                    <sheet>
+                        <group string="Basic Package">
+                            <group>
+                                <field name="bank" options="{'limit': 0, 'create': false, 'create_edit': false}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="product_lines" colspan="4" nolabel="1">
+                                    <tree editable="top" string="Items">
+                                        <field name="products" required="True"/>
+                                        <field name="quantity" required="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+         </record>
+        <record id="basic_package_tree_view" model="ir.ui.view">
+            <field name="name">basic_package.tree.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">basic.package</field>
+            <field name="arch" type="xml">
+                <tree string="Basic Package">
+                    <field name="bank"/>
+                </tree>
+            </field>
+         </record>
+
         <!--========================================================= Parent MenuItem for Customer Inventory Report Begins ================================================-->
         <menuitem
             name="Reports"

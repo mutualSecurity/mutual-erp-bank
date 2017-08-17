@@ -363,7 +363,6 @@ class mutual_issues(osv.osv):
           print 'Kindly enter mobile number of technician'
           raise osv.except_osv('Empty Field','Kindly enter mobile number of technician')
 
-
   @api.multi
   def details(self):
       if (self.partner_id.is_company == False):
@@ -378,9 +377,6 @@ class mutual_issues(osv.osv):
                      self.bank_code_issue+"\n"+self.cs_number_issue+"\n"+"BC"+self.branch_code_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue
       else:
           raise osv.except_osv('Information Incomplete', 'You must have full information before sending an SMS')
-
-
-
 
   @api.one
   @api.depends('date_start','date_end')
@@ -414,6 +410,7 @@ class mutual_issues(osv.osv):
                       'message': "It was very bad indeed",
                   }
               }
+
 
 class tech_activities_issues(osv.osv):
     _name = "tech.activities.issues"
@@ -496,8 +493,6 @@ class tech_activities_issues(osv.osv):
             raise osv.except_osv('Error....', 'You do not have rights to move this card into this bucket')
 
 
-
-
 class low_messages(osv.osv):
     _name = "low.messages"
     _columns = {
@@ -573,6 +568,7 @@ class tech_activities_tasks(osv.osv):
             diff = timeOut - timeIn
             self.compute_total_time = diff
 
+
 class messages(osv.osv):
     _name = "complaint.messages"
     _columns = {
@@ -601,12 +597,6 @@ class courtesy_remarks(osv.osv):
         'remarks': fields.char('Remarks',store=True,required=True),
     }
 
-    # @api.depends('card_no')
-    # def fetch_customer_details(self):
-    #     if self.card_no:
-    #         list = self.env['res.partner'].search([['rf_id', '=', self.card_no],])
-    #         self.customer = list
-
 
 class oldTimeInOut(osv.osv):
     _name = "old.time"
@@ -622,6 +612,24 @@ class oldTimeInOut(osv.osv):
         'branch': fields.char('Branch', store=True),
     }
 
+
+class basicPackage(osv.osv):
+    _name = "basic.package"
+    _rec_name = 'bank'
+    _columns = {
+        'bank': fields.many2one('res.partner','Bank', store=True ,domain=[('is_company','=',True),('is_branch','=',False)]),
+        'product_lines': fields.one2many('basic.package.items', 'product_line','Items', store=True)
+    }
+
+
+class basicPackageItems(osv.osv):
+    _name = "basic.package.items"
+    _rec_name = 'products'
+    _columns = {
+        'product_line': fields.many2one('product.template','Product Line', store=True),
+        'products': fields.many2one('product.template', 'Products', store=True),
+        'quantity': fields.float('Quantity',store=True),
+    }
 
 
 
