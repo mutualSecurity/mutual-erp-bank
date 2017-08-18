@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <!--========================================================= Mutual requisition menu Begins ================================================-->
+        <menuitem
+            name="Requisition"
+            id="menu_mutual_requistions"
+            sequence="3"
+            parent="base.menu_main_pm"/>
+
+        <!--action menu has to be created before a menu item is added in order for it to initilized-->
+        <record id="action_requisition_slip_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Requisition Slip</field>
+            <field name="res_model">mutual.requisition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Requisition Slip"
+            action="action_requisition_slip_open_project_attachment_view"
+            id="menu_requisition_slip_open_project_attachment_view"
+            sequence="1"
+            parent="menu_mutual_requistions">
+        </menuitem>
+<!--========================================================= Mutual requisition menu end ================================================-->
+        <!--========================================================= Mutual requisition form start ================================================-->
+ <record id="view_form_mutual_req" model="ir.ui.view">
+     <field name="name">view.form.mutual.req</field>
+     <field name="model">mutual.requisition</field>
+     <field name="arch" type="xml">
+         <form string="Incharge Store" version="8.0">
+             <sheet>
+                 <h1>Requisition Slip</h1>
+                 <group>
+                     <field name="req_type" />
+                 </group>
+                 <group>
+                     <field name="id" string="Receipt No" attrs="{'invisible': [('req_type','=','none')]}"/>
+                     <field name="title" attrs="{'invisible': [('req_type','=','none')]}" />
+                 </group>
+                 <group>
+                     <field name="date" attrs="{'invisible': [('req_type','=','none')]}"/>
+                 </group>
+                 <notebook>
+                     <page string="Products" placeholder="add a product" attrs="{'invisible': [('req_type','=','none')]}">
+                         <field name="products" attrs="{'invisible': [('req_type','=','none')]}" >
+                             <tree editable="top" string="Products">
+                                 <field name="product_name" />
+                                 <field name="customer" />
+                                 <field name="ref_to" />
+                                 <field name="quantity" />
+                             </tree>
+                         </field>
+                     </page>
+                 </notebook>
+             </sheet>
+
+         </form>
+     </field>
+ </record>
+        <!--========================================================= Mutual requisition form end ================================================-->
+        <!--========================================================= Mutual requisition tree start ================================================-->
+       <record id="view_tree_mutual_req" model="ir.ui.view">
+           <field name="name">view.tree.mutual.req</field>
+            <field name="model">mutual.requisition</field>
+            <field name="arch" type="xml">
+               <tree string="Requisition Slips List" version="8.0">
+                   <field name="id" string="Receipt No."/>
+                   <field name="req_type"/>
+                   <field name="title"/>
+                   <field name="date"/>
+
+               </tree>
+            </field>
+
+
+       </record>
+        <!--========================================================= Mutual requisition tree end ================================================-->
+
+    </data>
+</openerp>
