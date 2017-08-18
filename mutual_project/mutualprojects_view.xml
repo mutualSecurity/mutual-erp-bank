@@ -138,6 +138,7 @@
                     <field name="monitoring_address"/>
                     <field name="city"/>
                     <field name="date"/>
+                    <field name="state"/>
                 </tree>
             </field>
          </record>
