@@ -3,7 +3,7 @@
     <data>
          <!--========================================================= Parent MenuItem for Basic Package Begins ================================================-->
         <menuitem
-            name="Basic Packages"
+            name="Other Information"
             id="basic_packages_menu_old_time_open_project_attachment_view"
             sequence="3"
             parent="base.menu_main_pm" />
@@ -64,6 +64,101 @@
                 </tree>
             </field>
          </record>
+
+         <!--========================================================= Child Menu of Parent MenuItem for Courier Sheet Begins ================================================-->
+        <record id="courier_sheet_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Courier Sheet</field>
+            <field name="res_model">courier.sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Courier Sheet"
+            action="courier_sheet_open_project_attachment_view"
+            id="menu_courier_sheet_open_project_attachment_view"
+            sequence="2"
+            parent="basic_packages_menu_old_time_open_project_attachment_view">
+        </menuitem>
+
+         <record id="courier_sheet_form_view" model="ir.ui.view">
+            <field name="name">courier_sheet.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">courier.sheet</field>
+            <field name="arch" type="xml">
+                <form string="Courier Sheet">
+                    <header>
+                        <button name="validate" type="object" string="Validate" class="oe_highlight" />
+                        <button name="cancel" type="object" string="Cancel" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" statusbar_colors='{"draft":"blue","confirmed":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group string="Courier Sheet">
+                            <group>
+                                <field name="partner_id" options="{'limit': 0, 'create': false, 'create_edit': false}" />
+                                <field name="cs_number"/>
+                                <field name="branch_code"/>
+                                <field name="bank_code"/>
+                                <field name="monitoring_address"/>
+                                <field name="city"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="complaint_reference"/>
+                                <field name="tcs_receipt"/>
+                                <field name="remarks"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="product_lines" colspan="4" nolabel="1">
+                                    <tree editable="top" string="Items">
+                                        <field name="products" required="True"/>
+                                        <field name="quantity" required="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+         </record>
+        <record id="courier_sheet_tree_view" model="ir.ui.view">
+            <field name="name">courier_sheet.tree.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">courier.sheet</field>
+            <field name="arch" type="xml">
+                <tree string="Courier Sheet">
+                    <field name="bank_code"/>
+                    <field name="cs_number"/>
+                    <field name="branch_code"/>
+                    <field name="monitoring_address"/>
+                    <field name="city"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+         </record>
+         <record id="courier_sheet_search_view" model="ir.ui.view">
+            <field name="name">courier_sheet.search.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">courier.sheet</field>
+            <field name="arch" type="xml">
+                <search string="Courier Sheet">
+                    <field name="cs_number"/>
+                    <field name="branch_code"/>
+                    <field name="bank_code"/>
+                    <field name="city"/>
+                    <field name="date"/>
+                    <field name="complaint_reference"/>
+                    <field name="tcs_receipt"/>
+                </search>
+            </field>
+         </record>
+ <!--========================================================= Courier Sheet ENds  ================================================-->
+
 
         <!--========================================================= Parent MenuItem for Customer Inventory Report Begins ================================================-->
         <menuitem

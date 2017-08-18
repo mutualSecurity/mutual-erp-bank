@@ -293,12 +293,13 @@ class mutual_issues(osv.osv):
 
   @api.model
   def create(self, vals):
-      self.env.cr.execute("SELECT project_issue.name,project_issue.partner_id,project_task_type.name FROM project_issue INNER JOIN project_task_type ON project_issue.stage_id = project_task_type.id WHERE project_task_type.name = 'Resolved' or project_task_type.name = 'Online Resolved' and project_issue.check = 'Issue' and project_issue.partner_id="+str(vals['partner_id']))
+      self.env.cr.execute("SELECT project_issue.name,project_issue.partner_id,project_task_type.name FROM project_issue INNER JOIN project_task_type ON project_issue.stage_id = project_task_type.id WHERE (project_task_type.name != 'Resolved' and project_task_type.name != 'Online Resolved') and project_issue.check = 'Issue' and project_issue.partner_id="+str(vals['partner_id']))
       list_of_customers = self.env.cr.dictfetchall()
-      if len(list_of_customers) == 0:
-          return super(mutual_issues, self).create(vals)
-      else:
+      if len(list_of_customers) > 0:
           raise osv.except_osv('Alert..................', 'Complaint of this branch has been logged already')
+      else:
+          return super(mutual_issues, self).create(vals)
+
 
   @api.one
   @api.depends('name')
@@ -618,7 +619,7 @@ class basicPackage(osv.osv):
     _rec_name = 'bank'
     _columns = {
         'bank': fields.many2one('res.partner','Bank', store=True ,domain=[('is_company','=',True),('is_branch','=',False)]),
-        'product_lines': fields.one2many('basic.package.items', 'product_line','Items', store=True)
+        'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True)
     }
 
 
@@ -630,6 +631,37 @@ class basicPackageItems(osv.osv):
         'products': fields.many2one('product.template', 'Products', store=True),
         'quantity': fields.float('Quantity',store=True),
     }
+
+
+class couriersheet(osv.osv):
+    _name = "courier.sheet"
+    _rec_name = "partner_id"
+    _columns = {
+        'partner_id': fields.many2one('res.partner', 'Customer', required=True),
+        'cs_number': fields.related('partner_id', 'cs_number', type='char',string='CS Number',readonly=True),
+        'city': fields.related('partner_id', 'city', type='char', string='City', readonly=True),
+        'branch_code': fields.related('partner_id', 'branch_code', type='char', string='Branch Code',readonly=True),
+        'bank_code': fields.related('partner_id', 'bank_code', type='char',string='Bank Code', readonly=True),
+        'monitoring_address': fields.related('partner_id', 'street', type='char', string='Bank address', readonly=True),
+        'date': fields.date('Date', store=True, required=True),
+        'complaint_reference': fields.integer('Complaint/Task Reference', store=True, required=True),
+        'tcs_receipt': fields.integer('TCS Receipt No.', store=True),
+        'remarks': fields.char('Remarks', store=True),
+        'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True),
+        'state': fields.selection([('draft','Draft'),('confirmed','Confirmed')],'State',store=True,default='draft',track_visibility='onchange'),
+    }
+
+    _defaults = {
+        'date': lambda *a: datetime.now().strftime('%Y-%m-%d'),
+    }
+
+    @api.multi
+    def validate(self):
+        return self.write({'state': 'confirmed'})
+
+    @api.multi
+    def cancel(self):
+        return self.write({'state': 'draft'})
 
 
 
