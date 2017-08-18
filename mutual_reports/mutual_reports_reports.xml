@@ -19,6 +19,15 @@
                 attachment_use="False"
                 file="mutual_reports.report_issue_pdf"
         />
+        <report
+                id="custom_custom_report_mutual_req_pdf"
+                model="mutual.requisition"
+                string="print slip"
+                report_type="qweb-pdf"
+                name="mutual_reports.custom_report_mutual_req_pdf"
+                attachment_use="False"
+                file="mutual_reports.custom_report_mutual_req_pdf"
+        />
 
          <report
                 id="custom_report_history_pdf"
