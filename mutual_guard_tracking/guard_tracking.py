@@ -7,7 +7,7 @@ class smsLogs(osv.osv):
     _columns = {
         'device_id':fields.char('Device ID',store=True),
         'card_id': fields.char('Card ID',store=True),
-        'date': fields.date('Date',store=True),
+        'date': fields.char('Date',store=True),
         'time': fields.char('Time',store=True),
         'sys_date': fields.char('System Time',store=True),
     }

@@ -365,6 +365,23 @@ class mutual_issues(osv.osv):
           raise osv.except_osv('Empty Field','Kindly enter mobile number of technician')
 
   @api.multi
+  def create_sms(self):
+
+      list_of_sms = []
+      rec_dict = {'sms': self.sms, 'contact': self.techContact,'status':'sending','name':self.technician_name.name}
+      rec2_dict={'sms':self.sms , 'contact':self.env.user.mobile ,'status':'sending','name':self.env.user.name }
+      list_of_sms.append(dict(rec_dict))
+      list_of_sms.append(dict(rec2_dict))
+      for l in list_of_sms:
+          print l
+          self.env['complaint.messages'].create({
+              'message': l.get('sms'),
+              'receiver_contact': l.get('contact'),
+              'receiver_name':l.get('name'),
+              'status':l.get('status'),
+          })
+
+  @api.multi
   def details(self):
       if (self.partner_id.is_company == False):
           self.sms = str(self.id)+"\n"+self.name+"\n"+self.cs_number_issue+"\n"+self.monitoring_address_issue+"\n"+self.city_issue
