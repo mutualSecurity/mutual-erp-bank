@@ -23,6 +23,7 @@ class products(osv.osv):
         'product_tb': fields.many2one('product.template','Products',store=True,required=True),
         'product_name': fields.many2one('product.template', 'Name', store=True,required=True),
         'quantity':fields.float('Quantity',store=True,required=True),
-        'customer':fields.many2one('res.partner','Customer',store=True,required=True),
+        'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer')], 'Type', store=True),
+        'customer':fields.many2one('res.partner','Customer',store=True),
         'ref_to':fields.char('Reference',store=True)
     }

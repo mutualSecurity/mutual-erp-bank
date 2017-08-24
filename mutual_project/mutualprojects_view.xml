@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+         <!--========================================================= Child Menu of Parent MenuItem for Basic Package Begins ================================================-->
+        <record id="product_items_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Basic Packages</field>
+            <field name="res_model">product.items</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Product Items"
+            action="product_items_open_project_attachment_view"
+            id="menu_product_items_open_project_attachment_view"
+            sequence="3"
+            parent="basic_packages_menu_old_time_open_project_attachment_view">
+        </menuitem>
+         <record id="product_items_form_view" model="ir.ui.view">
+            <field name="name">product_items.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">product.items</field>
+            <field name="arch" type="xml">
+                <form string="Product Items">
+                    <sheet>
+                        <group string="Product Items">
+                            <group>
+                                <field name="name" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="product_lines" colspan="4" nolabel="1">
+                                    <tree editable="top" string="Items">
+                                        <field name="products" required="True"/>
+                                        <field name="quantity" required="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+         </record>
          <!--========================================================= Parent MenuItem for Basic Package Begins ================================================-->
         <menuitem
             name="Other Information"
@@ -117,7 +161,7 @@
                             <page string="Products">
                                 <field name="product_lines" colspan="4" nolabel="1">
                                     <tree editable="top" string="Items">
-                                        <field name="products" required="True"/>
+                                        <field name="custom_products" required="True"/>
                                         <field name="quantity" required="True"/>
                                     </tree>
                                 </field>

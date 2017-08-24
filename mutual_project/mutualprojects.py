@@ -648,6 +648,7 @@ class basicPackageItems(osv.osv):
     _columns = {
         'product_line': fields.many2one('product.template','Product Line', store=True),
         'products': fields.many2one('product.template', 'Products', store=True),
+        'custom_products': fields.many2one('product.items', 'Products', store=True),
         'quantity': fields.float('Quantity',store=True),
     }
 
@@ -698,10 +699,19 @@ class couriersheet(osv.osv):
 
 class productitems(osv.osv):
     _name = "product.items"
-    _rec_name = "product"
+    _rec_name = "name"
     _columns = {
         'name': fields.char('Name', store=True, size=30),
-        'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True),
+        'product_lines': fields.one2many('product.items.line', 'name', 'Items', store=True),
+    }
+
+
+class productitemsline(osv.osv):
+    _name = "product.items.line"
+    _columns = {
+        'name': fields.many2one('product.items', 'Product', type='char', store=True),
+        'products': fields.many2one('product.template', 'Products', store=True),
+        'quantity': fields.float('Quantity', store=True),
     }
 
 
