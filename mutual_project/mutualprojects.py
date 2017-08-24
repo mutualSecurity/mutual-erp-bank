@@ -691,7 +691,7 @@ class couriersheet(osv.osv):
     def auto_select(self, context=None):
         if self.complaint_reference:
             self.env.cr.execute(
-                'select id from res_partner where id = any(select partner_id from project_issue where id =' + self.complaint_reference + ')')
+                'select id from res_partner where id = any(select partner_id from project_issue where id =' + str(self.complaint_reference) + ')')
             customer = self.env.cr.dictfetchall()
             list = self.env['res.partner'].search([['id', '=', customer[0]['id']], ])
             self.partner_id = list
