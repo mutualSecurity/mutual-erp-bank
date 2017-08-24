@@ -85,18 +85,20 @@
         <!--========================================================= Mutual requisition tree end ================================================-->
 
         <!--========================================================= Mutual requisition search start ================================================-->
-       <record id="view_search_mutual_req" model="ir.ui.view">
-           <field name="name">view.search.mutual.req</field>
+        <record id="requisition_search_view" model="ir.ui.view">
+            <field name="name">requisition.search.view</field>
+            <field name="view_type">tree</field>
             <field name="model">mutual.requisition</field>
             <field name="arch" type="xml">
-               <tree string="Requisition Slips Search" version="8.0">
-                   <field name="id"/>
+                <search string="Requisition">
+                    <field name="id"/>
                    <field name="req_type"/>
                    <field name="title"/>
                    <field name="date"/>
-               </tree>
+                </search>
             </field>
-       </record>
+         </record>
+
         <!--========================================================= Mutual requisition search end ================================================-->
 
     </data>

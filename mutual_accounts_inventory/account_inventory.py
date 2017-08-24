@@ -7,6 +7,7 @@ from openerp import api
 class AccountInventory(osv.osv):
     _name = 'inventory.logs'
     _columns = {
+        'inv_id': fields.integer('Invoice ID',store=True),
         'item_code': fields.integer('Item Code', store=True),
         'item_name': fields.char('Item Name',store=True),
         'sale_return': fields.float('Sale Return',store=True),
