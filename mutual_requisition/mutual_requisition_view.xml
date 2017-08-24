@@ -33,6 +33,11 @@
      <field name="model">mutual.requisition</field>
      <field name="arch" type="xml">
          <form string="Incharge Store" version="8.0">
+              <header>
+                        <button name="validate" type="object" string="Validate" class="oe_highlight" />
+                        <button name="cancel" type="object" string="Cancel" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="pending,confirmed" statusbar_colors='{"pending":"blue","confirmed":"blue"}'/>
+              </header>
              <sheet>
                  <h1>Requisition Slip</h1>
                  <group>
