@@ -340,6 +340,8 @@ class mutual_issues(osv.osv):
   @api.depends('stage_id','tech')
   def restrictAssignedtoTech(self):
       self.restrict = self.stage_id.name
+      if self.tech_name.reason == False or self.tech_name.compute_total_time == False:
+          raise osv.except_osv('You cannot resolved this complainy', 'Kindly mention status and T/T')
       if not self.tech and self.stage_id.name == "Assigned to Technician":
           raise osv.except_osv('Must assign technician', 'You cannot move this card into this bucket')
       else:
@@ -654,6 +656,9 @@ class couriersheet(osv.osv):
     _name = "courier.sheet"
     _rec_name = "partner_id"
     _columns = {
+        'technician_name': fields.many2one('hr.employee', 'Technician Name', required=True, select=1,
+                                           track_visibility='onchange', domain="[('department_id','=','Technician')]",
+                                           defaults=''),
         'partner_id': fields.many2one('res.partner', 'Customer', required=True),
         'cs_number': fields.related('partner_id', 'cs_number', type='char',string='CS Number',readonly=True),
         'city': fields.related('partner_id', 'city', type='char', string='City', readonly=True),
@@ -661,9 +666,9 @@ class couriersheet(osv.osv):
         'bank_code': fields.related('partner_id', 'bank_code', type='char',string='Bank Code', readonly=True),
         'monitoring_address': fields.related('partner_id', 'street', type='char', string='Bank address', readonly=True),
         'date': fields.date('Date', store=True, required=True),
-        'complaint_reference': fields.integer('Complaint/Task Reference', store=True, required=True),
-        'tcs_receipt': fields.integer('TCS Receipt No.', store=True),
-        'remarks': fields.char('Remarks', store=True),
+        'complaint_reference': fields.integer('Complaint/Task Reference', store=True),
+        'tcs_receipt': fields.char('TCS Receipt No.', store=True, size=30),
+        'remarks': fields.text('Remarks', store=True),
         'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True),
         'state': fields.selection([('draft','Draft'),('confirmed','Confirmed')],'State',store=True,default='draft',track_visibility='onchange'),
     }
@@ -679,6 +684,25 @@ class couriersheet(osv.osv):
     @api.multi
     def cancel(self):
         return self.write({'state': 'draft'})
+
+    @api.one
+    @api.onchange('complaint_reference')
+    def auto_select(self, context=None):
+        if self.complaint_reference:
+            self.env.cr.execute(
+                'select id from res_partner where id = any(select partner_id from project_issue where id =' + self.complaint_reference + ')')
+            customer = self.env.cr.dictfetchall()
+            list = self.env['res.partner'].search([['id', '=', customer[0]['id']], ])
+            self.partner_id = list
+
+
+class productitems(osv.osv):
+    _name = "product.items"
+    _rec_name = "product"
+    _columns = {
+        'name': fields.char('Name', store=True, size=30),
+        'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True),
+    }
 
 
 

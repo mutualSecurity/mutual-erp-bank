@@ -73,7 +73,6 @@
                    <field name="req_type"/>
                    <field name="title"/>
                    <field name="date"/>
-
                </tree>
             </field>
 

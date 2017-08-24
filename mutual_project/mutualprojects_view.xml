@@ -104,6 +104,7 @@
                                 <field name="bank_code"/>
                                 <field name="monitoring_address"/>
                                 <field name="city"/>
+                                <field name="technician_name"/>
                             </group>
                             <group>
                                 <field name="date"/>
@@ -139,6 +140,7 @@
                     <field name="city"/>
                     <field name="date"/>
                     <field name="state"/>
+                    <field name="remarks"/>
                 </tree>
             </field>
          </record>

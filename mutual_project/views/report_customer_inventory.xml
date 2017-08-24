@@ -7,6 +7,30 @@
             <t t-call="report.internal_layout">
                 <div class="page">
                     <h2>Customer Stock Report</h2><br/>
+                     <div style="font-size:12px;width:550px;display:inline-block;">
+                         <div style="border:2px solid grey; padding:10px;border-radius:10px;">
+                             <strong style="font-size:18px">Customer's Information:</strong><br/>
+                             <span t-field="doc.partner_id.name"/><br/>
+                             <span t-if="doc.partner_id.bank_code">
+                                 <span t-field="doc.partner_id.bank_code"/><br/>
+                             </span>
+                             <span t-if="doc.partner_id.branch_code">
+                                 <span t-field="doc.partner_id.branch_code"/><br/>
+                             </span>
+                             <span t-if="doc.partner_id.cs_number">
+                                 <span t-field="doc.partner_id.cs_number"/><br/>
+                             </span>
+                             <span t-if="doc.partner_id.street">
+                                 <span t-field="doc.partner_id.street"/><br/>
+                             </span>
+                             <span t-if="doc.partner_id.street2">
+                                 <span t-field="doc.partner_id.street2"/><br/>
+                             </span>
+                             <span t-if="doc.partner_id.city">
+                                 <span t-field="doc.partner_id.city"/><br/>
+                             </span>
+                         </div>
+                     </div>
                      <table class="table table-condensed" style="font-size:14px">
                          <thead>
                              <tr>
