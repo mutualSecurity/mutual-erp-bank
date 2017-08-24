@@ -7,8 +7,7 @@ from datetime import date,time
 class mutual_requisition(osv.osv):
     _name = "mutual.requisition"
     _columns = {
-        'state': fields.selection([('pending', 'Pending'), ('confirmed', 'Confirmed')], 'State', store=True,
-                                  default='draft', track_visibility='onchange'),
+        'state': fields.selection([('draft', 'Draft'), ('confirmed', 'Confirmed')], 'State', store=True, default='draft'),
         'title': fields.char('Title',store=True),
         'date': fields.date('Date',store=True),
         # 'receipt_no': fields.char('Reciept No',store=True),
@@ -25,7 +24,7 @@ class mutual_requisition(osv.osv):
 
     @api.multi
     def cancel(self):
-        return self.write({'state': 'pending'})
+        return self.write({'state': 'draft'})
 
 
 class products(osv.osv):

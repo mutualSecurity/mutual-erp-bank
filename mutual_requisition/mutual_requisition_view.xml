@@ -36,7 +36,7 @@
               <header>
                         <button name="validate" type="object" string="Validate" class="oe_highlight" />
                         <button name="cancel" type="object" string="Cancel" class="oe_highlight" />
-                        <field name="state" widget="statusbar" statusbar_visible="pending,confirmed" statusbar_colors='{"pending":"blue","confirmed":"blue"}'/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" statusbar_colors='{"draft":"blue","confirmed":"blue"}'/>
               </header>
              <sheet>
                  <h1>Requisition Slip</h1>
