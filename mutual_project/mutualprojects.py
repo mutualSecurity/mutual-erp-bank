@@ -682,8 +682,8 @@ class couriersheet(osv.osv):
         'complaint_reference': fields.integer('Complaint/Task Reference', store=True),
         'tcs_receipt': fields.char('TCS Receipt No.', store=True, size=30),
         'remarks': fields.text('Remarks', store=True),
-        'devices': fields.char('Devices',store=True,size=20, defaults=' ',compute='devices_details'),
-        'qty': fields.char('Qty', store=True, size=30, compute='devices_details'),
+        'devices': fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
+        'qty': fields.char('Qty', store=True, compute='devices_details'),
         'product_lines': fields.one2many('basic.package.items', 'courier_sheet_product_line', 'Items', store=True),
         'state': fields.selection([('draft','Draft'),('confirmed','Confirmed')],'State',store=True,default='draft',track_visibility='onchange'),
     }
