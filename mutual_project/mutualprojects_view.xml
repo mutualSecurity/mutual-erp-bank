@@ -186,6 +186,7 @@
                     <field name="qty"/>
                     <field name="city"/>
                     <field name="state"/>
+                    <field name="tcs_receipt"/>
                     <field name="remarks"/>
                 </tree>
             </field>
