@@ -108,5 +108,6 @@ class mutual_order_lines(osv.osv):
 
     _columns = {
         'order_cs_number': fields.related('order_partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
+        'order_bank_code': fields.related('order_partner_id', 'bank_code', type='char', size=12, string='Bank Code',readonly=True),
     }
 
