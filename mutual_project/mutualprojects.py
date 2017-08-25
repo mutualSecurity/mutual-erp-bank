@@ -695,7 +695,7 @@ class couriersheet(osv.osv):
     @api.depends('product_lines.courier_sheet_products','product_lines.quantity')
     def devices_details(self):
         for line in self.product_lines:
-            self.devices = str(self.devices) + line.courier_sheet_products.name
+            self.devices = str(self.devices) + line.courier_sheet_products.name + ","
             self.devices=self.devices.replace('False',' ')
             self.qty = str(self.qty)+ str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
