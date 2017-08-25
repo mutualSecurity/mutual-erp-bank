@@ -103,5 +103,10 @@ class sale_order(osv.osv):
             self.partner_id = list
 
 
+class mutual_order_lines(osv.osv):
+    _inherit = 'sale.order.line'
 
+    _columns = {
+        'order_cs_number': fields.related('order_partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
+    }
 

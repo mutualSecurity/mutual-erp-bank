@@ -246,5 +246,15 @@
             </field>
         </record>
         <!--====================================== Kanban view of partner ends ==================================-->
+        <record model="ir.ui.view" id="sale.view_order_line_tree_mutual">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_partner_id']" position="after">
+                    <field name="order_cs_number"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>
