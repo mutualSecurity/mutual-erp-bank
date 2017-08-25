@@ -161,7 +161,7 @@
                             <page string="Products">
                                 <field name="product_lines" colspan="4" nolabel="1">
                                     <tree editable="top" string="Items">
-                                        <field name="custom_products" required="True"/>
+                                        <field name="courier_sheet_products" required="True"/>
                                         <field name="quantity" required="True"/>
                                     </tree>
                                 </field>
@@ -177,12 +177,14 @@
             <field name="model">courier.sheet</field>
             <field name="arch" type="xml">
                 <tree string="Courier Sheet">
+                    <field name="date"/>
                     <field name="bank_code"/>
                     <field name="cs_number"/>
                     <field name="branch_code"/>
                     <field name="monitoring_address"/>
+                    <field name="devices"/>
+                    <field name="qty"/>
                     <field name="city"/>
-                    <field name="date"/>
                     <field name="state"/>
                     <field name="remarks"/>
                 </tree>

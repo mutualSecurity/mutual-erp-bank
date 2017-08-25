@@ -649,7 +649,7 @@ class basicPackage(osv.osv):
     _rec_name = 'bank'
     _columns = {
         'bank': fields.many2one('res.partner','Bank', store=True ,domain=[('is_company','=',True),('is_branch','=',False)]),
-        'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True)
+        'product_lines': fields.one2many('basic.package.items', 'product_basic_package_line', 'Items', store=True)
     }
 
 
@@ -657,9 +657,10 @@ class basicPackageItems(osv.osv):
     _name = "basic.package.items"
     _rec_name = 'products'
     _columns = {
-        'product_line': fields.many2one('product.template','Product Line', store=True),
+        'product_basic_package_line': fields.many2one('basic.package', 'Product Line', store=True),
+        'courier_sheet_product_line': fields.many2one('courier.sheet', 'Product Line', store=True),
         'products': fields.many2one('product.template', 'Products', store=True),
-        'custom_products': fields.many2one('product.items', 'Products', store=True),
+        'courier_sheet_products': fields.many2one('product.items', 'Products', store=True),
         'quantity': fields.float('Quantity',store=True),
     }
 
@@ -668,7 +669,7 @@ class couriersheet(osv.osv):
     _name = "courier.sheet"
     _rec_name = "partner_id"
     _columns = {
-        'technician_name': fields.many2one('hr.employee', 'Technician Name', required=True, select=1,
+        'technician_name': fields.many2one('hr.employee', 'Technician Name',select=1,
                                            track_visibility='onchange', domain="[('department_id','=','Technician')]",
                                            defaults=''),
         'partner_id': fields.many2one('res.partner', 'Customer', required=True),
@@ -681,13 +682,23 @@ class couriersheet(osv.osv):
         'complaint_reference': fields.integer('Complaint/Task Reference', store=True),
         'tcs_receipt': fields.char('TCS Receipt No.', store=True, size=30),
         'remarks': fields.text('Remarks', store=True),
-        'product_lines': fields.one2many('basic.package.items', 'product_line', 'Items', store=True),
+        'devices': fields.char('Devices',store=True,size=20, defaults=' ',compute='devices_details'),
+        'qty': fields.char('Qty', store=True, size=30, compute='devices_details'),
+        'product_lines': fields.one2many('basic.package.items', 'courier_sheet_product_line', 'Items', store=True),
         'state': fields.selection([('draft','Draft'),('confirmed','Confirmed')],'State',store=True,default='draft',track_visibility='onchange'),
     }
 
     _defaults = {
         'date': lambda *a: datetime.now().strftime('%Y-%m-%d'),
     }
+
+    @api.depends('product_lines.courier_sheet_products','product_lines.quantity')
+    def devices_details(self):
+        for line in self.product_lines:
+            self.devices = str(self.devices) + line.courier_sheet_products.name
+            self.devices=self.devices.replace('False',' ')
+            self.qty = str(self.qty)+ str(line.quantity) + ","
+            self.qty = self.qty.replace('False', ' ')
 
     @api.multi
     def validate(self):
