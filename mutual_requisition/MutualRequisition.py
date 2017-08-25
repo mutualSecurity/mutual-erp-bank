@@ -30,7 +30,7 @@ class mutual_requisition(osv.osv):
 class products(osv.osv):
     _name = 'products.req'
     _columns = {
-        'product_tb': fields.many2one('product.template','Products',store=True,required=True),
+        'product_tb': fields.many2one('mutual.requisition','Products',store=True,required=True),
         'product_name': fields.many2one('product.template', 'Name', store=True,required=True),
         'quantity': fields.float('Quantity',store=True,required=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer')], 'Type', store=True),
