@@ -30,6 +30,7 @@ Dashboard / Reports for Project Management will include:
     """,
     'data': ['wizard/wizard_customer_inventory_view.xml',
              'customer_inventory_report.xml',
+             'faulty_devices_view.xml',
              'views/report_customer_inventory.xml',
              'mutualprojects_view.xml',],
     'installable': True,

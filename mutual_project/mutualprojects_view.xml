@@ -64,13 +64,13 @@
             </field>
         </record>
 
-        <menuitem
-            name="Basic Package"
-            action="basic_package_open_project_attachment_view"
-            id="menu_basic_package_open_project_attachment_view"
-            sequence="1"
-            parent="basic_packages_menu_old_time_open_project_attachment_view">
-        </menuitem>
+        <!--<menuitem-->
+            <!--name="Basic Package"-->
+            <!--action="basic_package_open_project_attachment_view"-->
+            <!--id="menu_basic_package_open_project_attachment_view"-->
+            <!--sequence="1"-->
+            <!--parent="basic_packages_menu_old_time_open_project_attachment_view">-->
+        <!--</menuitem>-->
 
          <record id="basic_package_form_view" model="ir.ui.view">
             <field name="name">basic_package.form.view</field>
