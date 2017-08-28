@@ -11,7 +11,7 @@ class mutual_requisition(osv.osv):
         'title': fields.char('Title',store=True),
         'date': fields.date('Date',store=True),
         # 'receipt_no': fields.char('Reciept No',store=True),
-        'products': fields.one2many('products.req','product_tb','Products',store=True),
+        'products': fields.one2many('basic.package.items','req_slip','Products',store=True),
         'req_type': fields.selection([('New Installation','New Installation'),('Faulty','Faulty'),('Additional','Additional'),('none',' ')],'Requsition Type')
     }
     _defaults={

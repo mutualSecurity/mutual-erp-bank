@@ -661,7 +661,13 @@ class basicPackageItems(osv.osv):
         'courier_sheet_product_line': fields.many2one('courier.sheet', 'Product Line', store=True),
         'products': fields.many2one('product.template', 'Products', store=True),
         'courier_sheet_products': fields.many2one('product.items', 'Products', store=True),
+        'faulty_sheet_products': fields.many2one('faulty.devices', 'Products', store=True),
         'quantity': fields.float('Quantity',store=True),
+        'req_slip': fields.many2one('mutual.requisition','Requisition Slip',store=True),
+        'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer')], 'Type',
+                                 store=True),
+        'customer': fields.many2one('res.partner', 'Customer', store=True),
+        'ref_to': fields.char('Reference', store=True)
     }
 
 
@@ -735,6 +741,40 @@ class productitemsline(osv.osv):
         'products': fields.many2one('product.template', 'Products', store=True),
         'quantity': fields.float('Quantity', store=True),
     }
+
+class faultyDevices(osv.osv):
+    _name = "faulty.devices"
+    _rec_name = "partner_id"
+    _columns = {
+        'partner_id': fields.many2one('res.partner', 'Customer', required=True),
+        'cs_number': fields.related('partner_id', 'cs_number', type='char', string='CS Number', readonly=True),
+        'city': fields.related('partner_id', 'city', type='char', string='City', readonly=True),
+        'branch_code': fields.related('partner_id', 'branch_code', type='char', string='Branch Code',readonly=True),
+        'bank_code': fields.related('partner_id', 'bank_code', type='char',string='Bank Code', readonly=True),
+        'monitoring_address': fields.related('partner_id', 'street', type='char', string='Bank address', readonly=True),
+        'date': fields.date('Date', store=True, required=True),
+        'status': fields.char('Status', store=True),
+        'devices_received': fields.char('New Devices Received',store=True),
+        'devices_received_qty': fields.char('New Devices Quantity', store=True),
+        'product_lines': fields.one2many('basic.package.items', 'faulty_sheet_products', 'Items', store=True),
+        'devices': fields.char('Faulty Devices Received', store=True, compute='devices_details'),
+        'qty': fields.char('Qty', store=True, compute='devices_details'),
+    }
+
+    _defaults = {
+        'date': lambda *a: datetime.now().strftime('%Y-%m-%d'),
+    }
+
+    @api.depends('product_lines.products', 'product_lines.quantity')
+    def devices_details(self):
+        print ">>>>>>>>>>>>>>>>>>>>>>>SingleTOn>>>>>>>>>>>>."
+        for line in self.product_lines:
+            print ">>>>>>>>>>>>for singlton>>>>>>>>>>>>>>>>>"
+            self.devices = str(self.devices) + line.products.name + ","
+            self.devices = self.devices.replace('False', ' ')
+            self.qty = str(self.qty) + str(line.quantity) + ","
+            self.qty = self.qty.replace('False', ' ')
+
 
 
 
