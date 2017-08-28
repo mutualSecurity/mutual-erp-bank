@@ -341,8 +341,8 @@ class mutual_issues(osv.osv):
   @api.depends('stage_id','tech')
   def restrictAssignedtoTech(self):
       self.restrict = self.stage_id.name
-      if self.tech_name.reason == False or self.tech_name.compute_total_time == False:
-          raise osv.except_osv('You cannot resolved this complainy', 'Kindly mention status and T/T')
+      # if self.tech_name.reason == False or self.tech_name.compute_total_time == False:
+      #     raise osv.except_osv('You cannot resolved this complainy', 'Kindly mention status and T/T')
       if not self.tech and self.stage_id.name == "Assigned to Technician":
           raise osv.except_osv('Must assign technician', 'You cannot move this card into this bucket')
       else:
@@ -623,7 +623,7 @@ class cms_remarks(osv.osv):
     _name = "cms.remarks"
     _columns = {
         'complaint_title': fields.many2one('project.issue', 'Complaint Title'),
-        'remarks': fields.char('Remarks',store=True,required=True),
+        'remarks': fields.char('Remarks',store=True),
         'client_name': fields.char('Client',store=True),
         'responsible_person': fields.char('Responsible Person', store=True),
     }
