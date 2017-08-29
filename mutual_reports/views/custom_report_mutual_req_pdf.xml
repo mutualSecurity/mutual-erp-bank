@@ -25,6 +25,7 @@
                                       <tr>
                                           <th>Product Name</th>
                                           <!--<th colspan="2"><center>Billing Period</center></th>-->
+                                          <th>Type</th>
                                           <th>Customer</th>
                                           <th>Reference</th>
                                           <th>Quantity</th>
@@ -34,7 +35,10 @@
                                   <tbody class="invoice_tbody">
                                       <tr t-foreach="obj['products']" t-as="l">
                                           <td>
-                                               <span t-esc="l['product_name']['name']"/><br/>
+                                               <span t-esc="l['courier_sheet_products']['name']"/><br/>
+                                          </td>
+                                          <td>
+                                              <span t-esc="l['type']"/><br/>
                                           </td>
                                           <td>
                                               <span t-esc="l['customer']['name']"/><br/>
