@@ -687,7 +687,7 @@ class couriersheet(osv.osv):
         'date': fields.date('Date', store=True, required=True),
         'complaint_reference': fields.integer('Complaint/Task Reference', store=True),
         'tcs_receipt': fields.char('TCS Receipt No.', store=True, size=30),
-        'remarks': fields.text('Remarks', store=True),
+        'remarks': fields.text('Tcs Delivery Status', store=True),
         'devices': fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
         'qty': fields.char('Qty', store=True, compute='devices_details'),
         'product_lines': fields.one2many('basic.package.items', 'courier_sheet_product_line', 'Items', store=True),
