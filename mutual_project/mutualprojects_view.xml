@@ -200,10 +200,12 @@
                     <field name="cs_number"/>
                     <field name="branch_code"/>
                     <field name="bank_code"/>
-                    <field name="city"/>
-                    <field name="date"/>
-                    <field name="complaint_reference"/>
                     <field name="tcs_receipt"/>
+                     <field name="date"/>
+                    <field name="monitoring_address"/>
+                    <field name="city"/>
+                    <field name="complaint_reference"/>
+                    <field name="remarks"/>
                 </search>
             </field>
          </record>

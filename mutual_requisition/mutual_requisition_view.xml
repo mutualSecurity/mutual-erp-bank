@@ -79,6 +79,10 @@
                    <field name="req_type"/>
                    <field name="title"/>
                    <field name="date"/>
+                   <field name="devices" />
+                   <field name="ref" />
+                   <field name="qty" />
+
                </tree>
             </field>
        </record>
@@ -92,9 +96,10 @@
             <field name="arch" type="xml">
                 <search string="Requisition">
                     <field name="id"/>
-                   <field name="req_type"/>
-                   <field name="title"/>
-                   <field name="date"/>
+                    <field name="req_type"/>
+                    <field name="ref"/>
+                    <field name="title"/>
+                    <field name="date"/>
                 </search>
             </field>
          </record>
