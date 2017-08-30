@@ -15,7 +15,7 @@ class mutual_requisition(osv.osv):
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details'),
         'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details'),
-        'req_type': fields.selection([('New Installation','New Installation'),('Faulty','Faulty'),('Additional','Additional'),('none',' ')],'Requsition Type')
+        'req_type': fields.selection([('New Installation','New Installation'),('Return To Warehouse','Return To Warehouse'),('Additional','Additional'),('none',' ')],'Requsition Type')
 
     }
     _defaults={

@@ -149,6 +149,7 @@
                                 <field name="monitoring_address"/>
                                 <field name="city"/>
                                 <field name="technician_name"/>
+                                <field name="location" />
                             </group>
                             <group>
                                 <field name="date"/>
@@ -162,6 +163,8 @@
                                 <field name="product_lines" colspan="4" nolabel="1">
                                     <tree editable="top" string="Items">
                                         <field name="courier_sheet_products" required="True"/>
+                                        <field name="type" />
+                                        <field name="ref_to"/>
                                         <field name="quantity" required="True"/>
                                     </tree>
                                 </field>
@@ -184,6 +187,7 @@
                     <field name="monitoring_address"/>
                     <field name="devices"/>
                     <field name="qty"/>
+                    <field name="ref"/>
                     <field name="city"/>
                     <field name="state"/>
                     <field name="tcs_receipt"/>

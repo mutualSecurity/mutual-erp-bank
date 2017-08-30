@@ -692,6 +692,8 @@ class couriersheet(osv.osv):
         'qty': fields.char('Qty', store=True, compute='devices_details'),
         'product_lines': fields.one2many('basic.package.items', 'courier_sheet_product_line', 'Items', store=True),
         'state': fields.selection([('draft','Draft'),('confirmed','Confirmed')],'State',store=True,default='draft',track_visibility='onchange'),
+        'ref':fields.char('Ref',store=True,compute='devices_details'),
+        'location':fields.related('technician_name','work_location',type='char',string='Technician Work Address',readonly=True)
     }
 
     _defaults = {
@@ -705,6 +707,8 @@ class couriersheet(osv.osv):
             self.devices=self.devices.replace('False',' ')
             self.qty = str(self.qty)+ str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
+            self.ref=str(self.ref)+str(line.ref_to)+","
+            self.ref=self.ref.replace('False',' ')
 
     @api.multi
     def validate(self):
