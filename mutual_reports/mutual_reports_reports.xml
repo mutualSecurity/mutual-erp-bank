@@ -28,6 +28,15 @@
                 attachment_use="False"
                 file="mutual_reports.custom_report_mutual_req_pdf"
         />
+        <report
+                id="custom_custom_report_mutual_courier_pdf"
+                model="courier.sheet"
+                string="print slip"
+                report_type="qweb-pdf"
+                name="mutual_reports.custom_courier_sheet_report"
+                attachment_use="False"
+                file="mutual_reports.custom_courier_sheet_report"
+        />
 
          <report
                 id="custom_report_history_pdf"
