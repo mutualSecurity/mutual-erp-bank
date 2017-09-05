@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <!--the template id should be the same name file-->
+       <template id="custom_courier_sheet_report">
+           <t t-call='report.html_container'>
+               <table>
+                   <tr t-foreach="docs" t-as="obj">
+                        <div class="page">
+                            <h1 align="center">Courier Sheet</h1>
+                            <br/><br/>
+                            <div style="font-size:18px;width:900px;display:inline-block;">
+                                <span style="font-size:18px">
+                                      <strong>Recipt No:</strong><span t-esc="obj['id']"/>
+                                      <br/>
+                                      <strong>Date:</strong><span t-esc="obj['date']"/>
+                                      <strong>Complaint/Task Reference:</strong><span t-esc="obj['complaint_reference']" /><br/>
+                                      <strong>Tcs Number:</strong><span t-esc="obj['tcs_receipt']"/><br/>
+                                      <strong>Tcs Delivery Status:</strong><span t-esc="obj['remarks']"/><br/>
+                                </span>
+                                <br/><br/>
+
+                                <div style="border:2px solid grey; padding:10px;border-radius:10px;">
+                                      <strong style="font-size:20px">Customer Information</strong><br/>
+                                      <strong>Customer Name:</strong><span t-esc="obj['partner_id']['name']"/><br/>
+                                      <strong>Cs Number:</strong><span t-esc="obj['cs_number']"/><br/>
+                                      <strong>Branch Code:</strong><span t-esc="obj['branch_code']"/><br/>
+                                      <strong>Bank Code:</strong><span t-esc="obj['bank_code']"/><br/>
+                                      <strong>City:</strong><span t-esc="obj['city']"/><br/>
+                                      <strong>Monitoring Address:</strong><span t-esc="obj['monitoring_address']"/><br/>
+                                </div>
+                                      <br/><br/>
+                            </div>
+                            <table class="table table-condensed" style="font-size:18px">
+                                  <thead>
+                                      <tr>
+                                          <th>Product Name</th>
+                                          <!--<th colspan="2"><center>Billing Period</center></th>-->
+                                          <th>Type</th>
+                                          <th>Reference</th>
+                                          <th>Quantity</th>
+                                          <!--<th class="text-right">Unit Price</th>-->
+                                      </tr>
+                                  </thead>
+                                  <tbody class="invoice_tbody">
+                                      <tr t-foreach="obj['product_lines']" t-as="l">
+                                          <td>
+                                               <span t-esc="l['courier_sheet_products']['name']"/><br/>
+                                          </td>
+                                          <td>
+                                              <span t-esc="l['type']"/><br/>
+                                          </td>
+                                          <td>
+                                              <span t-esc="l['ref_to']"/><br/>
+                                          </td>
+                                          <td>
+                                              <span t-esc="l['quantity']"/><br/>
+                                          </td>
+                                      </tr>
+
+
+                                  </tbody>
+                            </table>
+                        </div>
+                   </tr>
+
+               </table>
+           </t>
+       </template>
+    </data>
+</openerp>
