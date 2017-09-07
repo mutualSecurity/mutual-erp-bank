@@ -22,12 +22,12 @@
 
                                 <div style="border:2px solid grey; padding:10px;border-radius:10px;">
                                       <strong style="font-size:20px">Customer Information</strong><br/>
-                                      <strong>Customer Name:</strong><span t-esc="obj['partner_id']['name']"/><br/>
+                                      <strong>Customer/Technician Name:</strong><span t-esc="obj['partner_id']['name']"/><br/>
                                       <strong>Cs Number:</strong><span t-esc="obj['cs_number']"/><br/>
                                       <strong>Branch Code:</strong><span t-esc="obj['branch_code']"/><br/>
                                       <strong>Bank Code:</strong><span t-esc="obj['bank_code']"/><br/>
                                       <strong>City:</strong><span t-esc="obj['city']"/><br/>
-                                      <strong>Monitoring Address:</strong><span t-esc="obj['monitoring_address']"/><br/>
+                                      <strong>Address:</strong><span t-esc="obj['monitoring_address']"/><br/>
                                 </div>
                                       <br/><br/>
                             </div>
