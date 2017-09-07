@@ -37,8 +37,8 @@
                                           <th>Product Name</th>
                                           <!--<th colspan="2"><center>Billing Period</center></th>-->
                                           <th>Type</th>
-                                          <th>Reference</th>
-                                          <th>Quantity</th>
+                                          <!--<th>Reference</th>-->
+                                          <!--<th>Quantity</th>  -->
                                           <!--<th class="text-right">Unit Price</th>-->
                                       </tr>
                                   </thead>
@@ -47,12 +47,12 @@
                                           <td>
                                                <span t-esc="l['courier_sheet_products']['name']"/><br/>
                                           </td>
-                                          <td>
-                                              <span t-esc="l['type']"/><br/>
-                                          </td>
-                                          <td>
-                                              <span t-esc="l['ref_to']"/><br/>
-                                          </td>
+                                          <!--<td>-->
+                                              <!--<span t-esc="l['type']"/><br/>-->
+                                          <!--</td>-->
+                                          <!--<td>-->
+                                              <!--<span t-esc="l['ref_to']"/><br/>-->
+                                          <!--</td>-->
                                           <td>
                                               <span t-esc="l['quantity']"/><br/>
                                           </td>
