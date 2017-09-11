@@ -146,10 +146,10 @@
                                 <field name="cs_number"/>
                                 <field name="branch_code"/>
                                 <field name="bank_code"/>
-                                <field name="monitoring_address"/>
+                                <field name="monitoring_address" string="Address"/>
                                 <field name="city"/>
-                                <field name="technician_name"/>
-                                <field name="location" />
+                                <!--<field name="technician_name"/>-->
+                                <!--<field name="location" />-->
                             </group>
                             <group>
                                 <field name="date"/>
@@ -187,7 +187,7 @@
                     <field name="monitoring_address" string="Address"/>
                     <field name="devices"/>
                     <field name="qty"/>
-                    <field name="ref"/>
+                    <!--<field name="ref"/>-->
                     <field name="city"/>
                     <field name="state"/>
                     <field name="tcs_receipt"/>

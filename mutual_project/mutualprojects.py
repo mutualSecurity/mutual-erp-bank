@@ -664,10 +664,10 @@ class basicPackageItems(osv.osv):
         'faulty_sheet_products': fields.many2one('faulty.devices', 'Products', store=True),
         'quantity': fields.float('Quantity',store=True),
         'req_slip': fields.many2one('mutual.requisition','Requisition Slip',store=True),
-        # 'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
-        #                          store=True),
+        'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
+                                 store=True),
         'customer': fields.many2one('res.partner', 'Customer', store=True),
-        # 'ref_to': fields.char('Reference', store=True)
+        'ref_to': fields.char('Reference', store=True)
     }
 
 

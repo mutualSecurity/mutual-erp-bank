@@ -20,8 +20,12 @@
 
     # always loaded
     'data': ['wizard/wizard_account_inventory_view.xml',
+             'wizard/wizard_daily_report_view.xml',
+             'daily_list_report.xml',
              'account_inventory_view.xml',
              'account_inventory_report.xml',
-             'views/report_inventory.xml'],
+             'views/report_daily_report.xml',
+             'views/report_inventory.xml',
+             ],
 
 }
