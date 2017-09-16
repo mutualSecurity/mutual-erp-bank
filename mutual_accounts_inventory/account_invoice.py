@@ -37,7 +37,7 @@ class mutual_account_invoice(osv.osv):
         open_rec=0
         self.env.cr.execute("select sum(sale_count) sales from inventory_logs where item_code =" + "'" + str(line.product_id.id) + "'")
         product_stock = self.env.cr.dictfetchall()
-        if any(d['sales'] == None for d in product_stock):
+        if any(d['sales'] == None for d in product_stock) and (line.effect_on_inven =='Yes'):
             sale_rec=0
         else:
             for item in product_stock:
@@ -55,7 +55,7 @@ class mutual_account_invoice(osv.osv):
     @api.multi
     def invoice_validate(self):
         for line in self.invoice_line:
-            if(line.product_id.type != 'service'):
+            if(line.product_id.type != 'service' and line.effect_on_inven=='Yes'):
                 if(self.partner_id.customer and self.checkNeg(line)==0):
                     self.createLogs(line,self.partner_id.customer,self.partner_id.supplier)
                 elif(self.checkNeg(line)==0):
