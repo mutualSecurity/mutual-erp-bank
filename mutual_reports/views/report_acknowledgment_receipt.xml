@@ -391,7 +391,7 @@
                                 </table>
                                 <p>
                                     <span>
-                                        <span t-field="o.create_date"/>
+                                        <!--<span t-field="object.datetimefield" t-field-options='{"format": "MMMM d y"}'/>-->
                                         <span t-field="o.user_id"/>
                                     </span>
                                 </p>

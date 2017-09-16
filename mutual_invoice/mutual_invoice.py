@@ -7,6 +7,7 @@ class invoice_line_(osv.osv):
     _columns = {
         'from': fields.date('From', store=True),
         'to': fields.date('To', store=True),
+        'effect_on_inven':fields.selection([('Yes','Yes'),('No','No')],'Effect On Inventory',store=True,default='Yes'),
     }
 
 

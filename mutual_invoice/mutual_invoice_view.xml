@@ -50,8 +50,7 @@
                     <field name="show_tax"/>
                 </xpath>
                 <xpath expr="//page/field/tree/field[@name='product_id']" position="after">
-                    <field name="from" readonly="1"/>
-                    <field name="to" readonly="1"/>
+                    <field name="effect_on_inven" />
                 </xpath>
                 <!--<xpath expr="//field[@name='address_criteria']" position="after">-->
                     <!--<field name="pay_remarks"/>-->

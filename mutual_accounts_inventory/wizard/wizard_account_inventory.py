@@ -3,6 +3,7 @@ from openerp.osv import fields,osv
 from datetime import datetime, timedelta
 
 
+
 class WizardAccountInventory(osv.TransientModel):
     _name = 'wiz.account.inventory'
     _description = 'Generate Report for Inventory'
@@ -74,7 +75,9 @@ class WizardAccountInventory(osv.TransientModel):
                         'item_name': log['item_name'],
                         'opening_count': item['opening_count']-log['sales']+log['purchase']-log['purchase_return']+log['sale_return'],
                     })
+
         return result
+
 
     def print_report(self, cr, uid, ids, data, context=None):
         obj = self.browse(cr, uid, ids[0], context=context)
@@ -90,4 +93,5 @@ class WizardAccountInventory(osv.TransientModel):
             }
         else:
             raise osv.except_osv("Alert........", "'Start Date' must be Less than 'End Date'")
+
 
