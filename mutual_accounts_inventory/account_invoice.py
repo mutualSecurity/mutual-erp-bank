@@ -61,7 +61,7 @@ class mutual_account_invoice(osv.osv):
                 elif(self.checkNeg(line)==0):
                     self.createLogs(line,self.partner_id.customer,self.partner_id.supplier)
                 else:
-                    raise osv.except_osv('Error....', 'product count might go into exceeding to negative')
+                    raise osv.except_osv('Error....', 'product line ' + '"' + str(line.product_id.name) + '"' + ' count might go into exceeding to negative' )
         return self.write({'state': 'open'})
 
     @api.depends('state')
