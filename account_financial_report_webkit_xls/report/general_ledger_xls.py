@@ -33,6 +33,20 @@ _column_sizes = [
 class general_ledger_xls(report_xls):
     column_sizes = [x[1] for x in _column_sizes]
 
+    def number_of_fiscal_years(self,fiscalyear_id):
+        total_open_fiscalyears = self.cr.execute("SELECT id, date_stop, code, create_date, name, date_start,state FROM account_fiscalyear where state = 'draft'");
+        total_open_fiscalyears = self.cr.dictfetchall()
+        if total_open_fiscalyears > 1:
+            # find start_date of last fiscal year which is in open state
+            start_date = self.cr.execute("SELECT MIN(date_start) date_start FROM public.account_fiscalyear")
+            start_date = self.cr.dictfetchall()
+            start_date = start_date
+            return start_date
+        else:
+            fiscalyear_startdate =self.cr.execute("SELECT date_start FROM public.account_fiscalyear where id="+"'" + str(fiscalyear_id) + "'")
+            fiscalyear_startdate = self.cr.dictfetchall()
+            return fiscalyear_startdate
+
     def calculate_initial_balances(self,_p_start_date,account_id,initial_bal,fiscalyear_id):
         if initial_bal:
             date_end = datetime.strptime(_p_start_date, '%Y-%m-%d')
@@ -40,8 +54,7 @@ class general_ledger_xls(report_xls):
             date_end = str(date_end).split(' ')
             date_end = date_end[0]
 
-            query_fiscalyear =self.cr.execute("SELECT date_start FROM public.account_fiscalyear where id="+"'" + str(fiscalyear_id) + "'")
-            fiscalyear_startdate = self.cr.dictfetchall()
+            fiscalyear_startdate = self.number_of_fiscal_years(fiscalyear_id)
             query_ = self.cr.execute("SELECT sum(credit) totalcredit, sum(debit) totaldebit FROM public.account_move_line where date between" + "'" + fiscalyear_startdate[0]['date_start'] + "'" + "and" + "'" + date_end + "'" + "and account_id=" + "'" + str(account_id.id) + "'")
             balances = self.cr.dictfetchall()
             my_initial_balance = {'credit': balances[0]['totalcredit'],
