@@ -14,7 +14,7 @@ class mutual_requisition(osv.osv):
         'products': fields.one2many('basic.package.items','req_slip','Products',store=True),
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details'),
-        'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details'),
+        'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True),
         'req_type': fields.selection([('New Installation','New Installation'),('Return To Warehouse','Return To Warehouse'),('Additional','Additional'),('none',' ')],'Requsition Type')
 
     }
@@ -31,7 +31,7 @@ class mutual_requisition(osv.osv):
             self.devices = self.devices.replace('False', ' ')
             self.qty = str(self.qty) + str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
-            self.ref=str(self.ref)+str(line.ref_to)+","
+            self.ref=str(self.ref)+str(line.cs_number)+","
             self.ref = self.ref.replace('False', ' ')
 
     @api.multi

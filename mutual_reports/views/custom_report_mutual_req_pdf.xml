@@ -20,13 +20,14 @@
 
                                   </div>
                             </div>
-                            <table class="table table-condensed" style="font-size:18px">
+                            <table class="table table-condensed" style="font-size:16px">
                                   <thead>
                                       <tr>
                                           <th>Product Name</th>
                                           <!--<th colspan="2"><center>Billing Period</center></th>-->
                                           <th>Type</th>
-                                          <th>Customer</th>
+                                          <th>Customer/Technician</th>
+                                          <th>CS Number</th>
                                           <th>Reference</th>
                                           <th>Quantity</th>
                                           <!--<th class="text-right">Unit Price</th>-->
@@ -42,6 +43,9 @@
                                           </td>
                                           <td>
                                               <span t-esc="l['customer']['name']"/><br/>
+                                          </td>
+                                           <td>
+                                              <span t-esc="l['cs_number']"/><br/>
                                           </td>
                                           <td>
                                               <span t-esc="l['ref_to']"/><br/>

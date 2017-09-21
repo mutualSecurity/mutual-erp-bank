@@ -672,10 +672,28 @@ class basicPackageItems(osv.osv):
         'req_slip': fields.many2one('mutual.requisition','Requisition Slip',store=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
                                  store=True),
-        'customer': fields.many2one('res.partner', 'Customer', store=True),
-        'ref_to': fields.char('Reference', store=True)
+        'customer': fields.many2one('res.partner', 'Customer/Technician', store=True),
+        'ref_to': fields.char('Reference', store=True),
+        'location':fields.char('Location',store=True),
+        'cs_number': fields.char('CS Number', store=True),
+        'branch_code': fields.char('Branch Code', store=True),
+        'status': fields.selection([('Available', 'Available'), ('Unavailable', 'Unavailable')], 'Status',
+                                 store=True),
     }
 
+    _defaults = {
+        'status': 'Available'
+    }
+
+    @api.one
+    @api.onchange('customer')
+    def cal_cs_bc(self):
+        if self.customer.customer==True:
+            self.location = self.customer.city
+            self.cs_number = self.customer.cs_number
+            self.branch_code = self.customer.branch_code
+        else:
+            self.location = self.customer.city
 
 class couriersheet(osv.osv):
     _name = "courier.sheet"
