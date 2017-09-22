@@ -33,24 +33,25 @@ class mutual_account_invoice(osv.osv):
         })
 
     def checkNeg(self,line):
-        sale_rec=0
-        open_rec=0
-        self.env.cr.execute("select sum(sale_count) sales from inventory_logs where item_code =" + "'" + str(line.product_id.id) + "'")
-        product_stock = self.env.cr.dictfetchall()
-        if any(d['sales'] == None for d in product_stock) and (line.effect_on_inven =='Yes'):
-            sale_rec=0
-        else:
-            for item in product_stock:
-                sale_rec=item["sales"]
-        self.env.cr.execute("select opening_count from inventory_opening where item_code=" + "'" + str(line.product_id.id) + "'" )
-        opening_stock=self.env.cr.dictfetchall()
-        for item in opening_stock:
-            open_rec=item["opening_count"]
-        remain_count=open_rec-(sale_rec+line.quantity)
-        if(remain_count>=0):
-            return 0
-        else:
-            return 1
+        sale_rec = 0
+        open_rec = 0
+        if line.product_id.id:
+            self.env.cr.execute("select sum(sale_count) sales from inventory_logs where item_code =" + "'" + str(line.product_id.id) + "'")
+            product_stock = self.env.cr.dictfetchall()
+            if any(d['sales'] == None for d in product_stock) and (line.effect_on_inven =='Yes'):
+                sale_rec=0
+            else:
+                for item in product_stock:
+                    sale_rec=item["sales"]
+            self.env.cr.execute("select opening_count from inventory_opening where item_code=" + "'" + str(line.product_id.id) + "'" )
+            opening_stock=self.env.cr.dictfetchall()
+            for item in opening_stock:
+                open_rec=item["opening_count"]
+            remain_count=open_rec-(sale_rec+line.quantity)
+            if(remain_count>=0):
+                return 0
+            else:
+                return 1
 
     @api.multi
     def invoice_validate(self):
@@ -61,7 +62,8 @@ class mutual_account_invoice(osv.osv):
                 elif(self.checkNeg(line)==0):
                     self.createLogs(line,self.partner_id.customer,self.partner_id.supplier)
                 else:
-                    raise osv.except_osv('Error....', 'product line ' + '"' + str(line.product_id.name) + '"' + ' count might go into exceeding to negative' )
+                    if line.product_id.id:
+                        raise osv.except_osv('Error....', 'product line ' + '"' + str(line.product_id.name) + '"' + ' count might go into exceeding to negative' )
         return self.write({'state': 'open'})
 
     @api.depends('state')
