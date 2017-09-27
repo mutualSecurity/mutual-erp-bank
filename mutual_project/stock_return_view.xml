@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--========================================================= Child Menu of Parent MenuItem for Courier Sheet Begins ================================================-->
+        <record id="stock_return_sheet_open_project_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Stock Return Sheet</field>
+            <field name="res_model">stock.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Stock Return Sheet"
+            action="stock_return_sheet_open_project_attachment_view"
+            id="menu_stock_return_sheet_open_project_attachment_view"
+            sequence="5"
+            parent="basic_packages_menu_old_time_open_project_attachment_view">
+        </menuitem>
+<!--========================================================= Child Menu of Parent MenuItem for Courier Sheet End ================================================-->
+<!--========================================================= Stock Return Form view Begins ================================================-->
+         <record id="stock_return_sheet_form_view" model="ir.ui.view">
+            <field name="name">stock_return_sheet.form.view</field>
+            <field name="view_type">form</field>
+            <field name="model">stock.return</field>
+            <field name="arch" type="xml">
+                <form string="Stock Return Sheet">
+                    <sheet>
+                        <group string="Stock Return Sheet">
+                            <group>
+                                <field name="id" readonly="1" />
+                                <field name="title"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="req_slip_ref" required="True" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="products" colspan="4" nolabel="1">
+                                    <tree editable="top" string="Items">
+                                        <field name="products" required="True"/>
+                                        <field name="quantity" required="True"/>
+                                        <field name="customer" string="Bank Depart/Tech/Customer"/>
+                                        <field name="ref_to" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+         </record>
+<!--========================================================= Stock Return Form view End ================================================-->
+
+<!--========================================================= tree view start ================================================-->
+        <record id="stock_return_sheet_tree_view" model="ir.ui.view">
+            <field name="name">stock_return_sheet.tree.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">stock.return</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Return Sheet">
+                   <field name="title"/>
+                    <field name="date"/>
+                    <field name="req_slip_ref" type="char" />
+                </tree>
+            </field>
+         </record>
+<!--========================================================= tree view end ================================================-->
+
+<!--========================================================= search view start ================================================-->
+
+         <record id="stock_return_sheet_search_view" model="ir.ui.view">
+            <field name="name">stock_return_sheet.search.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">stock.return</field>
+            <field name="arch" type="xml">
+                <search string="Stock Return Sheet">
+                   <field name="title"/>
+                    <field name="date"/>
+                    <field name="req_slip_ref"/>
+                </search>
+            </field>
+         </record>
+<!--========================================================= search view end ================================================-->
+    </data>
+</openerp>

@@ -668,6 +668,7 @@ class basicPackageItems(osv.osv):
         'products': fields.many2one('product.template', 'Products', store=True),
         'courier_sheet_products': fields.many2one('product.items', 'Products', store=True),
         'faulty_sheet_products': fields.many2one('faulty.devices', 'Products', store=True),
+        'stock_return_products': fields.many2one('stock.return', 'Products', store=True),
         'quantity': fields.float('Quantity',store=True),
         'req_slip': fields.many2one('mutual.requisition','Requisition Slip',store=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
@@ -803,6 +804,28 @@ class faultyDevices(osv.osv):
             self.qty = str(self.qty) + str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
 
+class stockreturn(osv.osv):
+    _name='stock.return'
+    _columns = {
+            'title':fields.char('Title',store=True,required=True),
+            'date': fields.date('Date', store=True, required=True),
+            'req_slip_ref': fields.integer('Requisition slip Reference', store=True,required=True),
+            'products': fields.one2many('basic.package.items', 'stock_return_products', 'Items', store=True),
+            'devices': fields.char('Devices' ,compute='devices_details'),
+            'qty': fields.char('Qty', store=True, compute='devices_details'),
+    }
 
+    _defaults = {
+        'date': lambda *a: datetime.now().strftime('%Y-%m-%d'),
+    }
 
+    @api.depends('products.products', 'products.quantity')
+    def devices_details(self):
+        print ">>>>>>>>>>>>>>>>>>>>>>>SingleTOn>>>>>>>>>>>>."
+        for line in self.products:
+            print ">>>>>>>>>>>>for singlton>>>>>>>>>>>>>>>>>"
+            self.devices = str(self.devices) + line.products.name + ","
+            self.devices = self.devices.replace('False', ' ')
+            self.qty = str(self.qty) + str(line.quantity) + ","
+            self.qty = self.qty.replace('False', ' ')
 
