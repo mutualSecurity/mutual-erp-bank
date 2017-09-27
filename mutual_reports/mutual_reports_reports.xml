@@ -38,6 +38,17 @@
                 file="mutual_reports.custom_courier_sheet_report"
         />
 
+        <report
+                id="custom_custom_report_mutual_stock_return_pdf"
+                model="stock.return"
+                string="print slip"
+                report_type="qweb-pdf"
+                name="mutual_reports.custom_report_mutual_stock_return_pdf"
+                attachment_use="False"
+                file="mutual_reports.custom_report_mutual_stock_return_pdf"
+        />
+
+
          <report
                 id="custom_report_history_pdf"
                 model="project.issue"
