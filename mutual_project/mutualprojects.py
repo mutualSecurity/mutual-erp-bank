@@ -806,6 +806,7 @@ class faultyDevices(osv.osv):
 
 class stockreturn(osv.osv):
     _name='stock.return'
+    _rec_name = "title"
     _columns = {
             'title':fields.char('Title',store=True,required=True),
             'date': fields.date('Date', store=True, required=True),
