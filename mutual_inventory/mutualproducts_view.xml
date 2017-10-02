@@ -35,6 +35,7 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="cs_number"/>
                     <field name="approve" groups="stock.group_stock_manager"/>
+                    <field name="status" />
                 </xpath>
                 <xpath expr="//button[@string='Transfer']" position="attributes">
                     <attribute name="states"> </attribute>

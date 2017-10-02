@@ -46,13 +46,24 @@
                                      <span t-esc="item['date']"  t-field-options="{&quot;format&quot;: &quot;dd-MM-YYY&quot;}"/>
                                  </td>
                                  <td>
-                                     <span t-esc="item['origin']"/>
+                                     <t t-if="item['status']=='Stock Returned from Customer'">
+                                         <span t-esc="item['status']"/>
+                                     </t>
+                                      <t t-if="item['status']!='Stock Returned from Customer'">
+                                         <span t-esc="item['origin']"/>
+                                     </t>
                                  </td>
                                  <td>
                                      <span t-esc="item['name']"/>
                                  </td>
                                  <td class="text-right">
-                                     <span t-esc="item['product_qty']"/>
+                                     <t t-if="item['status']=='Stock Returned from Customer'">
+                                         -<span t-esc="item['product_qty']"/>
+                                     </t>
+                                      <t t-if="item['status']!='Stock Returned from Customer'">
+                                        <span t-esc="item['product_qty']"/>
+                                     </t>
+
                                  </td>
                              </tr>
                          </tbody>

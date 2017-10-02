@@ -12,7 +12,7 @@ class WizardCustomerInventory(osv.TransientModel):
     }
 
     def fetch_record(self):
-        self.env.cr.execute("SELECT stock_picking.origin,stock_picking.date,"
+        self.env.cr.execute("SELECT stock_picking.origin,stock_picking.date,stock_picking.status,"
                             "stock_move.product_qty,stock_move.name FROM stock_picking "
                             "INNER JOIN stock_move ON stock_picking.id = stock_move.picking_id "
                             "where stock_picking.state = 'done' and stock_picking.partner_id = "+str(self.partner_id.id)+

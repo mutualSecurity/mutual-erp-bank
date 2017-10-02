@@ -35,10 +35,21 @@ class mutual_templates(osv.osv):
 
 class mutual_stock(osv.osv):
     _inherit = "stock.picking"
+    values = [('Stock Returned from Customer', 'Stock Returned from Customer'),
+              ('Stock Returned from Technician', 'Stock Returned from Technician'),
+              ('Stock Returned from Bank Warehouse', 'Stock Returned from Bank Warehouse'), ('None', 'None'),
+               ]
     _columns = {
+
         'cs_number': fields.related('partner_id', 'cs_number',type='char', size=12, string='CS Number',readonly=True),
-        'approve': fields.boolean('Approved',store=True, compute='approval', read=['stock.group_stock_user'], write=['stock.group_stock_manager'])
+        'approve': fields.boolean('Approved',store=True, compute='approval', read=['stock.group_stock_user'], write=['stock.group_stock_manager']),
+        'status': fields.selection(values, 'Status')
     }
+
+    _defaults = {
+        'status': 'None',
+    }
+
 
     @api.one
     @api.depends('partner_id')
