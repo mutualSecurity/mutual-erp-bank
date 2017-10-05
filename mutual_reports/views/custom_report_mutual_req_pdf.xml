@@ -7,7 +7,9 @@
                <table>
                    <tr t-foreach="docs" t-as="obj">
                         <div class="page">
-                            <h1 align="center">Incharge Store</h1>
+                            <t t-if="obj['req_type']=='New Installation'"><h1 align="center">New Installation BAS requisition</h1></t>
+                            <t t-if="obj['req_type']=='Additional'"><h1 align="center">Additional BAS Devices requisition</h1></t>
+                            <br/><br/>
                             <div style="font-size:18px;width:900px;display:inline-block;">
                                   <span style="font-size:18px">
                                       <strong>Recipt No:</strong><span t-esc="obj['id']"/>
@@ -28,6 +30,7 @@
                                           <th>Type</th>
                                           <th>Customer/Technician</th>
                                           <th>CS Number</th>
+                                          <th>Location</th>
                                           <th>Reference</th>
                                           <th>Quantity</th>
                                           <!--<th class="text-right">Unit Price</th>-->
@@ -48,6 +51,9 @@
                                               <span t-esc="l['cs_number']"/><br/>
                                           </td>
                                           <td>
+                                              <span t-esc="l['location']"/><br/>
+                                          </td>
+                                          <td>
                                               <span t-esc="l['ref_to']"/><br/>
                                           </td>
                                           <td>
@@ -60,26 +66,50 @@
                             </table>
                              <br></br><br></br>
                             <div class="row"><br/><br/>
-                              <div class="pull-left" style="font-size:17px;text-decoration:overline;">
-                                 <span style="margin-top:5px;">
-                                     <strong>
-                                            Incharge Store
-                                     </strong>
-                                 </span>
-                              </div>
-                              <div class="pull-right" style="font-size:17px;text-decoration:overline;">
-                                 <span style="margin-top:5px;">
-                                         <strong>
-                                            For Mutual Security systems
-                                         </strong>
-
-                                 </span>
-                              </div>
-
+                             <table>
+                                 <tr>
+                                     <td>
+                                         <div style="font-size:17px;text-decoration:overline;">
+                                            <span style="margin-top:5px; margin-left:70px;">
+                                                <strong>
+                                                    Inventory Officer
+                                                </strong>
+                                            </span>
+                                         </div>
+                                     </td>
+                                     <td>
+                                         <div style="font-size:17px;text-decoration:overline;">
+                                            <span style="margin-top:5px; margin-left:65px;">
+                                                <strong>
+                                                    Manager Services
+                                                </strong>
+                                            </span>
+                                         </div>
+                                     </td>
+                                     <td>
+                                         <div style="font-size:17px;text-decoration:overline;">
+                                            <span style="margin-top:5px; margin-left:65px;">
+                                                <strong>
+                                                    Accounts Department
+                                                </strong>
+                                            </span>
+                                         </div>
+                                     </td>
+                                     <td>
+                                         <div style="font-size:17px;text-decoration:overline;">
+                                            <span style="margin-top:5px; margin-left:65px;">
+                                                <strong>
+                                                    GM Services
+                                                </strong>
+                                            </span>
+                                         </div>
+                                     </td>
+                                 </tr>
+                             </table>
                              </div>
-                             <div class="row"><br/><br/>
-                              <div class="pull-left" style="font-size:17px;text-decoration:overline;">
-                                 <span style="margin-top:5px;">
+                             <div class="row"><br/><br/><br/><br/>
+                              <div class="pull-right" style="font-size:17px;text-decoration:overline;">
+                                 <span style="margin-top:5px; margin-right:104px;">
                                      <strong>
                                             CEO's Approval
                                      </strong>
