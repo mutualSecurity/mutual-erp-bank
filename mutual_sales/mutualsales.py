@@ -80,10 +80,13 @@ class branch_details(osv.osv):
 class sale_order(osv.osv):
     _inherit = "sale.order"
     _columns = {
-        'installation_date': fields.date('Installtion Date', store=True),
+        'installation_date': fields.date('Installation Date', store=True),
         'complaint_reference': fields.char('Complaint reference',store=True, on_change='auto_select()'),
         'cs_number': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
+        'tcs_receipt': fields.char('TCS/Receipt No.',store=True),
+        'dispatch_sheet_date': fields.date('Dispatched Date', store=True),
         'branch_code': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch Code', readonly=True),
+        'remarks': fields.text('Remarks', store=True),
     }
 
     defaults = {
