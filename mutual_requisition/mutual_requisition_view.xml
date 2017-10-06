@@ -44,8 +44,7 @@
                      <field name="req_type" />
                  </group>
                  <group>
-                     <field name="ni_code" attrs="{'invisible': ['|',('req_type','=','none'),('req_type','=','Additional'),]}"/>
-                     <field name="add_code" attrs="{'invisible': ['|',('req_type','=','none'),('req_type','=','New Installation'),]}"/>
+                     <field name="req_code" attrs="{'invisible': [('req_type','=','none')]}"/>
                      <field name="title" attrs="{'invisible': [('req_type','=','none')]}" />
                  </group>
                  <group>
@@ -80,14 +79,13 @@
             <field name="model">mutual.requisition</field>
             <field name="arch" type="xml">
                <tree string="Requisition Slips List" version="8.0">
-                   <field name="id" string="Receipt No."/>
+                   <field name="req_code" string="Serial No."/>
                    <field name="req_type"/>
                    <field name="title"/>
                    <field name="date"/>
                    <field name="devices" />
                    <field name="ref" />
                    <field name="qty" />
-
                </tree>
             </field>
        </record>
@@ -100,6 +98,7 @@
             <field name="model">mutual.requisition</field>
             <field name="arch" type="xml">
                 <search string="Requisition">
+                    <field name="req_code" string="Serial No."/>
                     <field name="id"/>
                     <field name="req_type"/>
                     <field name="ref"/>

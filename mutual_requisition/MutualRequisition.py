@@ -7,8 +7,7 @@ from datetime import date,time
 class mutual_requisition(osv.osv):
     _name = "mutual.requisition"
     _columns = {
-        'ni_code': fields.char('Serial No.', readonly=True,store=True),
-        'add_code': fields.char('Serial No.', readonly=True, store=True),
+        'req_code': fields.char('Serial No.', readonly=True, store=True),
         'state': fields.selection([('draft', 'Draft'), ('confirmed', 'Confirmed')], 'State', store=True, default='draft'),
         'title': fields.char('Title',store=True),
         'date': fields.date('Date',store=True),
@@ -25,9 +24,9 @@ class mutual_requisition(osv.osv):
 
     def create(self, cr, uid, vals, context=None):
         if vals['req_type'] == 'New Installation':
-            vals['ni_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ni.requisition')
+            vals['req_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ni.requisition')
         elif vals['req_type'] == 'Additional':
-            vals['add_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ad.requisition')
+            vals['req_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ad.requisition')
         return super(mutual_requisition, self).create(cr, uid, vals, context=context)
 
 

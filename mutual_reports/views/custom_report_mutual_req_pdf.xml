@@ -7,12 +7,12 @@
                <table>
                    <tr t-foreach="docs" t-as="obj">
                         <div class="page">
-                            <t t-if="obj['req_type']=='New Installation'"><h1 align="center">New Installation BAS requisition</h1></t>
-                            <t t-if="obj['req_type']=='Additional'"><h1 align="center">Additional BAS Devices requisition</h1></t>
+                            <t t-if="obj['req_type']=='New Installation'"><h1 align="center">New Installation BAS Requisition</h1></t>
+                            <t t-if="obj['req_type']=='Additional'"><h1 align="center">Additional BAS Devices Requisition</h1></t>
                             <br/><br/>
                             <div style="font-size:18px;width:900px;display:inline-block;">
                                   <span style="font-size:18px">
-                                      <strong>Recipt No:</strong><span t-esc="obj['id']"/>
+                                      <strong>Serial No.:<span t-esc="obj['req_code']"/></strong>
                                       <br/>
                                       <strong>Date:</strong><span t-esc="obj['date']"/></span><br/>
                                       <strong>Receipt Type:</strong><span t-esc="obj['req_type']" /><br/>
