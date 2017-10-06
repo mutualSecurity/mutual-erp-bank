@@ -7,20 +7,30 @@ from datetime import date,time
 class mutual_requisition(osv.osv):
     _name = "mutual.requisition"
     _columns = {
+        'ni_code': fields.char('Serial No.', readonly=True,store=True),
+        'add_code': fields.char('Serial No.', readonly=True, store=True),
         'state': fields.selection([('draft', 'Draft'), ('confirmed', 'Confirmed')], 'State', store=True, default='draft'),
         'title': fields.char('Title',store=True),
         'date': fields.date('Date',store=True),
-        # 'receipt_no': fields.char('Reciept No',store=True),
         'products': fields.one2many('basic.package.items','req_slip','Products',store=True),
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details'),
         'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True),
-        'req_type': fields.selection([('New Installation','New Installation'),('Return To Warehouse','Return To Warehouse'),('Additional','Additional'),('none',' ')],'Requsition Type')
+        'req_type': fields.selection([('New Installation','New Installation'),('Additional','Additional'),('none',' ')],'Requisition Type')
 
     }
     _defaults={
         'req_type':'none',
     }
+
+    def create(self, cr, uid, vals, context=None):
+        if vals['req_type'] == 'New Installation':
+            vals['ni_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ni.requisition')
+        elif vals['req_type'] == 'Additional':
+            vals['add_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ad.requisition')
+        return super(mutual_requisition, self).create(cr, uid, vals, context=context)
+
+
 
     @api.depends('products.courier_sheet_products', 'products.quantity')
     def devices_details(self):

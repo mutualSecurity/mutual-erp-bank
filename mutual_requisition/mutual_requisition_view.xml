@@ -44,7 +44,8 @@
                      <field name="req_type" />
                  </group>
                  <group>
-                     <field name="id" string="Receipt No" attrs="{'invisible': [('req_type','=','none')]}"/>
+                     <field name="ni_code" attrs="{'invisible': ['|',('req_type','=','none'),('req_type','=','Additional'),]}"/>
+                     <field name="add_code" attrs="{'invisible': ['|',('req_type','=','none'),('req_type','=','New Installation'),]}"/>
                      <field name="title" attrs="{'invisible': [('req_type','=','none')]}" />
                  </group>
                  <group>

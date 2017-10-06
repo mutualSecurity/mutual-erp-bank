@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="req_ad_slip_code" model="ir.sequence.type">
+            <field name="name">AD</field>
+            <field name="code">mutual.ad.requisition</field>
+         </record>
+        <record id="req_add_slip" model="ir.sequence">
+            <field name="name">Additional Slip</field>
+            <field name="code">mutual.ad.requisition</field>
+            <field name="padding">5</field>
+            <field name="prefix">AD</field>
+        </record>
+
+
+        <record id="req_ni_slip_code" model="ir.sequence.type">
+            <field name="name">NI</field>
+            <field name="code">mutual.ni.requisition</field>
+         </record>
+        <record id="req_ni_slip" model="ir.sequence">
+            <field name="name">NewInstallation Slip</field>
+            <field name="code">mutual.ni.requisition</field>
+            <field name="padding">5</field>
+            <field name="prefix">NI</field>
+        </record>
+    </data>
+</openerp>
