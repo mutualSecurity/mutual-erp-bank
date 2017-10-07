@@ -50,6 +50,9 @@
                  <group>
                      <field name="date" attrs="{'invisible': [('req_type','=','none')]}"/>
                  </group>
+                  <group>
+                     <field name="allow_req" attrs="{'invisible': [('req_type','=','none')]}" />
+                 </group>
                  <notebook>
                      <page string="Products" placeholder="add a product" attrs="{'invisible': [('req_type','=','none')]}">
                          <field name="products" attrs="{'invisible': [('req_type','=','none')]}" >
