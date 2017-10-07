@@ -51,19 +51,15 @@ class mutual_requisition(osv.osv):
         return self.write({'state': 'draft'})
 
     # confirm the dates
-    # def confrm_date(self, dt_list):
-    #     dates = dt_list
-    #     self.env.cr.execute("select * from mutual_requisition where date ='"+str(dates[0])+"'")
-    #     chk_lst = self.env.cr.dictfetchall()
-    #     print chk_lst
-    #     dates = [dates[0], dates[1]]
-    #     print dates
-    #     if len(chk_lst) == 0:
-    #         dates = [dates[0] - timedelta(days=1), dates[1]]
-    #         self.counter += 1
-    #         # print dates
-    #         self.confrm_date(dates)
-    #         return dates
+    def confrm_date(self, curr_req_slip_date):
+        print curr_req_slip_date
+        self.env.cr.execute("select * from mutual_requisition where date ='"+str(curr_req_slip_date)+"'")
+        chk_lst = self.env.cr.dictfetchall()
+        if len(chk_lst) == 0:
+            res = self.confrm_date(curr_req_slip_date-timedelta(days=1))
+            return res
+        else:
+            return curr_req_slip_date
 
     @api.multi
     def validate(self):
@@ -72,7 +68,7 @@ class mutual_requisition(osv.osv):
             rec_date = datetime.strptime(self.date, '%Y-%m-%d').date()
             date_list = [rec_date-timedelta(days=1), rec_date]
             self.counter=1
-            my_date = self.confrm_date(date_list)
+            my_date = self.confrm_date(date_list[0])
             print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>MY DATE"
             print my_date
             all_req = self.get_reqslp_data(date_list)
