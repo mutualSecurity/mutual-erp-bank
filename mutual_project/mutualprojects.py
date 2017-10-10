@@ -673,7 +673,7 @@ class basicPackageItems(osv.osv):
         'req_slip': fields.many2one('mutual.requisition','Requisition Slip',store=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
                                  store=True),
-        'customer': fields.many2one('res.partner', 'Customer/Technician', store=True),
+        'customer': fields.many2one('res.partner', 'Customer/Technician', store=True, required=True),
         'ref_to': fields.char('Reference', store=True),
         'location':fields.char('Location',store=True),
         'cs_number': fields.char('CS Number', store=True),

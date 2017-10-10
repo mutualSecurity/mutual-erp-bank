@@ -12,7 +12,8 @@
                             <br/><br/>
                             <div style="font-size:18px;width:900px;display:inline-block;">
                                   <span style="font-size:18px">
-                                      <strong>Serial No.:<span t-esc="obj['req_code']"/></strong>
+                                      <t t-if="obj['req_code'] is not False"><strong>Serial No.:<span t-esc="obj['req_code']"/></strong></t>
+                                      <t t-if="obj['req_code'] is False"><strong>Receipt no.:<span t-esc="obj['id']"/></strong></t>
                                       <br/>
                                       <strong>Date:</strong><span t-esc="obj['date']"/></span><br/>
                                       <strong>Receipt Type:</strong><span t-esc="obj['req_type']" /><br/>

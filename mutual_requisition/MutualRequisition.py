@@ -13,7 +13,7 @@ class mutual_requisition(osv.osv):
         'state': fields.selection([('draft', 'Draft'), ('confirmed', 'Confirmed')], 'State', store=True, default='draft'),
         'title': fields.char('Title',store=True),
         'date': fields.date('Date',store=True),
-        'products': fields.one2many('basic.package.items','req_slip','Products',store=True),
+        'products': fields.one2many('basic.package.items', 'req_slip', 'Products',store=True, states={'confirmed': [('readonly', True)]}),
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details'),
         'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True),
@@ -52,10 +52,11 @@ class mutual_requisition(osv.osv):
 
     # confirm the dates
     def confrm_date(self, curr_req_slip_date):
-        print curr_req_slip_date
+        # print curr_req_slip_date
         self.env.cr.execute("select * from mutual_requisition where date ='"+str(curr_req_slip_date)+"'")
         chk_lst = self.env.cr.dictfetchall()
-        if len(chk_lst) == 0:
+        if len(chk_lst) == 0 and self.counter != 8:
+            self.counter += 1
             res = self.confrm_date(curr_req_slip_date-timedelta(days=1))
             return res
         else:
@@ -68,17 +69,53 @@ class mutual_requisition(osv.osv):
             rec_date = datetime.strptime(self.date, '%Y-%m-%d').date()
             date_list = [rec_date-timedelta(days=1), rec_date]
             self.counter=1
-            my_date = self.confrm_date(date_list[0])
+            date_list = [self.confrm_date(date_list[0]), date_list[1]]
             print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>MY DATE"
-            print my_date
+            print date_list
             all_req = self.get_reqslp_data(date_list)
+            pattern1, pattern2 = '', ''
             for index, item in enumerate(all_req):
+                # print item
                 for item2 in all_req[index+1:]:
-                    if item["id"] != item2["id"] and item["cs"] == item2["cs"] and item["cs"] is not None and item2["cs"] is not None:
-                        pattern = "(" + str(item["id"]) + "," + str(item2["id"]) + ")"
-                        print pattern
-                        if pattern not in alrt:
-                            alrt += "(" + str(item["id"]) + "," + str(item2["id"]) + "),"
+                    if item["id"] != item2["id"] and item["cs"] == item2["cs"] and item["cs"] is not None and item2["cs"] is not None and item["quantity"] == item2["quantity"] and item["name"] == item2["name"]:
+                        if item["req_code"] is not None and item2["req_code"] is not None:
+                            pattern1 = "(" + str(item["req_code"]) + "," + str(item2["req_code"]) + "),"
+                            pattern2 = "(" + str(item2["req_code"]) + "," + str(item["req_code"]) + "),"
+                        elif item["req_code"] is None and item2["req_code"] is not None:
+                            pattern1 = "(" + str(item["id"]) + "," + str(item2["req_code"]) + "),"
+                            pattern2 = "(" + str(item2["req_code"]) + "," + str(item["id"]) + "),"
+                        elif item["req_code"] is not None and item2["req_code"] is None:
+                            pattern1 = "(" + str(item2["id"]) + "," + str(item["req_code"]) + "),"
+                            pattern2 = "(" + str(item["req_code"]) + "," + str(item2["id"]) + "),"
+                        else:
+                            pattern1 = "(" + str(item["id"]) + "," + str(item2["id"]) + "),"
+                            pattern2 = "(" + str(item2["id"]) + "," + str(item["id"]) + "),"
+                        if pattern1 not in alrt and pattern2 not in alrt:
+                            alrt += pattern1
+                        print pattern2,pattern1
+                    elif item["id"] != item2["id"] and item["cs"] is None and item2["cs"] is None and item["quantity"] == item2["quantity"] and item["name"] == item2["name"] and item["partner_name"] == item2["partner_name"]:
+                        if item["req_code"] is not None and item2["req_code"] is not None:
+                            pattern1 = "(" + str(item["req_code"]) + "," + str(item2["req_code"]) + "),"
+                            pattern2 = "(" + str(item2["req_code"]) + "," + str(item["req_code"]) + "),"
+                        elif item["req_code"] is None and item2["req_code"] is not None:
+                            pattern1 = "(" + str(item["id"]) + "," + str(item2["req_code"]) + "),"
+                            pattern2 = "(" + str(item2["req_code"]) + "," + str(item["id"]) + "),"
+                        elif item["req_code"] is not None and item2["req_code"] is None:
+                            pattern1 = "(" + str(item2["id"]) + "," + str(item["req_code"]) + "),"
+                            pattern2 = "(" + str(item["req_code"]) + "," + str(item2["id"]) + "),"
+                        else:
+                            pattern1 = "(" + str(item["id"]) + "," + str(item2["id"]) + "),"
+                            pattern2 = "(" + str(item2["id"]) + "," + str(item["id"]) + "),"
+                        if pattern1 not in alrt and pattern2 not in alrt:
+                            alrt += pattern1
+                        print pattern2,pattern1
+            print pattern2 , pattern1
+            for ind,item in enumerate(self.products):
+                for item1 in self.products[ind+1:]:
+                    if item.courier_sheet_products.name == item1.courier_sheet_products.name and item.quantity ==item1.quantity and item.cs_number ==item1.cs_number:
+                        raise osv.except_osv(('Error'), ('Multiple entries in this requsition'))
+
+
             if alrt != '':
                 alrt = alrt[:-1]
                 raise osv.except_osv(('Error'), ('Duplicate entries exist at id' + alrt))
@@ -95,8 +132,10 @@ class mutual_requisition(osv.osv):
             dv += "'" + str(dt) + "'" + ','
         dv = dv[:-1]
         # print dv
-        self.env.cr.execute("""select mr.id as id,bp.quantity as quantity,bp.cs_number as cs,pi.name as name from mutual_requisition mr
+        self.env.cr.execute("""select mr.id as id,mr.req_code as req_code,mr.allow_req as allow_req ,bp.quantity as quantity,bp.cs_number as cs,rp.name as partner_name,pi.name as name 
+                                       from mutual_requisition mr
                                        inner join basic_package_items bp on mr.id=bp.req_slip
                                        inner join product_items pi on bp.courier_sheet_products=pi.id
+                                       inner join res_partner rp on rp.id=bp.customer
                                        where mr.date in (""" + dv + ")")
         return self.env.cr.dictfetchall()

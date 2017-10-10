@@ -41,14 +41,15 @@
              <sheet class="oe_form_sheet_full_screen">
                  <h1>Requisition Slip</h1>
                  <group>
-                     <field name="req_type" />
+                     <field name="req_type" attrs="{'readonly': [('state', '=', 'confirmed')]}"/>
                  </group>
                  <group>
-                     <field name="req_code" attrs="{'invisible': [('req_type','=','none')]}"/>
-                     <field name="title" attrs="{'invisible': [('req_type','=','none')]}" />
+                     <field name="req_code"  attrs="{'invisible': [('req_type','=','none')]}" />
+                     <field name="id" attrs="{'invisible': [('req_type','=','none')]}"/>
+                     <field name="title" attrs="{'invisible': [('req_type','=','none')], 'readonly': [('state', '=', 'confirmed')]}" />
                  </group>
                  <group>
-                     <field name="date" attrs="{'invisible': [('req_type','=','none')]}"/>
+                     <field name="date" attrs="{'invisible': [('req_type','=','none')], 'readonly': [('state', '=', 'confirmed')]}"/>
                  </group>
                   <group>
                      <field name="allow_req" attrs="{'invisible': [('req_type','=','none')]}" />
@@ -56,10 +57,10 @@
                  <notebook>
                      <page string="Products" placeholder="add a product" attrs="{'invisible': [('req_type','=','none')]}">
                          <field name="products" attrs="{'invisible': [('req_type','=','none')]}" >
-                             <tree editable="top" string="Products">
+                             <tree editable="top" string="Products" >
                                  <field name="courier_sheet_products" />
                                  <field name="type"/>
-                                 <field name="customer" />
+                                 <field name="customer"/>
                                  <field name="location" />
                                  <field name="cs_number" />
                                  <field name="branch_code"/>
