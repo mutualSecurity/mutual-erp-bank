@@ -14,9 +14,9 @@ class mutual_requisition(osv.osv):
         'title': fields.char('Title',store=True),
         'date': fields.date('Date',store=True),
         'products': fields.one2many('basic.package.items', 'req_slip', 'Products',store=True, states={'confirmed': [('readonly', True)]}),
-        'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details'),
-        'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details'),
-        'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True),
+        'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details', size=15),
+        'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details', size=15),
+        'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True, size=15),
         'req_type': fields.selection([('New Installation','New Installation'),('Additional','Additional'),('none',' ')],'Requisition Type')
 
     }
@@ -72,6 +72,9 @@ class mutual_requisition(osv.osv):
             date_list = [self.confrm_date(date_list[0]), date_list[1]]
             print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>MY DATE"
             print date_list
+            print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>MY cummulative data"
+            print self.cumm_product_data()
+
             all_req = self.get_reqslp_data(date_list)
             pattern1, pattern2 = '', ''
             for index, item in enumerate(all_req):
@@ -139,3 +142,22 @@ class mutual_requisition(osv.osv):
                                        inner join res_partner rp on rp.id=bp.customer
                                        where mr.date in (""" + dv + ")")
         return self.env.cr.dictfetchall()
+
+    # get cummulative data of products in req slip
+    def cumm_product_data(self):
+        cumm_prod,data=[],{}
+        for line in self.products:
+            if not any(d['name'] == line.courier_sheet_products.name for d in cumm_prod) or not any(cumm_prod):
+                data = {
+                    'name': line.courier_sheet_products.name,
+                    'quantity': line.quantity,
+                }
+                cumm_prod.append(data)
+                print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>if"
+            else:
+                print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Else"
+                for item in cumm_prod:
+                    if item['name'] == line.courier_sheet_products.name:
+                       item['quantity'] += line.quantity
+
+        return cumm_prod

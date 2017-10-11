@@ -86,6 +86,8 @@ class sale_order(osv.osv):
         'tcs_receipt': fields.char('TCS/Receipt No.',store=True),
         'dispatch_sheet_date': fields.date('Dispatched Date', store=True),
         'branch_code': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch Code', readonly=True),
+        'customer_name': fields.related('partner_id', 'name', type='char', string='Name', readonly=True),
+        'bank_code': fields.related('partner_id', 'bank_code', type='char', size=12, string='Bank Code', readonly=True),
         'remarks': fields.text('Remarks', store=True),
     }
 
