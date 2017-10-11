@@ -229,6 +229,9 @@
                         </group>
                     </page>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">"['|',('customer','=',True),('is_technician','=',True)]"</attribute>
+                </xpath>
             </field>
         </record>
 
