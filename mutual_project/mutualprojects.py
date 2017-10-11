@@ -810,7 +810,7 @@ class stockreturn(osv.osv):
     _columns = {
             'title':fields.char('Title',store=True,required=True),
             'date': fields.date('Date', store=True, required=True),
-            'req_slip_ref': fields.integer('Requisition slip Reference', store=True,required=True),
+            'req_slip_ref': fields.char('Requisition slip Reference', store=True,required=True),
             'products': fields.one2many('basic.package.items', 'stock_return_products', 'Items', store=True),
             'devices': fields.char('Devices' ,compute='devices_details'),
             'qty': fields.char('Qty', store=True, compute='devices_details'),

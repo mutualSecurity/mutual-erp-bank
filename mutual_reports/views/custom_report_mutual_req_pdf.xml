@@ -118,7 +118,7 @@
                               </div>
                              </div>
                             <div style="font-size:16px;border:2px solid grey; padding:10px;border-radius:10px;width:100%;margin-top:50px">
-                                <strong>Total Products Summary: </strong>
+                                <strong>Total Products Summary</strong>
                                      <t t-foreach="obj.cumm_product_data()" t-as="line">
                                          <span t-esc="line.get('name')"/> : <span t-esc="line.get('quantity')"/>,
                                     </t>
