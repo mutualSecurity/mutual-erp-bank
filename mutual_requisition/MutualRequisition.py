@@ -12,7 +12,7 @@ class mutual_requisition(osv.osv):
         'req_code': fields.char('Serial No.', readonly=True, store=True),
         'state': fields.selection([('draft', 'Draft'), ('confirmed', 'Confirmed')], 'State', store=True, default='draft'),
         'title': fields.char('Title',store=True),
-        'date': fields.date('Date',store=True),
+        'date': fields.date('Date',store=True,required=True),
         'products': fields.one2many('basic.package.items', 'req_slip', 'Products',store=True, states={'confirmed': [('readonly', True)]}),
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details', size=15),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details', size=15),
