@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+         <record model="ir.actions.act_window" id="custom_action_sales_order">
+            <field name="name">Sales Orders</field>
+            <field name="res_model">sale.order</field>
+            <field name="src_model">account.analytic.account</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p><p>
+                Use sale orders to track everything that should be invoiced
+                at a fix price on a contract.
+              </p>
+            </field>
+        </record>
+         <menuitem
+            name="SO/Courier Sheet"
+            action="custom_action_sales_order"
+            id="menu_custom_action_sales_order"
+            sequence="21"
+            parent="project.menu_project_management">
+        </menuitem>
+
         <record id="relatives_open_project_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Other Contacts</field>
             <field name="res_model">customer.relatives</field>
