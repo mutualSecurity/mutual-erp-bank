@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record model="ir.actions.act_window" id="custom_quantsact">
+            <field name="name">Quants</field>
+            <field name="res_model">stock.quant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'search_default_internal_loc': 1}</field>
+            <field name="help">This analysis gives you a fast overview on the current stock level of your products and their today's inventory value.</field>
+        </record>
+        <menuitem
+            name="Warehouse"
+            action="custom_quantsact"
+            id="menu_custom_quantsact"
+            sequence="22"
+            parent="project.menu_project_management">
+        </menuitem>
+
         <record model="ir.ui.view" id="product_variant_id">
             <field name="name">product.product.form</field>
             <field name="model">product.product</field>
