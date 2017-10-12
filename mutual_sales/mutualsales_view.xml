@@ -218,6 +218,7 @@
                     <field name="installation_date"/>
                     <field name="complaint_reference"/>
                     <field name="tcs_receipt"/>
+                    <field name="tcs_delivery_status"/>
                 </xpath>
                 <xpath expr="//notebook/page[@string='Order Lines']" position="after">
                     <page string="Remarks">
@@ -288,6 +289,12 @@
                         <filter string="SO By Day" context="{'group_by':'date_order:day'}" />
                         <filter string="SO By Month" context="{'group_by':'date_order:month'}" />
                         <filter string="SO By Year" context="{'group_by':'date_order:year'}" />
+                      </group>
+                      <group string="Dispatch Sheet daily/day/month/year">
+                        <filter string="DS Daily" domain="[('dispatch_sheet_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('dispatch_sheet_date', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+                        <filter string="DS By Day" context="{'group_by':'dispatch_sheet_date:day'}" />
+                        <filter string="DS By Month" context="{'group_by':'dispatch_sheet_date:month'}" />
+                        <filter string="DS By Year" context="{'group_by':'dispatch_sheet_date:year'}" />
                       </group>
                   </search>
               </field>

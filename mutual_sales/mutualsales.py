@@ -84,6 +84,7 @@ class sale_order(osv.osv):
         'complaint_reference': fields.char('Complaint reference',store=True, on_change='auto_select()'),
         'cs_number': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
         'tcs_receipt': fields.char('TCS/Receipt No.',store=True),
+        'tcs_delivery_status': fields.char('TCS Delivery Status', store=True),
         'dispatch_sheet_date': fields.date('Dispatched Date', store=True),
         'branch_code': fields.related('partner_id', 'branch_code', type='char', size=12, string='Branch Code', readonly=True),
         'customer_name': fields.related('partner_id', 'name', type='char', string='Name', readonly=True),
