@@ -11,6 +11,8 @@ class mutual_products(osv.osv):
     _inherit = "product.product"
     _columns = {
         'default_code': fields.char('', select=True),
+        'acc_inv_check': fields.boolean('account_inv_check', store=True),
+
 
     }
 
@@ -31,6 +33,7 @@ class mutual_templates(osv.osv):
         'standard_price': fields.property(type='float', digits_compute=dp.get_precision('Product Price'),
                                           help="Cost price of the product template used for standard stock valuation in accounting and used as a base price on purchase orders. "
                                                "Expressed in the default unit of measure of the product.",string="Cost Price"),
+
     }
 
 class mutual_stock(osv.osv):
@@ -49,7 +52,6 @@ class mutual_stock(osv.osv):
     _defaults = {
         'status': 'None',
     }
-
 
     @api.one
     @api.depends('partner_id')

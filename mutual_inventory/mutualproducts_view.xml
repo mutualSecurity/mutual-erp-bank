@@ -22,6 +22,9 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='lst_price']" position="after">
+                 <field name="acc_inv_check"/>
+                </xpath>
                 <field name="ean13" position="replace">
 
                 </field>
