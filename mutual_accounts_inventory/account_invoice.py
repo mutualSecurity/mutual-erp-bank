@@ -43,7 +43,7 @@ class mutual_account_invoice(osv.osv):
             else:
                 for item in product_stock:
                     sale_rec=item["sales"]
-            self.env.cr.execute("select opening_count from inventory_opening where item_code=" + "'" + str(line.product_id.id) + "'" )
+            self.env.cr.execute("select opening_count from inventory_opening where item_code=" + "'" + str(line.product_id.id) + "'")
             opening_stock=self.env.cr.dictfetchall()
             for item in opening_stock:
                 open_rec=item["opening_count"]
@@ -59,7 +59,7 @@ class mutual_account_invoice(osv.osv):
             if(line.product_id.type != 'service' and line.effect_on_inven=='Yes'):
                 if(self.partner_id.customer and self.checkNeg(line)==0):
                     self.createLogs(line,self.partner_id.customer,self.partner_id.supplier)
-                elif(self.checkNeg(line)==0):
+                elif(self.partner_id.supplier):
                     self.createLogs(line,self.partner_id.customer,self.partner_id.supplier)
                 else:
                     if line.product_id.id:
