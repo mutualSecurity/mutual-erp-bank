@@ -215,6 +215,7 @@
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="cs_number"/>
                     <field name="installation_date"/>
                     <field name="complaint_reference"/>
                     <field name="tcs_receipt"/>

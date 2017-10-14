@@ -38,8 +38,9 @@ class mutual_templates(osv.osv):
 
 class mutual_stock(osv.osv):
     _inherit = "stock.picking"
-    values = [('Stock Returned from Customer', 'Stock Returned from Customer'),
-              ('Stock Returned from Technician', 'Stock Returned from Technician'),
+    values = [('Stock Returned from Customer To Warehouse', 'Stock Returned from Customer To Warehouse'),
+              ('Stock Returned from Customer To Technician', 'Stock Returned from Customer To Technician'),
+              ('Stock Returned from Technician To Warehouse', 'Stock Returned from Technician  To Warehouse'),
               ('Stock Returned from Bank Warehouse', 'Stock Returned from Bank Warehouse'), ('None', 'None'),
                ]
     _columns = {
