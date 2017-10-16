@@ -11,7 +11,7 @@ class mutual_products(osv.osv):
     _inherit = "product.product"
     _columns = {
         'default_code': fields.char('', select=True),
-        'acc_inv_check': fields.boolean('account_inv_check', store=True),
+        'acc_inv_check': fields.boolean('In Accounts Inventory', store=True),
 
 
     }
