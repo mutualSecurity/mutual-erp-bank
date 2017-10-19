@@ -29,10 +29,13 @@ Dashboard / Reports for Project Management will include:
 * Cumulative Flow
     """,
     'data': ['wizard/wizard_customer_inventory_view.xml',
+             'wizard/wizard_technician_inventory_view.xml',
              'customer_inventory_report.xml',
+             'technician_inventory_report.xml',
              'stock_return_view.xml',
              'faulty_devices_view.xml',
              'views/report_customer_inventory.xml',
+             'views/report_technician_inventory.xml',
              'mutualprojects_view.xml'],
     'installable': True,
     'auto_install': False,

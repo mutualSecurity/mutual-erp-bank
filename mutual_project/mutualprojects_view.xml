@@ -232,6 +232,14 @@
             parent="report_menu_old_time_open_project_attachment_view">
         </menuitem>
 
+        <menuitem
+            name="Technician Inventory"
+            action="action_technician_form_wiz_inventory"
+            id="menu_technician_inventory_project_attachment_view"
+            sequence="2"
+            parent="report_menu_old_time_open_project_attachment_view">
+        </menuitem>
+
         <!--========================================================= Old Time Begins ================================================-->
         <record id="old_time_open_project_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Old TimeInOut</field>
