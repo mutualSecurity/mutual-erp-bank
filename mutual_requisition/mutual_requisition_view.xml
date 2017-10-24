@@ -108,6 +108,7 @@
                     <field name="ref"/>
                     <field name="title"/>
                     <field name="date"/>
+                    <field name="all_recipiant" string="Name in requisition"/>
                 </search>
             </field>
          </record>
