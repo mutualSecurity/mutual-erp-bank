@@ -17,8 +17,8 @@ class mutual_requisition(osv.osv):
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details', size=15),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details', size=15),
         'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True, size=15),
-        'req_type': fields.selection([('New Installation','New Installation'),('Additional','Additional'),('none',' ')],'Requisition Type')
-
+        'req_type': fields.selection([('New Installation','New Installation'),('Additional','Additional'),('none',' ')],'Requisition Type'),
+        'all_recipiant': fields.char('all recipiant', store=True, defaults=' ', compute='devices_details', readonly=True),
     }
 
     _defaults={
@@ -34,8 +34,9 @@ class mutual_requisition(osv.osv):
             vals['req_code'] = self.pool.get('ir.sequence').get(cr, uid, 'mutual.ad.requisition')
         return super(mutual_requisition, self).create(cr, uid, vals, context=context)
 
-    @api.depends('products.courier_sheet_products', 'products.quantity')
+    @api.depends('products.courier_sheet_products', 'products.quantity', 'products.customer')
     def devices_details(self):
+        all_cus = ''
         print ">>>>>>>>>>>>>>>>>>>>>>>SingleTOn>>>>>>>>>>>>."
         for line in self.products:
             print ">>>>>>>>>>>>for singlton>>>>>>>>>>>>>>>>>"
@@ -43,8 +44,12 @@ class mutual_requisition(osv.osv):
             self.devices = self.devices.replace('False', ' ')
             self.qty = str(self.qty) + str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
-            self.ref=str(self.ref)+str(line.cs_number)+","
+            self.ref = str(self.ref)+str(line.cs_number)+","
             self.ref = self.ref.replace('False', ' ')
+            all_cus = str(all_cus) + str(line.customer.name) + ","
+            all_cus = all_cus.replace('False', ' ')
+        self.all_recipiant = all_cus[:-1]
+
 
     @api.multi
     def cancel(self):
@@ -64,6 +69,25 @@ class mutual_requisition(osv.osv):
 
     @api.multi
     def validate(self):
+        all_cus = ''
+        self.env.cr.execute("select id from mutual_requisition where all_recipiant is Null")
+        unfil_req = self.env.cr.dictfetchall()
+        print unfil_req
+        if len(unfil_req) > 0:
+            for req in unfil_req:
+                self.env.cr.execute("""select bpi.id,bpi.req_slip,rp.name from basic_package_items bpi 
+                                                                          inner join res_partner rp on bpi.customer=rp.id 
+                                                                          where bpi.req_slip=""" + str(req['id']))
+                cus_fill = self.env.cr.dictfetchall()
+                for item in cus_fill:
+                    all_cus += str(item['name']) + ","
+                    all_cus = all_cus.replace('False', ' ')
+                print """>>>>>>>>>updating id, and string"""
+                print """>>>>>>>>>id =""" + str(req["id"]) + """>>>>>>>>>string =""" + all_cus
+                self.env.cr.execute(
+                    "update mutual_requisition set all_recipiant='" + str(all_cus[:-1]) + "' where id =" + str(
+                        req['id']))
+                all_cus = ''
         if not self.allow_req:
             alrt = ''
             rec_date = datetime.strptime(self.date, '%Y-%m-%d').date()
