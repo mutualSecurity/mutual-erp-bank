@@ -2,6 +2,8 @@
 # Copyright 2009-2016 Noviat
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import xlwt
+from dateutil.relativedelta import *
+from datetime import date, timedelta,datetime
 from openerp.addons.report_xls.report_xls import report_xls
 from openerp.addons.report_xls.utils import rowcol_to_cell
 from openerp.addons.account_financial_report_webkit.report.trial_balance \
@@ -14,7 +16,34 @@ from openerp.tools.translate import _
 class trial_balance_xls(report_xls):
     column_sizes = [12, 60, 17, 17, 17, 17, 17, 17]
 
+    def cal_ini_bal(self,start_date,end_date,account_id):
+        self.cr.execute("SELECT sum(debit) AS debit, "
+                            " sum(credit) AS credit, "
+                            " sum(debit)-sum(credit) AS balance, "
+                            " sum(amount_currency) AS curr_balance"
+                            " FROM account_move_line"
+                            " WHERE account_id ='" + str(account_id) + "'" + "and date between'" + str(start_date[0]['date_start']) + "'" + "and'" + str(end_date) + "'")
+
+        res = self.cr.dictfetchone()
+        return res
+
+
+    def number_of_fiscal_years(self,fiscalyear_id):
+        total_open_fiscalyears = self.cr.execute("SELECT id, date_stop, code, create_date, name, date_start,state FROM account_fiscalyear where state = 'draft'");
+        total_open_fiscalyears = self.cr.dictfetchall()
+        if total_open_fiscalyears > 1:
+            # find start_date of last fiscal year which is in open state
+            start_date = self.cr.execute("SELECT MIN(date_start) date_start FROM public.account_fiscalyear")
+            start_date = self.cr.dictfetchall()
+            start_date = start_date
+            return start_date
+        else:
+            fiscalyear_startdate =self.cr.execute("SELECT date_start FROM public.account_fiscalyear where id="+"'" + str(fiscalyear_id) + "'")
+            fiscalyear_startdate = self.cr.dictfetchall()
+            return fiscalyear_startdate
+
     def generate_xls_report(self, _p, _xs, data, objects, wb):
+        initial_bal = data['form']['initial_balance']
 
         ws = wb.add_sheet(_p.report_name[:31])
         ws.panes_frozen = True
@@ -217,6 +246,13 @@ class trial_balance_xls(report_xls):
             regular_cell_format + _xs['center'], num_format_str='0')
 
         for current_account in objects:
+            start_date = self.number_of_fiscal_years(_p.fiscalyear.id)
+            end_date = datetime.strptime(_p.start_date, '%Y-%m-%d')
+            end_date = end_date - relativedelta(days=1)
+            end_date = str(end_date).split(' ')
+            end_date = end_date[0]
+
+            results = self.cal_ini_bal(start_date,end_date,current_account.id)
 
             if not _p['to_display_accounts'][current_account.id]:
                 continue
@@ -262,16 +298,28 @@ class trial_balance_xls(report_xls):
                                     'accounts'][current_account.id],
                                  None,
                                  cell_style_decimal)]
-                c_specs += [
-                    ('debit', 1, 0, 'number',
-                     _p['debit_accounts'][current_account.id],
-                     None, cell_style_decimal),
-                    ('credit', 1, 0, 'number',
-                     _p['credit_accounts'][current_account.id],
-                     None, cell_style_decimal),
-                ]
-                c_specs += [('balance', 1, 0, 'number', None,
-                             bal_formula, cell_style_decimal)]
+                elif initial_bal:
+                    c_specs += [
+                        ('debit', 1, 0, 'number',
+                         _p['debit_accounts'][current_account.id]+ (results['balance']or 0.0),
+                         None, cell_style_decimal),
+                        ('credit', 1, 0, 'number',
+                         _p['credit_accounts'][current_account.id],
+                         None, cell_style_decimal),
+                    ]
+                    c_specs += [('balance', 1, 0, 'number', None,
+                                 bal_formula, cell_style_decimal)]
+                else:
+                    c_specs += [
+                        ('debit', 1, 0, 'number',
+                         _p['debit_accounts'][current_account.id],
+                         None, cell_style_decimal),
+                        ('credit', 1, 0, 'number',
+                         _p['credit_accounts'][current_account.id],
+                         None, cell_style_decimal),
+                    ]
+                    c_specs += [('balance', 1, 0, 'number', None,
+                                 bal_formula, cell_style_decimal)]
             else:
                 c_specs += [('balance', 1, 0, 'number',
                              _p['balance_accounts'][current_account.id],

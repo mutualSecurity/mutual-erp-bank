@@ -51,6 +51,9 @@
                     <field name="fiscalyear_id" position="attributes">
                         <attribute name="attrs">{'required': [('filter', '=', 'filter_opening')]}</attribute>
                     </field>
+                     <xpath expr="//field[@name='filter']" position="after">
+                        <field name="initial_balance"/>
+                    </xpath>
                 </data>
             </field>
         </record>

@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp.osv import fields,orm
 
 
 class AccountTrialBalanceWizard(orm.TransientModel):
@@ -28,6 +28,23 @@ class AccountTrialBalanceWizard(orm.TransientModel):
     _inherit = "account.common.balance.report"
     _name = "trial.balance.webkit"
     _description = "Trial Balance Report"
+
+    _columns = {
+        'initial_balance': fields.boolean('Include Initial Balances',
+                                          help='If you selected to filter by date or period, this field allow you to add a row to display the amount of debit/credit/balance that precedes the filter you\'ve set.')
+    }
+
+    def pre_print_report(self, cr, uid, ids, data, context=None):
+        data = super(AccountTrialBalanceWizard, self).pre_print_report(
+            cr, uid, ids, data, context=context)
+        # will be used to attach the report on the main account
+        data['ids'] = [data['form']['chart_account_id']]
+        vals = self.read(cr, uid, ids,
+                         ['initial_balance',
+                         ],
+                         context=context)[0]
+        data['form'].update(vals)
+        return data
 
     def _print_report(self, cursor, uid, ids, data, context=None):
         context = context or {}
