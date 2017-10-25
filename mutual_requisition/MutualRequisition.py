@@ -139,7 +139,7 @@ class mutual_requisition(osv.osv):
             print pattern2 , pattern1
             for ind,item in enumerate(self.products):
                 for item1 in self.products[ind+1:]:
-                    if item.courier_sheet_products.name == item1.courier_sheet_products.name and item.quantity ==item1.quantity and item.cs_number ==item1.cs_number:
+                    if item.courier_sheet_products.name == item1.courier_sheet_products.name and item.quantity == item1.quantity and item.cs_number == item1.cs_number and item.customer.name == item1.customer.name:
                         raise osv.except_osv(('Error'), ('Multiple entries in this requsition'))
 
 
