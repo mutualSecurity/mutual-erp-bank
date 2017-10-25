@@ -37,21 +37,25 @@ class generalEntryCreate(osv.osv):
 
     def button_validate(self, cursor, user, ids, context=None):
         obj = self.browse(cursor, user, ids[0], context=context)
-        if(obj.count>0):
-            cursor.execute('UPDATE account_move_line SET ref =' + "'" + str(obj.ref) + "'" + 'WHERE move_id =' + str(obj.id))
-        for move in self.browse(cursor, user, ids, context=context):
-            # check that all accounts have the same topmost ancestor
-            top_common = None
-            for line in move.line_id:
-                account = line.account_id
-                top_account = account
-                while top_account.parent_id:
-                    top_account = top_account.parent_id
-                if not top_common:
-                    top_common = top_account
-                elif top_account.id != top_common.id:
-                    raise osv.except_osv(_('Error!'),
-                                         _(
-                                             'You cannot validate this journal entry because account "%s" does not belong to chart of accounts "%s".') % (
-                                         account.name, top_common.name))
-        return self.post(cursor, user, ids, context=context)
+        if str(obj.period_id.name).split('/')[0] == str(obj.date).split('-')[1]:
+            if(obj.count>0):
+                cursor.execute('UPDATE account_move_line SET ref =' + "'" + str(obj.ref) + "'" + 'WHERE move_id =' + str(obj.id))
+            for move in self.browse(cursor, user, ids, context=context):
+                # check that all accounts have the same topmost ancestor
+                top_common = None
+                for line in move.line_id:
+                    account = line.account_id
+                    top_account = account
+                    while top_account.parent_id:
+                        top_account = top_account.parent_id
+                    if not top_common:
+                        top_common = top_account
+                    elif top_account.id != top_common.id:
+                        raise osv.except_osv(_('Error!'),
+                                             _(
+                                                 'You cannot validate this journal entry because account "%s" does not belong to chart of accounts "%s".') % (
+                                             account.name, top_common.name))
+            return self.post(cursor, user, ids, context=context)
+        else:
+            raise osv.except_osv(_('Error!'), _(
+                'Accounting period and posting date must belong to the same month.'))
