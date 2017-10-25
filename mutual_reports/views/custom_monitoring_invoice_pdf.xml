@@ -134,7 +134,7 @@
                            <div class="row">
                               <div class="pull-left">
                                  <span style="margin-left:15px"><strong style="font-size:16px">Please make your payment via DD/P.O in favour of "Mutual Security Systems Private Limited"</strong>
-                                    <strong style="font-size:14px">Note:</strong><span t-esc=""/>
+                                    <strong style="font-size:14px">Note:</strong><span t-esc="account_invoice.comment"/>
                                  </span>
                               </div>
                           </div>
