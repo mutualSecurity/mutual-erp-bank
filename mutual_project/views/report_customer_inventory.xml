@@ -46,22 +46,44 @@
                                      <span t-esc="item['date']"  t-field-options="{&quot;format&quot;: &quot;dd-MM-YYY&quot;}"/>
                                  </td>
                                  <td>
-                                     <t t-if="item['status']=='Stock Returned from Customer'">
+                                     <t t-if="item['status']=='Stock Returned from Customer To Warehouse'">
                                          <span t-esc="item['status']"/>
                                      </t>
-                                      <t t-if="item['status']!='Stock Returned from Customer'">
-                                         <span t-esc="item['origin']"/>
+                                     <t t-if="item['status']=='Stock Returned from Customer To Technician'">
+                                         <span t-esc="item['status']"/>
                                      </t>
+                                     <t t-if="item['status']=='Stock Returned from Technician To Warehouse'">
+                                         <span t-esc="item['status']"/>
+                                     </t>
+                                      <t t-if="item['status']!='Stock Returned from Technician To Warehouse'">
+                                        <t t-if="item['status']!='Stock Returned from Customer To Technician'">
+                                            <t t-if="item['status']!='Stock Returned from Customer To Warehouse'">
+                                                <span t-esc="item['origin']"/>
+                                            </t>
+                                        </t>
+                                      </t>
                                  </td>
                                  <td>
                                      <span t-esc="item['name']"/>
                                  </td>
                                  <td class="text-right">
-                                     <t t-if="item['status']=='Stock Returned from Customer'">
+                                     <t t-if="item['status']=='Stock Returned from Customer To Warehouse'">
                                          -<span t-esc="item['product_qty']"/>
                                      </t>
-                                      <t t-if="item['status']!='Stock Returned from Customer'">
-                                        <span t-esc="item['product_qty']"/>
+
+                                     <t t-if="item['status']=='Stock Returned from Customer To Technician'">
+                                         -<span t-esc="item['product_qty']"/>
+                                     </t>
+
+                                     <t t-if="item['status']=='Stock Returned from Technician To Warehouse'">
+                                         -<span t-esc="item['product_qty']"/>
+                                     </t>
+                                      <t t-if="item['status']!='Stock Returned from Technician To Warehouse'">
+                                        <t t-if="item['status']!='Stock Returned from Customer To Technician'">
+                                            <t t-if="item['status']!='Stock Returned from Customer To Warehouse'">
+                                                <span t-esc="item['product_qty']"/>
+                                            </t>
+                                        </t>
                                      </t>
 
                                  </td>
