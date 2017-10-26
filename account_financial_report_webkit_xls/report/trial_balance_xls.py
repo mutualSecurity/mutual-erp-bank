@@ -286,7 +286,6 @@ class trial_balance_xls(report_xls):
                 debit_cell = rowcol_to_cell(row_pos, 4)
                 credit_cell = rowcol_to_cell(row_pos, 5)
                 bal_formula = debit_cell + '-' + credit_cell
-
                 if _p.initial_balance_mode:
                     init_cell = rowcol_to_cell(row_pos, 3)
                     debit_cell = rowcol_to_cell(row_pos, 4)
@@ -298,27 +297,16 @@ class trial_balance_xls(report_xls):
                                     'accounts'][current_account.id],
                                  None,
                                  cell_style_decimal)]
-                elif initial_bal:
-                    c_specs += [
+
+                c_specs += [
                         ('debit', 1, 0, 'number',
-                         _p['debit_accounts'][current_account.id]+ (results['balance']or 0.0),
+                         _p['debit_accounts'][current_account.id]+ ((results['balance']or 0.0) if initial_bal else 0.0),
                          None, cell_style_decimal),
                         ('credit', 1, 0, 'number',
                          _p['credit_accounts'][current_account.id],
                          None, cell_style_decimal),
                     ]
-                    c_specs += [('balance', 1, 0, 'number', None,
-                                 bal_formula, cell_style_decimal)]
-                else:
-                    c_specs += [
-                        ('debit', 1, 0, 'number',
-                         _p['debit_accounts'][current_account.id],
-                         None, cell_style_decimal),
-                        ('credit', 1, 0, 'number',
-                         _p['credit_accounts'][current_account.id],
-                         None, cell_style_decimal),
-                    ]
-                    c_specs += [('balance', 1, 0, 'number', None,
+                c_specs += [('balance', 1, 0, 'number', None,
                                  bal_formula, cell_style_decimal)]
             else:
                 c_specs += [('balance', 1, 0, 'number',
