@@ -246,13 +246,13 @@ class trial_balance_xls(report_xls):
             regular_cell_format + _xs['center'], num_format_str='0')
 
         for current_account in objects:
-            start_date = self.number_of_fiscal_years(_p.fiscalyear.id)
-            end_date = datetime.strptime(_p.start_date, '%Y-%m-%d')
-            end_date = end_date - relativedelta(days=1)
-            end_date = str(end_date).split(' ')
-            end_date = end_date[0]
-
-            results = self.cal_ini_bal(start_date,end_date,current_account.id)
+            if initial_bal:
+                start_date = self.number_of_fiscal_years(_p.fiscalyear.id)
+                end_date = datetime.strptime(_p.start_date, '%Y-%m-%d')
+                end_date = end_date - relativedelta(days=1)
+                end_date = str(end_date).split(' ')
+                end_date = end_date[0]
+                results = self.cal_ini_bal(start_date,end_date,current_account.id)
 
             if not _p['to_display_accounts'][current_account.id]:
                 continue
