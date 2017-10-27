@@ -234,6 +234,10 @@
                 <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="domain">"['|',('customer','=',True),('is_technician','=',True)]"</attribute>
                 </xpath>
+                <xpath expr="//field[@name='pricelist_id']" position="after">
+                    <field name="so_status"/>
+                    <field name="details"  attrs="{'invisible': [('so_status','=','None')],'required': [('so_status','!=','None')]}"/>
+                </xpath>
             </field>
         </record>
 
@@ -253,6 +257,7 @@
                 </xpath>
                 <xpath expr="//field[@name='date_order']" position="replace">
                     <field name="dispatch_sheet_date"/>
+                    <field name="so_status"/>
                 </xpath>
                  <xpath expr="//field[@name='user_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
@@ -260,9 +265,12 @@
                   <xpath expr="//field[@name='state']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                  <xpath expr="//field[@name='name']" position="attributes">
+                <xpath expr="//field[@name='name']" position="attributes">
                     <attribute name="string">Serial No.</attribute>
                 </xpath>
+                 <xpath expr="//tree[@string='Sales Orders']" position="attributes">
+                    <attribute name="colors">orange:so_status=='All Items Installed';brown:so_status=='Some Items Left';purple:so_status=='Additional Items Installed'</attribute>
+                  </xpath>
             </field>
         </record>
         <record model="ir.ui.view" id="sale.view_order_complaint_id_filter">
@@ -283,6 +291,8 @@
                   <field name="name" position="before">
                       <field name="cs_number"/>
                       <field name="branch_code"/>
+                      <field name="warehouse_id" string="Stock Out From Tech WH"/>
+                      <field name="so_status" string="SO Status"/>
                   </field>
                   <search string="Search Sales Order">
                       <group string="Sale Order day/month">
@@ -296,6 +306,15 @@
                         <filter string="DS By Day" context="{'group_by':'dispatch_sheet_date:day'}" />
                         <filter string="DS By Month" context="{'group_by':'dispatch_sheet_date:month'}" />
                         <filter string="DS By Year" context="{'group_by':'dispatch_sheet_date:year'}" />
+                      </group>
+                      <group string="SO Status">
+                          <filter string="All Items Installed" domain="[('so_status','=','All Items Installed')]"/>
+                          <filter string="Some Items Left" domain="[('so_status','=','Some Items Left')]"/>
+                          <filter string="Additional Items Installed" domain="[('so_status','=','Additional Items Installed')]"/>
+                      </group>
+                      <group string="Stock">
+                          <filter string="Stock In Techinician WH" domain="[('is_tech','=',True)]"/>
+                          <filter string="Stock Out from Technician WH" domain="[('warehouse_name','!=','MSS')]"/>
                       </group>
                   </search>
               </field>

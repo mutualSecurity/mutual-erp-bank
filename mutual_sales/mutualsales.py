@@ -80,6 +80,11 @@ class branch_details(osv.osv):
 class sale_order(osv.osv):
     _inherit = "sale.order"
     _columns = {
+        'so_status': fields.selection([('None', 'None'),
+                                       ('All Items Installed', 'All Items Installed'),
+                                       ('Some Items Left', 'Some Items Left'),
+                                       ('Additional Items Installed', 'Additional Items Installed')], 'SO Status', store=True, default='None'),
+        'details': fields.char('Details', store=True),
         'installation_date': fields.date('Installation Date', store=True),
         'complaint_reference': fields.char('Complaint reference',store=True, on_change='auto_select()'),
         'cs_number': fields.related('partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
@@ -90,6 +95,8 @@ class sale_order(osv.osv):
         'customer_name': fields.related('partner_id', 'name', type='char', string='Name', readonly=True),
         'bank_code': fields.related('partner_id', 'bank_code', type='char', size=12, string='Bank Code', readonly=True),
         'remarks': fields.text('Remarks', store=True),
+        'is_tech': fields.related('partner_id', 'is_technician', type='boolean', string='Technician', readonly=True),
+        'warehouse_name': fields.related('warehouse_id', 'code', type='char', string='WH Name', readonly=True),
     }
 
     defaults = {
