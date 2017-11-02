@@ -29,7 +29,9 @@ class mutual_sales(osv.osv):
         'rf_id': fields.char('RF_ID', select=True, store=True),
         'force_code': fields.char('Force Code', select=True, store=True),
         'parent':fields.boolean('Parent',store=True),
-        'customer_visit': fields.boolean('Force Visit Required', store=True)
+        'customer_visit': fields.boolean('Force Visit Required', store=True),
+        'cus_ntn_no': fields.char('NTN',store=True),
+        'cus_strn_no': fields.char('STRN', store=True),
     }
 
     @api.onchange('customer_visit')

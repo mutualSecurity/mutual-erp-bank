@@ -15,12 +15,16 @@
     # any module necessary for this one to work correctly
 
     'depends':   [
+        'sale',
         'account',
+        'mutual_sale_discount_total',
         'mutual_sales',
-        'mutual_project'
+        'mutual_project',
+        'mutual_invoice'
     ],
     'data': [
             'mutual_reports_reports.xml',
+            'views/custom_sales_tax_invoice_pdf.xml',
             'views/custom_report_mutual_stock_return_pdf.xml',
             'views/custom_courier_sheet_report.xml',
             'views/custom_report_mutual_req_pdf.xml',
@@ -34,5 +38,6 @@
             'views/customer_biodata_pdf.xml',
             'views/custom_additional_invoice_pdf.xml',
             'views/custom_monitoring_invoice_pdf.xml',
+
     ]
 }

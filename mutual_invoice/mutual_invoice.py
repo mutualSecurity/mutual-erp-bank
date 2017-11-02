@@ -47,8 +47,23 @@ class invoice_csnumber(osv.osv):
                                                 compute='select_auto_tax'),
         'total_product_amount': fields.float('Total Product Sales', store=True, readonly=True,
                                                 compute='select_auto_tax'),
+        #new fields added on 1-11-2017
+        'invoice_no_reference': fields.char('Invoice Number Reference', store=True),
+        'purchase_order_no': fields.char('PO no.', store=True),
+        'purchase_order_Date': fields.date('Dated', store=True),
+        'invoice_subject': fields.char('Subject', store=True),
         # 'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
     }
+
+
+    def fetch_previous_rec(self,so_ref):
+        self.env.cr.execute("select * from sale_order where name="+"'"+str(so_ref)+"'")
+        sale_order_dat = self.env.cr.dictfetchall()
+        self.env.cr.execute("select * from res_partner where id=" + str(sale_order_dat[0]["partner_id"]))
+        partner_dat = self.env.cr.dictfetchall()
+        return str(partner_dat[0]['street'])+"(BC-" + str(partner_dat[0]["branch_code"])+")"
+
+
 
     @api.one
     @api.depends('courier')

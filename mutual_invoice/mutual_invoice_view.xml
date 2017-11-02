@@ -23,6 +23,10 @@
                     <field name="installation_amount"/>
                     <field name="total_monitoring_amount"/>
                     <field name="total_product_amount"/>
+                    <field name="invoice_no_reference" />
+                    <field name="purchase_order_no" />
+                    <field name="purchase_order_Date" />
+                    <field name="invoice_subject" />
                     <!--<field name="shifting_amount"/>-->
                     <!--<field name="product_check"/>-->
                 </field>

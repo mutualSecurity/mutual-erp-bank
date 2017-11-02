@@ -4,6 +4,7 @@ from openerp import api
 
 class smsLogs(osv.osv):
     _name = "sms.logs"
+    _order = "sys_date desc"
     _columns = {
         'device_id':fields.char('Device ID',store=True),
         'card_id': fields.char('Card ID',store=True),

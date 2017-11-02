@@ -132,6 +132,8 @@
                     <field name="force_code"/>
                 </xpath>
                 <xpath expr="//field[@name='title']" position="after">
+                    <field name="cus_ntn_no" />
+                    <field name="cus_strn_no" />
                     <field name="parent" />
                 </xpath>
             </field>
