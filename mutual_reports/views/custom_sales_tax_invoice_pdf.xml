@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="custom_sales_tax_invoice" inherit_id="sale_layout.report_invoice_layouted">
+    <xpath expr="//div[@class='row']/strong" position="replace">
+        <h1 align="center">INVOICE</h1>
+        <br/>
+                <div style="font-size:12px;width:400px;display:inline-block; padding:10px;border-radius:10px;">
+                    <strong style="font-size:14px;" >
+                                   <span t-if="o.partner_id.parent_root_id">
+                                       <span t-if="o.partner_id.parent_root_id.parent_root_id">
+                                            <span t-field="o.partner_id.parent_root_id.parent_root_id.name"/>
+                                       </span>
+
+                                       <span t-if="not o.partner_id.parent_root_id.parent_root_id">
+                                            <span t-field="o.partner_id.parent_root_id.name"/>
+                                       </span>
+                                   </span><br/>
+                                  <span t-field="o.partner_id.name"/><br/>
+                                  <span t-if="o.partner_id.branch_code">
+                                      BC-<span t-field="o.partner_id.branch_code"/>
+                                  </span><br/>
+                                  <span t-if="o.partner_id.street">
+                                      <span t-field="o.partner_id.street"/><br/>
+                                  </span>
+                                  <span t-if="o.partner_id.street2">
+                                      <span t-field="o.partner_id.street2"/><br/>
+                                  </span>
+                                  <span t-if="o.partner_id.city">
+                                      <span t-field="o.partner_id.city"/><br/>
+                                      <span t-if="o.partner_id.office">
+                                          <span t-field="o.partner_id.office"/><br/>
+                                      </span>
+                                      <span t-if="o.partner_id.phone">
+                                          <span t-field="o.partner_id.phone"/><br/>
+                                      </span>
+                                      <span t-if="o.partner_id.mobile">
+                                          <span t-field="o.partner_id.mobile"/><br/>
+                                      </span>
+                                  </span>
+                        <br/><br/>
+                                    <span t-if="o.partner_id.cus_ntn_no">
+                                          NTN no. <span t-field="o.partner_id.cus_ntn_no"/><br/>
+                                    </span>
+
+                                    <span t-if="o.partner_id.cus_strn_no">
+                                          STRN no. <span t-field="o.partner_id.cus_strn_no"/><br/>
+                                    </span>
+
+
+
+                              <!--        <span t-if="o.partner_id.ntn_num">
+                                          NTN:<span t-field="o.partner_id.ntn_num"/><br/>
+                                      </span>
+                                      <span t-if="o.partner_id.gst_num">
+                                          GST:<span t-field="o.partner_id.gst_num"/><br/>
+                                      </span> -->
+                  </strong><br/><br/>
+                </div>
+                <div style="font-size:12px; width:360px;float:right;display:inline-block; padding:10px;border-radius:10px;">
+                    <strong style="font-size:14px;" >
+                                   <span t-if="o.invoice_no_reference">
+                                       <span t-field="o.invoice_no_reference"/><br/>
+                                   </span>
+                                  <span t-if="o.invoice_date">
+                                      <span t-field="o.invoice_date"/><br/>
+                                  </span>
+                                      NTN: 3764757-1<br/>STN: 17-00-3764-757-19<br/><br/>
+                                   <span t-if="o.purchase_order_no">
+                                       PO No. <span t-field="o.purchase_order_no"/><br/>
+                                   </span>
+                                   <span t-if="o.purchase_order_Date">
+                                       PO Date <span t-field="o.purchase_order_Date"/><br/>
+                                   </span>
+
+                              <!--        <span t-if="o.partner_id.ntn_num">
+                                          NTN:<span t-field="o.partner_id.ntn_num"/><br/>
+                                      </span>
+                                      <span t-if="o.partner_id.gst_num">
+                                          GST:<span t-field="o.partner_id.gst_num"/><br/>
+                                      </span> -->
+                    </strong><br/><br/>
+                </div>
+
+    </xpath>
+    <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+        <br/>
+        <div style="font-size:16px; width:100%;display:inline-block; padding:10px;border-radius:10px;">
+            <strong>Subject: </strong><span t-field="o.invoice_subject"/>, <span t-esc="o.fetch_previous_rec(o.origin)"/>
+        </div><br/>
+    </xpath>
+    <xpath expr="//h3" position="replace">
+        <br/>
+    </xpath>
+
+    <xpath expr="//td[@class='text-right']/span[@t-field='l.price_unit']" position="after">
+        <td></td>
+    </xpath>
+
+</template>
+</data>
+</openerp>
