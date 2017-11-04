@@ -6,6 +6,7 @@ from datetime import datetime,date,time,timedelta
 
 class mutual_requisition(osv.osv):
     _name = "mutual.requisition"
+    _rec_name = 'req_code'
     _columns = {
         'counter': fields.integer('Counter'),
         'allow_req':fields.boolean('Allow Requistion To Pass',store=True),
@@ -17,6 +18,7 @@ class mutual_requisition(osv.osv):
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details', size=15),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details', size=15),
         'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True, size=15),
+        'ref_two': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True,),
         'req_type': fields.selection([('New Installation','New Installation'),('Additional','Additional'),('none',' ')],'Requisition Type'),
         'all_recipiant': fields.char('all recipiant', store=True, defaults=' ', compute='devices_details', readonly=True),
     }
@@ -46,6 +48,8 @@ class mutual_requisition(osv.osv):
             self.qty = self.qty.replace('False', ' ')
             self.ref = str(self.ref)+str(line.cs_number)+","
             self.ref = self.ref.replace('False', ' ')
+            self.ref_two = str(self.ref) + str(line.cs_number) + ","
+            self.ref_two = self.ref.replace('False', ' ')
             all_cus = str(all_cus) + str(line.customer.name) + ","
             all_cus = all_cus.replace('False', ' ')
         self.all_recipiant = all_cus[:-1]

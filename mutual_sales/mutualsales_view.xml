@@ -218,6 +218,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="cs_number"/>
+                    <field name="region"/>
                     <field name="installation_date"/>
                     <field name="complaint_reference"/>
                     <field name="tcs_receipt"/>
@@ -237,8 +238,13 @@
                     <attribute name="domain">"['|',('customer','=',True),('is_technician','=',True)]"</attribute>
                 </xpath>
                 <xpath expr="//field[@name='pricelist_id']" position="after">
+                    <field name="req_ref"/>
                     <field name="so_status"/>
-                    <field name="details"  attrs="{'invisible': [('so_status','=','None')],'required': [('so_status','!=','None')]}"/>
+                    <field name="details"  attrs="{'invisible': ['|',('so_status','=','None'),('so_status','=','All Items Installed')],'required': [('so_status','!=','None'),('so_status','!=','All Items Installed')]}"/>
+                    <field name="time_in_out_remarks"/>
+                </xpath>
+                <xpath expr="//field[@name='req_ref']" position="attributes">
+                    <attribute name="options">{'limit': 0, 'create': false, 'create_edit': false}</attribute>
                 </xpath>
             </field>
         </record>
@@ -256,6 +262,7 @@
                     <field name="cs_number"/>
                     <field name="branch_code"/>
                     <field name="customer_name"/>
+                    <field name="region"/>
                 </xpath>
                 <xpath expr="//field[@name='date_order']" position="replace">
                     <field name="dispatch_sheet_date"/>
@@ -273,6 +280,51 @@
                  <xpath expr="//tree[@string='Sales Orders']" position="attributes">
                     <attribute name="colors">orange:so_status=='All Items Installed';brown:so_status=='Some Items Left';purple:so_status=='Additional Items Installed'</attribute>
                   </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale.view_order_complaint_id_filter">
+            <field name="name">sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="complaint_reference"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="sale.view_order_quotation_id">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree" />
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="bank_code"/>
+                    <field name="cs_number"/>
+                    <field name="branch_code"/>
+                    <field name="customer_name"/>
+                    <field name="region"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Serial No.</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="replace">
+                    <field name="dispatch_sheet_date"/>
+                    <field name="so_status"/>
+                </xpath>
+                 <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                  <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree[@string='Quotation']" position="attributes">
+                    <attribute name="colors">orange:so_status=='All Items Installed';brown:so_status=='Some Items Left';purple:so_status=='Additional Items Installed'</attribute>
+                </xpath>
             </field>
         </record>
         <record model="ir.ui.view" id="sale.view_order_complaint_id_filter">
