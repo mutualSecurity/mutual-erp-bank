@@ -241,7 +241,7 @@
                     <field name="req_ref"/>
                     <field name="so_status"/>
                     <field name="details"  attrs="{'invisible': ['|',('so_status','=','None'),('so_status','=','All Items Installed')],'required': [('so_status','!=','None'),('so_status','!=','All Items Installed')]}"/>
-                    <field name="time_in_out_remarks"/>
+                    <field name="comp_ref"/>
                 </xpath>
                 <xpath expr="//field[@name='req_ref']" position="attributes">
                     <attribute name="options">{'limit': 0, 'create': false, 'create_edit': false}</attribute>
