@@ -101,7 +101,9 @@ class sale_order(osv.osv):
         'is_tech': fields.related('partner_id', 'is_technician', type='boolean', string='Technician', readonly=True),
         'warehouse_name': fields.related('warehouse_id', 'code', type='char', string='WH Name', readonly=True),
         'req_ref': fields.many2one('mutual.requisition', store=True, string='Requisition Ref'),
-        'time_in_out_remarks': fields.char('TI/TO Remarks', store=True),
+        'comp_ref': fields.many2one('project.issue', store=True, string='Complaint Ref'),
+
+
     }
 
     defaults = {
@@ -112,13 +114,15 @@ class sale_order(osv.osv):
     @api.onchange('complaint_reference')
     def auto_select(self, context=None):
         if self.complaint_reference:
-            res = {'value': {'amenities': False}}
-            self.env.cr.execute('select id from res_partner where id = any(select partner_id from project_issue where id ='+self.complaint_reference+')')
-            customer = self.env.cr.dictfetchall()
-            list=self.env['res.partner'].search([['id', '=', customer[0]['id']], ])
-            # customers = self.pool.get('res.partner')
-            # res = customers.search(self.env.cr, self.env.uid, [('name', '=', 'Allied Bank')],context=context)
-            self.partner_id = list
+            complaint_list = self.env['project.issue'].search([['id', '=', self.complaint_reference], ])
+            if complaint_list:
+                self.env.cr.execute('select id from res_partner where id = any(select partner_id from project_issue where id ='+self.complaint_reference+')')
+                customer = self.env.cr.dictfetchall()
+                list=self.env['res.partner'].search([['id', '=', customer[0]['id']], ])
+                self.partner_id = list
+                self.comp_ref = complaint_list
+            else:
+                raise osv.except_osv(('Error'), ('complaint does not exist'))
 
 
 class mutual_order_lines(osv.osv):
