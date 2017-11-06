@@ -131,12 +131,13 @@
         <!-- ================================================== End tree view of Guard Patrolling ================================================ -->
 
         <!-- ================================================== Begin Search view of Guard Patrolling ================================================ -->
-        <record id="search_guard_tracking" model="ir.ui.view">
+        <record id="search_view_guard_tracking" model="ir.ui.view">
             <field name="name">view.guard.search.tracking</field>
             <field name="model">mutual.guard.tracking</field>
             <field name="arch" type="xml">
                 <search string="Guard Patrolling" version="8.0">
                     <field name="bank_code"/>
+                    <field name="visit_date" />
                     <field name="branch_code"/>
                     <field name="city"/>
                     <field name="force_code"/>
@@ -177,7 +178,7 @@
             </field>
         </record>
             <!-- ================================================== End tree view of sms lOGS ================================================ -->
-<!-- ================================================== Begin Search view of Guard Patrolling ================================================ -->
+<!-- ================================================== Begin Search view of Sms LOGS================================================ -->
         <record id="search_guard_tracking" model="ir.ui.view">
             <field name="name">view.search.sms.logs</field>
             <field name="model">sms.logs</field>
