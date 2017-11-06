@@ -107,7 +107,7 @@
                     <field name="req_code" string="Serial No."/>
                     <field name="id"/>
                     <field name="req_type"/>
-                    <field name="ref_two"/>
+##                     <field name="ref_two"/>
                     <field name="ref"/>
                     <field name="title"/>
                     <field name="date"/>
