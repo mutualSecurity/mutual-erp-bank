@@ -30,6 +30,7 @@ class mutual_sales(osv.osv):
         'force_code': fields.char('Force Code', select=True, store=True),
         'parent':fields.boolean('Parent',store=True),
         'customer_visit': fields.boolean('Force Visit Required', store=True),
+        # new fields added on 6-11-2017
         'cus_ntn_no': fields.char('NTN',store=True),
         'cus_strn_no': fields.char('STRN', store=True),
     }

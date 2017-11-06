@@ -26,7 +26,12 @@
                     <field name="invoice_no_reference" />
                     <field name="purchase_order_no" />
                     <field name="purchase_order_Date" />
+                    <field name="hide_purchase_order_detail" />
                     <field name="invoice_subject" />
+                    <field name="hide_cust_ntn_strn_no" />
+                    <field name="hide_mutual_strn_no" />
+                    <field name="hide_mutual_ntn_no" />
+
                     <!--<field name="shifting_amount"/>-->
                     <!--<field name="product_check"/>-->
                 </field>

@@ -52,7 +52,18 @@ class invoice_csnumber(osv.osv):
         'purchase_order_no': fields.char('PO no.', store=True),
         'purchase_order_Date': fields.date('Dated', store=True),
         'invoice_subject': fields.char('Subject', store=True),
+        # new fields added on 6-11-2017
+        'hide_cust_ntn_strn_no': fields.boolean('Hide Customer STRN & NTN no', store=True),
+        'hide_mutual_strn_no': fields.boolean('Hide Mutual STRN no', store=True),
+        'hide_mutual_ntn_no': fields.boolean('Hide Mutual NTN no', store=True),
+        'hide_purchase_order_detail': fields.boolean('Hide Purchase Order Detail', store=True),
         # 'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
+    }
+    _defaults = {
+        'hide_cust_ntn_strn_no': False,
+        'hide_mutual_strn_no': False,
+        'hide_mutual_ntn_no': False,
+        'hide_purchase_order_detail': False,
     }
 
 
