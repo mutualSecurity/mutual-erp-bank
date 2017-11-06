@@ -82,7 +82,7 @@
            <field name="name">view.tree.mutual.req</field>
             <field name="model">mutual.requisition</field>
             <field name="arch" type="xml">
-               <tree string="Requisition Slips List" version="8.0" default_order="date desc">
+               <tree string="Requisition Slips List" colors="blue:state == 'confirmed';gray:state == 'draft'" version="8.0" default_order="date desc">
                    <field name="req_code" string="Serial No."/>
                    <field name="req_type"/>
                    <field name="title"/>
@@ -91,6 +91,7 @@
                    <field name="ref" />
                    <field name="ref_two"/>
                    <field name="qty" />
+                   <field name="state" />
                </tree>
             </field>
        </record>
