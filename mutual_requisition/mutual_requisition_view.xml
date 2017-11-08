@@ -105,8 +105,8 @@
                 <search string="Requisition">
                     <field name="req_code" string="Serial No."/>
                     <field name="id"/>
+                    <field name="ref_two" string="CS Number"/>
                     <field name="req_type"/>
-                    <field name="ref"/>
                     <field name="title"/>
                     <field name="date"/>
                     <field name="all_recipiant" string="Name in requisition"/>

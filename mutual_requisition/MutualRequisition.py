@@ -18,7 +18,7 @@ class mutual_requisition(osv.osv):
         'devices':fields.char('Devices',store=True, defaults=' ', compute='devices_details', size=15),
         'qty':fields.char('Qty',store=True, defaults=' ', compute='devices_details', size=15),
         'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True, size=15),
-        # 'ref_two': fields.char('Ref', store=True, defaults=' ', compute='devices_details',readonly=True,),
+        'ref_two': fields.char('Ref', defaults=' ', compute='devices_details', readonly=True,), #add this field on 08/11/2017
         'req_type': fields.selection([('New Installation','New Installation'),('Additional','Additional'),('none',' ')],'Requisition Type'),
         'all_recipiant': fields.char('all recipiant', store=True, defaults=' ', compute='devices_details', readonly=True),
     }
@@ -39,17 +39,15 @@ class mutual_requisition(osv.osv):
     @api.depends('products.courier_sheet_products', 'products.quantity', 'products.customer')
     def devices_details(self):
         all_cus = ''
-        print ">>>>>>>>>>>>>>>>>>>>>>>SingleTOn>>>>>>>>>>>>."
         for line in self.products:
-            print ">>>>>>>>>>>>for singlton>>>>>>>>>>>>>>>>>"
             self.devices = str(self.devices) + str(line.courier_sheet_products.name) + ","
             self.devices = self.devices.replace('False', ' ')
             self.qty = str(self.qty) + str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
             self.ref = str(self.ref)+str(line.cs_number)+","
             self.ref = self.ref.replace('False', ' ')
-            # self.ref_two = str(self.ref) + str(line.cs_number) + ","
-            # self.ref_two = self.ref.replace('False', ' ')
+            self.ref_two = str(self.ref_two) + str(line.cs_number) + ","
+            self.ref_two = self.ref_two.replace('False', ' ')
             all_cus = str(all_cus) + str(line.customer.name) + ","
             all_cus = all_cus.replace('False', ' ')
         self.all_recipiant = all_cus[:-1]
@@ -86,8 +84,6 @@ class mutual_requisition(osv.osv):
                 for item in cus_fill:
                     all_cus += str(item['name']) + ","
                     all_cus = all_cus.replace('False', ' ')
-                print """>>>>>>>>>updating id, and string"""
-                print """>>>>>>>>>id =""" + str(req["id"]) + """>>>>>>>>>string =""" + all_cus
                 self.env.cr.execute(
                     "update mutual_requisition set all_recipiant='" + str(all_cus[:-1]) + "' where id =" + str(
                         req['id']))
@@ -98,10 +94,6 @@ class mutual_requisition(osv.osv):
             date_list = [rec_date-timedelta(days=1), rec_date]
             self.counter=1
             date_list = [self.confrm_date(date_list[0]), date_list[1]]
-            print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>MY DATE"
-            print date_list
-            print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>MY cummulative data"
-            print self.cumm_product_data()
 
             all_req = self.get_reqslp_data(date_list)
             pattern1, pattern2 = '', ''
@@ -181,9 +173,7 @@ class mutual_requisition(osv.osv):
                     'quantity': line.quantity,
                 }
                 cumm_prod.append(data)
-                print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>if"
             else:
-                print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Else"
                 for item in cumm_prod:
                     if item['name'] == line.courier_sheet_products.name:
                        item['quantity'] += line.quantity
