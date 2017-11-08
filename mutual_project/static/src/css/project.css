@@ -22,3 +22,8 @@
 .oe_form_sheet_full_screen{
 
 }
+
+.openerp .oe_view_manager table.oe_view_manager_header .oe_dropdown_menu {
+    line-height: normal;
+    z-index: 1000;
+}
