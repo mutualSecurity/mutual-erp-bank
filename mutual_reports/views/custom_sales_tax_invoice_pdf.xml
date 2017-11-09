@@ -96,13 +96,64 @@
         <br/>
     </xpath>
 
+
+    <xpath expr="//span[@t-field='l.name']" position="replace">
+            <span t-if="l.name != 'Monitoring charges'">
+                <span t-field="l.name"/>
+            </span>
+
+            <span t-if="l.name == 'Monitoring charges'">
+                <span t-field="l.name"/> for period of <span t-field="o.from"/> to <span t-field="o.to"/>
+            </span>
+    </xpath>
+
     <xpath expr="//td[@class='text-right']/span[@t-field='l.price_unit']" position="after">
         <td></td>
     </xpath>
 
+    <!--<span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>-->
+
      <xpath expr="//p[@t-if='o.fiscal_position.note']" position="after">
           <br/><strong>Best Regards,</strong><br/><br/><br/><strong>Anwar Zeb</strong>
+     </xpath>
+    <xpath expr="//div[@class='row']/div[@class='col-xs-4 pull-right']" position="replace">
+        <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                       <span t-if="o.show_tax">
+                            <tr class="border-black">
+                                <td><strong>Total Without Taxes</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Taxes</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </span>
+
+                        <span t-if="not o.show_tax">
+                             <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </span>
+                    </table>
+                </div>
+            </div>
     </xpath>
+
 
 </template>
 </data>

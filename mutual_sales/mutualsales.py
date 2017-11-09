@@ -112,7 +112,7 @@ class sale_order(osv.osv):
     }
 
     @api.one
-    @api.onchange('complaint_reference')
+    @api.onchange('complaint_reference', 'req_ref')
     def auto_select(self, context=None):
         if self.complaint_reference:
             complaint_list = self.env['project.issue'].search([['id', '=', self.complaint_reference], ])
@@ -124,7 +124,8 @@ class sale_order(osv.osv):
                 self.comp_ref = complaint_list
             else:
                 raise osv.except_osv(('Error'), ('complaint does not exist'))
-
+        if self.req_ref:
+            self.dispatch_sheet_date = self.req_ref.date
 
 class mutual_order_lines(osv.osv):
     _inherit = 'sale.order.line'

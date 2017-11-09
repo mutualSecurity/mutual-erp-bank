@@ -221,13 +221,14 @@
                     <field name="region"/>
                     <field name="installation_date"/>
                     <field name="complaint_reference"/>
-                    <field name="tcs_receipt"/>
-                    <field name="tcs_delivery_status"/>
+                    <field name="dispatch_sheet_date"/>
+
                 </xpath>
                 <xpath expr="//notebook/page[@string='Order Lines']" position="after">
                     <page string="Remarks">
                         <group col="4">
-                            <field name="dispatch_sheet_date"/>
+                            <field name="tcs_receipt"/>
+                            <field name="tcs_delivery_status"/>
                         </group>
                         <group style="margin-top:10px">
                             <field name="remarks"/>

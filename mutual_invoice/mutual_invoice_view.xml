@@ -24,13 +24,6 @@
                     <field name="total_monitoring_amount"/>
                     <field name="total_product_amount"/>
                     <field name="invoice_no_reference" />
-                    <field name="purchase_order_no" />
-                    <field name="purchase_order_Date" />
-                    <field name="hide_purchase_order_detail" />
-                    <field name="invoice_subject" />
-                    <field name="hide_cust_ntn_strn_no" />
-                    <field name="hide_mutual_strn_no" />
-                    <field name="hide_mutual_ntn_no" />
 
                     <!--<field name="shifting_amount"/>-->
                     <!--<field name="product_check"/>-->
@@ -55,9 +48,6 @@
                    <separator string="Round Off"/>
                     <br/><button name="compute_roundoff" string="Roundoff" type="object" class="oe_highlight" />
                 </xpath>
-                <xpath expr="//field[@name='account_id']" position="after">
-                    <field name="show_tax"/>
-                </xpath>
                 <xpath expr="//page/field/tree/field[@name='product_id']" position="after">
                     <field name="effect_on_inven" />
                 </xpath>
@@ -70,6 +60,20 @@
                 <xpath expr="//page[@string='Payments']" position="after">
                     <page string="Follow-Ups">
                         <field name="remarks"/>
+                    </page>
+                    <page string="Invoice Details">
+                        <group>
+                            <field name="show_tax"/>
+                            <field name="purchase_order_no" />
+                            <field name="purchase_order_Date" />
+                            <field name="hide_purchase_order_detail" />
+                        </group>
+                        <group>
+                            <field name="invoice_subject" />
+                            <field name="hide_cust_ntn_strn_no" />
+                            <field name="hide_mutual_strn_no" />
+                            <field name="hide_mutual_ntn_no" />
+                        </group>
                     </page>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="before">
