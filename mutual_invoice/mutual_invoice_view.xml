@@ -19,14 +19,10 @@
                     <field name="cheque_date" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="cheque_date_customer" attrs="{'invisible': [('payment_received','=',False)]}"/>
                     <field name="actual_amount" attrs="{'invisible': [('payment_received','=',False)]}"/>
-                    <field name="maintenance_amount"/>
-                    <field name="installation_amount"/>
-                    <field name="total_monitoring_amount"/>
-                    <field name="total_product_amount"/>
                     <field name="invoice_no_reference" />
-
-                    <!--<field name="shifting_amount"/>-->
-                    <!--<field name="product_check"/>-->
+                    <field name="purchase_order_no" />
+                    <field name="purchase_order_Date" />
+                    <field name="invoice_subject" />
                 </field>
                 <field name="partner_id" position="after">
                     <field name="bank_cs_invoice"/>
@@ -34,11 +30,6 @@
                     <field name="branch_code_invoice"/>
                     <field name="create_date" readonly="1"/>
                     <field name="create_uid" readonly="1"/>
-                    <field name="product_line" readonly="1"/>
-                    <field name="product_sales_amount"/>
-                    <field name="sales_tax"/>
-                    <field name="monitoring_sales_amount"/>
-                    <field name="srb_tax"/>
                     <!--<field name="round_amount"/>-->
                 </field>
                 <xpath expr="//field[@name='journal_id']" position="after">
@@ -84,6 +75,37 @@
                 </xpath>
                 <xpath expr="//field[@name='fiscal_position']" position="after">
                     <field name="pay_remarks"/>
+                </xpath>
+                <xpath expr="//notebook/page[@string='Follow-Ups']" position="after">
+                    <page string="Invoice Properties">
+                         <group>
+                             <field name="hide_purchase_order_detail" />
+                             <field name="hide_cust_ntn_strn_no" />
+                             <field name="hide_mutual_strn_no" />
+                             <field name="hide_mutual_ntn_no" />
+                         </group>
+                    </page>
+                </xpath>
+                 <xpath expr="//notebook/page[@string='Follow-Ups']" position="after">
+                    <page string="Invoice Details">
+                         <group>
+                             <group>
+                                 <field name="maintenance_amount"/>
+                                 <field name="installation_amount"/>
+                             </group>
+                             <group>
+                                 <field name="product_line" readonly="1"/>
+                                 <field name="product_sales_amount"/>
+                                 <field name="sales_tax"/>
+                                 <field name="total_product_amount"/>
+                             </group>
+                             <group>
+                                 <field name="monitoring_sales_amount"/>
+                                 <field name="srb_tax"/>
+                                 <field name="total_monitoring_amount"/>
+                             </group>
+                         </group>
+                    </page>
                 </xpath>
             </field>
         </record>

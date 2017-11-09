@@ -40,11 +40,11 @@
                                   </span>
                         <br/><br/>  <span t-if="not o.hide_cust_ntn_strn_no">
                                             <span t-if="o.partner_id.cus_ntn_no">
-                                                  NTN no. <span t-field="o.partner_id.cus_ntn_no"/><br/>
+                                                  NTN No. <span t-field="o.partner_id.cus_ntn_no"/><br/>
                                             </span>
 
                                             <span t-if="o.partner_id.cus_strn_no">
-                                                  STRN no. <span t-field="o.partner_id.cus_strn_no"/><br/>
+                                                  STRN No. <span t-field="o.partner_id.cus_strn_no"/><br/>
                                             </span>
                                     </span>
 
