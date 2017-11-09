@@ -52,20 +52,6 @@
                     <page string="Follow-Ups">
                         <field name="remarks"/>
                     </page>
-                    <page string="Invoice Details">
-                        <group>
-                            <field name="show_tax"/>
-                            <field name="purchase_order_no" />
-                            <field name="purchase_order_Date" />
-                            <field name="hide_purchase_order_detail" />
-                        </group>
-                        <group>
-                            <field name="invoice_subject" />
-                            <field name="hide_cust_ntn_strn_no" />
-                            <field name="hide_mutual_strn_no" />
-                            <field name="hide_mutual_ntn_no" />
-                        </group>
-                    </page>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="before">
                     <field name="invoice_date"/>
