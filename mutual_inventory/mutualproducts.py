@@ -111,6 +111,8 @@ class mutual_procurements(osv.osv):
             if len(cond) > 0:
                 data = self.pool.get('stock.warehouse').browse(cr, uid, cond[0], context=None)
                 vals['location_dest_id'] = data.lot_stock_id.id
+            else:
+                raise osv.except_osv(('Error'), ('technician not configured with warehouse'))
 
         return vals
 
