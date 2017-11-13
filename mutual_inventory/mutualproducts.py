@@ -105,9 +105,13 @@ class mutual_procurements(osv.osv):
             'priority': procurement.priority,
         }
         if vals['partner_id'] in self.pool.get('res.partner').search(cr, uid, [('is_technician', '=', True)]):
+            print self.pool.get('res.partner').search(cr, uid, [('is_technician', '=', True)])
+            print vals['partner_id']
             cond = self.pool.get('stock.warehouse').search(cr, uid, [('partner_id', '=', vals['partner_id'])])
-            data = self.pool.get('stock.warehouse').browse(cr, uid, cond[0], context=None)
-            vals['location_dest_id'] = data.lot_stock_id.id
+            if len(cond) > 0:
+                data = self.pool.get('stock.warehouse').browse(cr, uid, cond[0], context=None)
+                vals['location_dest_id'] = data.lot_stock_id.id
+
         return vals
 
 class mutual_stockwarhouse(osv.osv):
