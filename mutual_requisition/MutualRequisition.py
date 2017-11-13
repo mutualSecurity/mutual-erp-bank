@@ -51,6 +51,24 @@ class mutual_requisition(osv.osv):
             all_cus = str(all_cus) + str(line.customer.name) + ","
             all_cus = all_cus.replace('False', ' ')
         self.all_recipiant = all_cus[:-1]
+        all_cus = ''
+        self.env.cr.execute("select id from mutual_requisition where ref_two is null")
+        emp_ref_two=self.env.cr.dictfetchall()
+        if len(emp_ref_two) > 0:
+            self.append_ref_two(emp_ref_two)
+
+    def append_ref_two(self, lst):
+        if len(lst) > 0:
+            cumm_prods = ''
+            for item in lst:
+                self.env.cr.execute("""select * from basic_package_items where req_slip="""+str(item['id']))
+                itemlst = self.env.cr.dictfetchall()
+                for line in itemlst:
+                    cumm_prods += str(line['cs_number'])
+                self.env.cr.execute("update mutual_requisition set ref_two= '"+cumm_prods[:-1]+"' where id="+str(item['id']))
+                cumm_prods = ''
+
+
 
 
     @api.multi

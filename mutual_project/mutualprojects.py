@@ -814,6 +814,7 @@ class stockreturn(osv.osv):
             'products': fields.one2many('basic.package.items', 'stock_return_products', 'Items', store=True),
             'devices': fields.char('Devices' ,compute='devices_details'),
             'qty': fields.char('Qty', store=True, compute='devices_details'),
+            'ref_cs': fields.char('sales order reference', store=True),
     }
 
     _defaults = {
@@ -829,4 +830,22 @@ class stockreturn(osv.osv):
             self.devices = self.devices.replace('False', ' ')
             self.qty = str(self.qty) + str(line.quantity) + ","
             self.qty = self.qty.replace('False', ' ')
+            self.ref_cs = str(self.ref_cs) + str(line.ref_to) + ","
+            self.ref_cs = self.ref_cs.replace('False', ' ')
+        self.env.cr.execute('select id from stock_return where ref_cs is null')
+        nun_srs = self.env.cr.dictfetchall()
+        if len(nun_srs) > 0:
+            self.append_ref(nun_srs)
+
+    def append_ref(self, lst):
+        if len(lst) > 0:
+            cumm_prods = ''
+            for item in lst:
+                self.env.cr.execute("""select * from basic_package_items where stock_return_products="""+str(item['id']))
+                itemlst = self.env.cr.dictfetchall()
+                for line in itemlst:
+                    cumm_prods += str(line['ref_to'])
+                self.env.cr.execute("update stock_return set ref_cs= '"+cumm_prods[:-1]+"' where id="+str(item['id']))
+                cumm_prods = ''
+
 

@@ -82,6 +82,7 @@
                    <field name="title"/>
                     <field name="date"/>
                     <field name="req_slip_ref"/>
+                    <field name="ref_cs" string="search by cs in reference" />
                 </search>
             </field>
          </record>
