@@ -65,6 +65,7 @@
                 <xpath expr="//notebook/page[@string='Follow-Ups']" position="after">
                     <page string="Invoice Properties">
                          <group>
+                             <field name="show_tax" />
                              <field name="hide_purchase_order_detail" />
                              <field name="hide_cust_ntn_strn_no" />
                              <field name="hide_mutual_strn_no" />
