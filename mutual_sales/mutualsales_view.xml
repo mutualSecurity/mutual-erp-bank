@@ -396,6 +396,7 @@
                 <xpath expr="//field[@name='order_partner_id']" position="after">
                     <field name="order_bank_code"/>
                     <field name="order_cs_number"/>
+                    <field name="order_branch_code"/>
                 </xpath>
             </field>
         </record>
@@ -409,7 +410,48 @@
                     <field name="order_bank_code"/>
                     <field name="order_cs_number"/>
                 </xpath>
+                <xpath expr="//field[@name='salesman_id']" position="replace">
+                    <field name="order_branch_code"/>
+                </xpath>
+                <xpath expr="//filter[@string='Status']" position="replace">
+                    <filter string="Bank Code"  context="{'group_by':'order_bank_code'}"/>
+                </xpath>
             </field>
         </record>
+        <record id="so_line_open_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Product History</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <menuitem
+            name="Product History"
+            action="so_line_open_attachment_view"
+            id="menu_so_line_open_attachment_view"
+            sequence="22"
+            parent="project.menu_project_management">
+        </menuitem>
+
+         <record id="so_order_line_tree" model="ir.ui.view">
+              <field name="name">sale.order.line.tree</field>
+              <field name="model">sale.order.line</field>
+              <field name="inherit_id" ref="sale.view_order_line_tree" />
+              <field name="priority" eval="20"/>
+              <field name="arch" type="xml">
+                  <xpath expr="//field[@name='salesman_id']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='state']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='invoiced']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
