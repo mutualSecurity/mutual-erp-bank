@@ -280,7 +280,7 @@
               </field>
         </record>
 
-        <record id="account_invoice_open_attachment_view" model="ir.actions.act_window">
+      <!--  <record id="account_invoice_open_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Follow Ups</field>
             <field name="res_model">account.invoice</field>
             <field name="view_type">form</field>
@@ -324,6 +324,6 @@
                     <field name="state" />
                 </tree>
             </field>
-        </record>
+        </record>-->
     </data>
 </openerp>
