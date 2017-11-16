@@ -312,7 +312,7 @@
             <field name="model">account.invoice</field>
             <field name="arch" type="xml">
                 <tree string="Followup Invoice Tree" colors="orange:first_call!=False" version="8.0" >
-                    <field name="id"/>
+                    <field name="id" string="Inv.No."/>
                     <field name="bank_code_invoice"/>
                     <field name="branch_code_invoice"/>
                     <field name="bank_cs_invoice"/>
