@@ -50,7 +50,12 @@
                 <!--</xpath>-->
                 <xpath expr="//page[@string='Payments']" position="after">
                     <page string="Follow-Ups">
-                        <field name="remarks"/>
+                        <group>
+                            <field name="first_call"/>
+                            <field name="next_call"/>
+                            <field name="remarks"/>
+                        </group>
+
                     </page>
                 </xpath>
                 <xpath expr="//field[@name='date_invoice']" position="before">
@@ -273,6 +278,52 @@
                       <field name="create_uid" readonly="1"/>
                   </xpath>
               </field>
+        </record>
+
+        <record id="account_invoice_open_attachment_view" model="ir.actions.act_window">
+	        <field name="name">Follow Ups</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+        <record id="action_new_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_id" ref="followup_invoice_tree_view"/>
+            <field name="act_window_id" ref="account_invoice_open_attachment_view"/>
+        </record>
+        <record id="action_new_form" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cs_id"/>
+            <field name="act_window_id" ref="account_invoice_open_attachment_view"/>
+        </record>
+        <menuitem
+            name="Follow-Ups"
+            action="account_invoice_open_attachment_view"
+            id="menu_account_invoice_open_attachment_view"
+            sequence="100"
+            parent="account.menu_finance_receivables">
+        </menuitem>
+        <record id="followup_invoice_tree_view" model="ir.ui.view">
+            <field name="name">followup_invoices.tree.view</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Followup Invoice Tree" colors="orange:first_call!=False" version="8.0" >
+                    <field name="id"/>
+                    <field name="bank_code_invoice"/>
+                    <field name="branch_code_invoice"/>
+                    <field name="bank_cs_invoice"/>
+                    <field name="invoice_date"/>
+                    <field name="first_call"/>
+                    <field name="next_call"/>
+                    <field name="remarks"/>
+                    <field name="amount_total"/>
+                    <field name="state" />
+                </tree>
+            </field>
         </record>
     </data>
 </openerp>

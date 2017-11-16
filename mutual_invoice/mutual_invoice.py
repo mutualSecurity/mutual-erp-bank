@@ -14,6 +14,8 @@ class invoice_line_(osv.osv):
 class invoice_csnumber(osv.osv):
     _inherit = 'account.invoice'
     _columns = {
+        'first_call': fields.date('First call', store=True),
+        'next_call': fields.date('Next Call', store=True),
         'product_line': fields.char('Products', store=True, compute='fetch_product'),
         'product_check': fields.boolean('Show Product', store=True),
         'show_tax': fields.boolean('Show Tax', store=True, compute='select_auto_tax'),
