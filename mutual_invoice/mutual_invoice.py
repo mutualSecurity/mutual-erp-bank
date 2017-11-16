@@ -72,12 +72,12 @@ class invoice_csnumber(osv.osv):
     def fetch_previous_rec(self,so_ref):
         self.env.cr.execute("select * from sale_order where name="+"'"+str(so_ref)+"'")
         sale_order_dat = self.env.cr.dictfetchall()
-        self.env.cr.execute("select * from res_partner where id=" + str(sale_order_dat[0]["partner_id"]))
-        partner_dat = self.env.cr.dictfetchall()
-        return str(partner_dat[0]['street'])+"(BC-" + str(partner_dat[0]["branch_code"])+")"
-
-
-
+        if sale_order_dat:
+            self.env.cr.execute("select * from res_partner where id=" + str(sale_order_dat[0]["partner_id"]))
+            partner_dat = self.env.cr.dictfetchall()
+            return str(partner_dat[0]['street']) + "(BC-" + str(partner_dat[0]["branch_code"]) + ")"
+        else:
+            return str(self.partner_id.street) + "(BC-" + str(self.partner_id.branch_code) + ")"
     @api.one
     @api.depends('courier')
     def fetch_product(self):
