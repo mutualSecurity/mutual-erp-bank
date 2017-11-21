@@ -397,6 +397,8 @@
                     <field name="order_bank_code"/>
                     <field name="order_cs_number"/>
                     <field name="order_branch_code"/>
+                    <field name="order_dispatched_date" />
+                    <field name="order_installation_date" />
                 </xpath>
             </field>
         </record>
@@ -442,6 +444,9 @@
               <field name="priority" eval="20"/>
               <field name="arch" type="xml">
                   <xpath expr="//field[@name='salesman_id']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='price_subtotal']" position="attributes">
                       <attribute name="invisible">1</attribute>
                   </xpath>
                   <xpath expr="//field[@name='state']" position="attributes">
