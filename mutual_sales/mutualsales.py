@@ -132,7 +132,7 @@ class mutual_order_lines(osv.osv):
 
     _columns = {
         'order_cs_number': fields.related('order_partner_id', 'cs_number', type='char', size=12, string='CS Number', readonly=True),
-        'order_bank_code': fields.related('order_partner_id', 'bank_code', type='char', size=12, string='Bank Code',readonly=True, store=True),
+        'order_bank_code': fields.related('order_partner_id', 'bank_code', type='char', size=12, string='Bank Code',readonly=True),
         'order_branch_code': fields.related('order_partner_id', 'branch_code', type='char', size=12, string='Branch Code', readonly=True),
         'order_dispatched_date': fields.related('order_id', 'dispatch_sheet_date', type='char', size=12, string='Dispatched Date', readonly=True),
         'order_installation_date': fields.related('order_id', 'installation_date', type='char', size=12,string='Installation Date', readonly=True),

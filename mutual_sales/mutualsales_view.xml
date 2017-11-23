@@ -415,9 +415,9 @@
                 <xpath expr="//field[@name='salesman_id']" position="replace">
                     <field name="order_branch_code"/>
                 </xpath>
-                <xpath expr="//filter[@string='Status']" position="replace">
+               <!-- <xpath expr="//filter[@string='Status']" position="replace">
                     <filter string="Bank Code"  context="{'group_by':'order_bank_code'}"/>
-                </xpath>
+                </xpath> -->
             </field>
         </record>
         <record id="so_line_open_attachment_view" model="ir.actions.act_window">
