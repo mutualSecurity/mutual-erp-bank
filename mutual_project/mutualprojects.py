@@ -680,6 +680,7 @@ class basicPackageItems(osv.osv):
         'branch_code': fields.char('Branch Code', store=True),
         'status': fields.selection([('Available', 'Available'), ('Unavailable', 'Unavailable')], 'Status',
                                  store=True),
+        'req_ref': fields.char('Req. #', store=True),
     }
 
     _defaults = {

@@ -35,7 +35,6 @@
                             </group>
                             <group>
                                 <field name="date"/>
-                                <field name="req_slip_ref" required="True" />
                             </group>
                         </group>
                         <notebook>
@@ -45,7 +44,9 @@
                                         <field name="products" required="True"/>
                                         <field name="quantity" required="True"/>
                                         <field name="customer" string="Bank Depart/Tech/Customer"/>
-                                        <field name="ref_to" />
+                                        <field name="cs_number"/>
+                                        <field name="req_ref" required="True" />
+                                        <field name="ref_to"/>
                                     </tree>
                                 </field>
                             </page>
