@@ -37,7 +37,7 @@ class generalEntryCreate(osv.osv):
 
     def button_validate(self, cursor, user, ids, context=None):
         obj = self.browse(cursor, user, ids[0], context=context)
-        if str(obj.period_id.name).split('/')[0] == str(obj.date).split('-')[1]:
+        if str(obj.period_id.name).split('/')[0] == str(obj.date).split('-')[1] or str(obj.period_id.code).split('/')[0] == '00':
             if(obj.count>0):
                 cursor.execute('UPDATE account_move_line SET ref =' + "'" + str(obj.ref) + "'" + 'WHERE move_id =' + str(obj.id))
             for move in self.browse(cursor, user, ids, context=context):
