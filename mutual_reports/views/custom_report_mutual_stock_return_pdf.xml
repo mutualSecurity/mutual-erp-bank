@@ -29,8 +29,8 @@
                                           <th>Product Name</th>
                                           <th>Quantity</th>
                                           <th>Bank Depart./Customer/Technician</th>
-                                          <th>Cs Number</th>
-                                          <th>Requisition Reference</th>
+                                          <th>Cs #</th>
+                                          <th>Requisition #</th>
                                           <th>Reference</th>
 
                                           <!--<th class="text-right">Unit Price</th>-->
