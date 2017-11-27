@@ -17,9 +17,9 @@
                                   <div style="border:2px solid grey; padding:10px;border-radius:10px;">
                                       <strong style="font-size:18px">Title:</strong><br/>
                                       <span t-esc="obj['title']"/><br/>
-                                      <strong style="font-size:16px">Requisition slip reference:</strong><br/>
+                                      <!-- <strong style="font-size:16px">Requisition slip reference:</strong><br/>
                                       <span t-esc="obj['req_slip_ref']"/><br/>
-                                        <br/>
+                                        <br/> -->
                                   </div>
                             </div>
                             <br/><br/>
@@ -29,6 +29,8 @@
                                           <th>Product Name</th>
                                           <th>Quantity</th>
                                           <th>Bank Depart./Customer/Technician</th>
+                                          <th>Cs Number</th>
+                                          <th>Requisition Reference</th>
                                           <th>Reference</th>
 
                                           <!--<th class="text-right">Unit Price</th>-->
@@ -47,6 +49,15 @@
                                           <td>
                                               <span t-esc="l['customer']['name']"/><br/>
                                           </td>
+
+                                          <td>
+                                              <span t-esc="l['cs_number']"/><br/>
+                                          </td>
+
+                                          <td>
+                                              <span t-esc="l['req_ref']"/><br/>
+                                          </td>
+
 
                                           <td>
                                               <span t-esc="l['ref_to']"/><br/>
