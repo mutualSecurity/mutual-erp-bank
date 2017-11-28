@@ -841,12 +841,24 @@ class stockreturn(osv.osv):
     def append_ref(self, lst):
         if len(lst) > 0:
             cumm_prods = ''
+            cumm_req_ref = []
+            items_ref = ''
+            seen = set()
             for item in lst:
                 self.env.cr.execute("""select * from basic_package_items where stock_return_products="""+str(item['id']))
                 itemlst = self.env.cr.dictfetchall()
-                for line in itemlst:
-                    cumm_prods += str(line['ref_to'])
-                self.env.cr.execute("update stock_return set ref_cs= '"+cumm_prods[:-1]+"' where id="+str(item['id']))
+                for index,line in enumerate(itemlst):
+                    cumm_prods += str(line['ref_to']) + ","
+                    if items_ref == '':
+                        items_ref = str(line['req_ref']) + ","
+                    for line2 in itemlst[index+1:]:
+                        if (str(line['req_ref']) != str(line2['req_ref']) and line['req_ref'] not in seen) or cumm_req_ref == '':
+                            cumm_req_ref.append(str(line2['req_ref']))
+                            seen.add(str(line2['req_ref']))
+                for i in cumm_req_ref:
+                    items_ref += i + ","
+                self.env.cr.execute("update stock_return set ref_cs= '"+cumm_prods[:-1]+"', req_slip_ref = '"+ items_ref[:-1] +"' where id="+str(item['id']))
                 cumm_prods = ''
+                items_ref = ''
 
 
