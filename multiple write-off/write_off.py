@@ -85,7 +85,6 @@ class writeoff_amount(osv.osv):
                 'date': voucher.date
             }
             if amount < 0:
-                print amount
                 amount = -amount
                 if line.type == 'dr':
                     line.type = 'cr'
@@ -93,8 +92,12 @@ class writeoff_amount(osv.osv):
                     line.type = 'dr'
 
             if (line.type=='dr'):
-                tot_line += amount
-                move_line['debit'] = amount
+                if voucher.multi_counter_parts == True:
+                    tot_line += amount
+                    move_line['debit'] = amount+abs(cr_amount)
+                else:
+                    tot_line += amount
+                    move_line['debit'] = amount
             else:
                 if voucher.multi_counter_parts == True:
                     tot_line -= amount
@@ -102,7 +105,6 @@ class writeoff_amount(osv.osv):
                 else:
                     tot_line -= amount
                     move_line['credit'] = amount
-                    print move_line['credit']
 
             if voucher.tax_id and voucher.type in ('sale', 'purchase'):
                 move_line.update({
@@ -228,7 +230,6 @@ class writeoff_amount(osv.osv):
             if not currency_obj.is_zero(cr, uid, current_currency_obj, line_total):
                 diff = line_total
                 account_id = False
-                print account_id
                 write_off_name = ''
                 if voucher.payment_method == 'with_writeoff':
                     account_id = account
@@ -236,7 +237,6 @@ class writeoff_amount(osv.osv):
                 elif voucher.partner_id:
                     if voucher.type in ('sale', 'receipt'):
                         account_id = voucher.partner_id.property_account_receivable.id
-                        print account_id
                     else:
                         account_id = voucher.partner_id.property_account_payable.id
                 else:
@@ -255,7 +255,6 @@ class writeoff_amount(osv.osv):
                     'currency_id': company_currency <> current_currency and current_currency or False,
                     'analytic_account_id': voucher.analytic_id and voucher.analytic_id.id or False,
                 }
-
             return move_line
 
         else:
