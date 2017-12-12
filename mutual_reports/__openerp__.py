@@ -24,6 +24,7 @@
     ],
     'data': [
             'mutual_reports_reports.xml',
+            'views/wiz_recovery_report.xml',
             'views/custom_sales_tax_invoice_pdf.xml',
             'views/custom_report_mutual_stock_return_pdf.xml',
             'views/custom_courier_sheet_report.xml',
@@ -38,6 +39,8 @@
             'views/customer_biodata_pdf.xml',
             'views/custom_additional_invoice_pdf.xml',
             'views/custom_monitoring_invoice_pdf.xml',
+            'wizard/wiz_recovery_report_view.xml',
+            'wiz_report_menuitem.xml'
 
     ]
 }
