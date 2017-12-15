@@ -811,7 +811,7 @@ class stockreturn(osv.osv):
     _columns = {
             'title':fields.char('Title',store=True,required=True),
             'date': fields.date('Date', store=True, required=True),
-            'req_slip_ref': fields.char('Requisition slip Reference', store=True,required=True),
+            'req_slip_ref': fields.char('Requisition slip Reference', store=True,required=True,compute='devices_details'),
             'products': fields.one2many('basic.package.items', 'stock_return_products', 'Items', store=True),
             'devices': fields.char('Devices' ,compute='devices_details'),
             'qty': fields.char('Qty', store=True, compute='devices_details'),
@@ -824,41 +824,17 @@ class stockreturn(osv.osv):
 
     @api.depends('products.products', 'products.quantity')
     def devices_details(self):
-        print ">>>>>>>>>>>>>>>>>>>>>>>SingleTOn>>>>>>>>>>>>."
         for line in self.products:
-            print ">>>>>>>>>>>>for singlton>>>>>>>>>>>>>>>>>"
-            self.devices = str(self.devices) + line.products.name + ","
-            self.devices = self.devices.replace('False', ' ')
-            self.qty = str(self.qty) + str(line.quantity) + ","
-            self.qty = self.qty.replace('False', ' ')
-            self.ref_cs = str(self.ref_cs) + str(line.ref_to) + ","
-            self.ref_cs = self.ref_cs.replace('False', ' ')
-        self.env.cr.execute('select id from stock_return where ref_cs is null')
-        nun_srs = self.env.cr.dictfetchall()
-        if len(nun_srs) > 0:
-            self.append_ref(nun_srs)
+            if str(self.req_slip_ref).find(line.req_ref) == -1:
+                self.req_slip_ref = str(self.req_slip_ref) + str(line.req_ref) + ","
+                self.req_slip_ref = self.req_slip_ref.replace('False', ' ')
+            # self.devices = str(self.devices) + line.products.name + ","
+            # self.devices = self.devices.replace('False', ' ')
+            # self.qty = str(self.qty) + str(line.quantity) + ","
+            # self.qty = self.qty.replace('False', ' ')
+            # self.ref_cs = str(self.ref_cs) + str(line.ref_to) + ","
+            # self.ref_cs = self.ref_cs.replace('False', ' ')
 
-    def append_ref(self, lst):
-        if len(lst) > 0:
-            cumm_prods = ''
-            cumm_req_ref = []
-            items_ref = ''
-            seen = set()
-            for item in lst:
-                self.env.cr.execute("""select * from basic_package_items where stock_return_products="""+str(item['id']))
-                itemlst = self.env.cr.dictfetchall()
-                for index,line in enumerate(itemlst):
-                    cumm_prods += str(line['ref_to']) + ","
-                    if items_ref == '':
-                        items_ref = str(line['req_ref']) + ","
-                    for line2 in itemlst[index+1:]:
-                        if (str(line['req_ref']) != str(line2['req_ref']) and line['req_ref'] not in seen) or cumm_req_ref == '':
-                            cumm_req_ref.append(str(line2['req_ref']))
-                            seen.add(str(line2['req_ref']))
-                for i in cumm_req_ref:
-                    items_ref += i + ","
-                self.env.cr.execute("update stock_return set ref_cs= '"+cumm_prods[:-1]+"', req_slip_ref = '"+ items_ref[:-1] +"' where id="+str(item['id']))
-                cumm_prods = ''
-                items_ref = ''
+
 
 
