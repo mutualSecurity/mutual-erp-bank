@@ -21,8 +21,8 @@ class invoice_csnumber(osv.osv):
         'show_tax': fields.boolean('Show Tax', store=True, compute='select_auto_tax'),
         'NTN': fields.char('NTN', store=True, default="3764757-1",readonly=True),
         'sales_tax_no': fields.char('STN', store=True,default="17-00-3764-757-19",readonly=True),
-        'courier': fields.boolean('Couriered', store=True),
-        'payment_received': fields.boolean('Payment Received', store=True),
+        'courier': fields.boolean('Couriered', store=True, compute='auto_marking'),
+        'payment_received': fields.boolean('Payment Received', store=True, compute='auto_marking'),
         'bank_name': fields.related('partner_id', 'name', type='char',string='Name',
                                           readonly=True),
 
@@ -68,6 +68,12 @@ class invoice_csnumber(osv.osv):
         'hide_purchase_order_detail': False,
     }
 
+    @api.one
+    @api.depends('state')
+    def auto_marking(self):
+        if self.state == 'paid':
+            self.courier = True
+            self.payment_received = True
 
     def fetch_previous_rec(self,so_ref):
         self.env.cr.execute("select * from sale_order where name="+"'"+str(so_ref)+"'")
@@ -78,6 +84,7 @@ class invoice_csnumber(osv.osv):
             return str(partner_dat[0]['street']) + "(BC-" + str(partner_dat[0]["branch_code"]) + ")"
         else:
             return str(self.partner_id.street) + "(BC-" + str(self.partner_id.branch_code) + ")"
+
     @api.one
     @api.depends('courier')
     def fetch_product(self):
