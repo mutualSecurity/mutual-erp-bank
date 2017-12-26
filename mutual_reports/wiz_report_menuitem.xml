@@ -10,5 +10,13 @@
             parent="reports_side_top_menu">
          </menuitem>
 
+        <menuitem
+            name="Write-Off Invoices"
+            action="action_wiz_invoices_writeoff"
+            id="menu_action_wiz_invoices_writeoff"
+            sequence="4"
+            parent="reports_side_top_menu">
+         </menuitem>
+
     </data>
 </openerp>

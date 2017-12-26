@@ -40,6 +40,7 @@
             'views/custom_additional_invoice_pdf.xml',
             'views/custom_monitoring_invoice_pdf.xml',
             'wizard/wiz_recovery_report_view.xml',
+            'wizard/wizard_invoices_writeoff_view.xml',
             'wiz_report_menuitem.xml'
 
     ]
