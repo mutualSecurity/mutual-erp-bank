@@ -215,6 +215,7 @@ class general_ledger_xls(report_xls):
         if type(_p.start_date) != bool:
             fetch_initial_balances = self.calculate_initial_balances(_p.start_date,objects,initial_bal,fiscalyear_id)
         for account in objects:
+            print ">>>>>>>>>>>>>>>>>>objects>>>>>>>>>>>>>>>>>>>>>>>>>>"
             display_initial_balance = _p['init_balance'][account.id] and \
                                       (_p['init_balance'][account.id].get(
                                           'debit', 0.0) != 0.0 or
@@ -223,6 +224,7 @@ class general_ledger_xls(report_xls):
             if _p.display_account_raw(data) == 'all' or \
                     (display_ledger_lines or display_initial_balance):
                 # TO DO : replace cumul amounts by xls formulas
+                print "???????????????????????????????????/print>>>>>>..a;;"
                 cnt += 1
                 cumul_debit = 0.0
                 cumul_credit = 0.0
@@ -388,6 +390,49 @@ class general_ledger_xls(report_xls):
                 row_pos = self.xls_write_row(
                     ws, row_pos, row_data, c_hdr_cell_style)
                 row_pos += 1
+            elif _p.display_account_raw(data) != 'all' and initial_bal ==True:
+                c_specs_ = [
+                    ('period', 1, 0, 'text', ''),
+                    ('move', 1, 0, 'text', ''),
+                    ('journal', 1, 0, 'text', ''),
+                    ('account_code', 1, 0, 'text', ''),
+                    ('partner', 1, 0, 'text',
+                     ''),
+                    ('ref', 1, 0, 'text', ''),
+                    ('label', 1, 0, 'text', ''),
+                    ('counterpart', 1, 0, 'text',
+                     ''),
+                    ('debit', 1, 0, 'text', 'debit'),
+                    ('credit', 1, 0, 'text', 'credit'),
+                    ('cumul_bal', 1, 0, 'text', 'balance'),
+                ]
+                c_specs = [
+                    ('period', 1, 0, 'text', ''),
+                    ('move', 1, 0, 'text', ''),
+                    ('journal', 1, 0, 'text', ''),
+                    ('account_code', 1, 0, 'text', ''),
+                    ('partner', 1, 0, 'text',
+                     ''),
+                    ('ref', 1, 0, 'text', ''),
+                    ('label', 1, 0, 'text', ''),
+                    ('counterpart', 1, 0, 'text',
+                     'Initial Balance'),
+                    ('debit', 1, 0, 'number', fetch_initial_balances.get('debit')),
+                    ('credit', 1, 0, 'number', fetch_initial_balances.get('credit')),
+                    ('cumul_bal', 1, 0, 'number', fetch_initial_balances.get('init_balance')),
+                ]
+                row_data = self.xls_row_template(
+                    c_specs_, [x[0] for x in c_specs_])
+                row_pos = self.xls_write_row(
+                    ws, row_pos, row_data, c_hdr_cell_style)
+                row_pos += 1
+                row_data = self.xls_row_template(
+                    c_specs, [x[0] for x in c_specs])
+                row_pos = self.xls_write_row(
+                    ws, row_pos, row_data, c_hdr_cell_style)
+                row_pos += 1
+                print ">>>>>>>>>>>>>>>>>>>>>>>>>>mycheck>>>>>>>>>>>>>>>>"
+                print fetch_initial_balances
 
 
 general_ledger_xls('report.account.account_report_general_ledger_xls',
