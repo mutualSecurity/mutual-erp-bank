@@ -164,10 +164,12 @@
                          <filter  string="Main Heads" domain="[('parent','=',True)]"/>
                          <filter string="Active" domain="[('active','=',True)]"/>
                          <filter string="Inactive" domain="[('active','=',False)]"/>
-                         <filter string="Main Branch" domain="['&amp;',('is_company','=',True),('is_branch','=',False)]"/>
+
                      </group>
-                     <group string="Employee">
+                     <group string="Group By">
                          <filter name='is_employee' string="Employee" domain="[('is_employee','=',True)]"/>
+                         <filter string="Customers" domain="['&amp;',('is_company','=',True),('is_branch','=',False)]"/>
+                         <filter string="Suppliers" domain="[('supplier','=',True)]"/>
                      </group>
                 </search>
             </field>
