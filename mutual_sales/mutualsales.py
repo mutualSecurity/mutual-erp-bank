@@ -33,6 +33,10 @@ class mutual_sales(osv.osv):
         # new fields added on 6-11-2017
         'cus_ntn_no': fields.char('NTN',store=True),
         'cus_strn_no': fields.char('STRN', store=True),
+        'region': fields.selection([('North', 'North'),
+                                    ('South', 'South'),
+                                    ('Central', 'Central'),
+                                    ('None', 'None')],'Region',store=True, required=True)
     }
 
     @api.onchange('customer_visit')

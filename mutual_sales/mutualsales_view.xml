@@ -136,6 +136,9 @@
                     <field name="cus_strn_no" />
                     <field name="parent" />
                 </xpath>
+                <xpath expr="//field[@name='country_id']" position="before">
+                    <field name="region"/>
+                </xpath>
             </field>
         </record>
         <!--==========================Search View Begins=============================-->

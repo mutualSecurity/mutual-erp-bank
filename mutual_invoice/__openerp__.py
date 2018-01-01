@@ -34,6 +34,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'mutual_invoice_view.xml',
+        'journal_entry_view.xml'
     ],
 
 }
