@@ -1,7 +1,7 @@
 #The file name of this file must match the filename name which we import in __init__.py file
 from openerp.osv import fields, osv
 from openerp import api
-from datetime import date,datetime
+from datetime import date, datetime, timedelta
 import requests
 import random
 import time
@@ -834,6 +834,49 @@ class stockreturn(osv.osv):
             # self.qty = self.qty.replace('False', ' ')
             # self.ref_cs = str(self.ref_cs) + str(line.ref_to) + ","
             # self.ref_cs = self.ref_cs.replace('False', ' ')
+
+class mark_attendance(osv.osv):
+    _name = 'mark.attendance'
+    _columns = {
+        'employee_id': fields.many2one('hr.employee','Name',store=True,readonly=True),
+        'check_in': fields.datetime('Check In', store=True),
+        'check_in_view': fields.datetime('Time In', store=True),
+        'status': fields.selection([('Present','Present'),('Absent','Absent')], string='Status',store=True),
+    }
+
+
+class attendance_logs(osv.osv):
+    _name = 'attendance.logs'
+    _columns = {
+        'text': fields.char('Text', store=True),
+        'contact': fields.char('Contact', store=True),
+        'date_': fields.char('Date', store=True),
+        'time_': fields.char('Time', store=True),
+    }
+
+    def cron_tech_attendance(self, cr, uid, context=None):
+        mark_attendance = self.pool.get('mark.attendance')
+        cr.execute('select id,name_related,work_phone from hr_employee where department_id=1 order by id asc')
+        employees = cr.dictfetchall()
+        for employee in employees:
+            cr.execute("select * from attendance_logs where contact='"+str(employee['work_phone'])+ "'" +"and date_='"+str(datetime.now()).split(' ')[0]+"'"+ "limit 1")
+            present_employee = cr.dictfetchall()
+            if len(present_employee)>0:
+                res = {
+                    'employee_id': employee['id'],
+                    'check_in': present_employee[0]['date_']+" "+present_employee[0]['time_'],
+                    'check_in_view': datetime.strptime(str(present_employee[0]['date_'] + " " + present_employee[0]['time_']),"%Y-%m-%d %H:%M:%S")-timedelta(hours=5),
+                    'status':'Present'
+                }
+                mark_attendance.create(cr, uid, res, context=None)
+            else:
+                res = {
+                    'employee_id': employee['id'],
+                    'status': 'Absent'
+                }
+                mark_attendance.create(cr, uid, res, context=context)
+        print "Job done......................."
+        return True
 
 
 

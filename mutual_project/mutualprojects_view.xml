@@ -240,6 +240,25 @@
             parent="report_menu_old_time_open_project_attachment_view">
         </menuitem>
 
+
+        <record id="tech_attendance" model="ir.actions.act_window">
+	        <field name="name">Technician Attendance</field>
+            <field name="res_model">mark.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">click create to add a new record</p>
+            </field>
+        </record>
+
+        <menuitem
+            name="Technician Attendance"
+            action="tech_attendance"
+            id="menu_tech_attendance"
+            sequence="3"
+            parent="report_menu_old_time_open_project_attachment_view">
+        </menuitem>
+
         <!--========================================================= Old Time Begins ================================================-->
         <record id="old_time_open_project_attachment_view" model="ir.actions.act_window">
 	        <field name="name">Old TimeInOut</field>
@@ -258,6 +277,38 @@
             sequence="60"
             parent="project.menu_project_management">
         </menuitem>
+
+         <record id="technician_attendance_tree_view" model="ir.ui.view">
+            <field name="name">technician_attendance_tree.view</field>
+            <field name="view_type">tree</field>
+            <field name="model">mark.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Technician Attendance" editable="top">
+                    <field name="employee_id"/>
+                    <field name="check_in_view"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+           <!-- ================================================== Begin Search view of attendance ================================================ -->
+        <record id="technician_attendance_search_view" model="ir.ui.view">
+            <field name="name">technician_attendance_search.view</field>
+            <field name="model">mark.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Attendance Search" version="8.0" >
+                    <field name="employee_id" string="Name"/>
+                    <field name="status"/>
+					<group string="Group By">
+                        <filter string="Today" domain="[('check_in_view', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('check_in_view', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+                        <filter string="By Day" context="{'group_by':'check_in_view:day'}" />
+                        <filter string="By Month" context="{'group_by':'check_in_view:month'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- ================================================== End Search view of attendance ================================================ -->
+
 
         <record id="old_time_tree_view" model="ir.ui.view">
             <field name="name">old_time_tree.view</field>
