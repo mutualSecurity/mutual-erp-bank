@@ -366,7 +366,7 @@
         </record>
 
         <menuitem
-            name="Low Battery / Other SMS"
+            name="Low Battery / RSO SMS"
             action="message_open_project_attachment_view"
             id="menu_message_open_project_attachment_view"
             sequence="40"
@@ -380,18 +380,19 @@
             <field name="arch" type="xml">
                 <form string="battery_messages">
                     <sheet>
-                        <group string="Low Battery / Other Messages">
+                        <group string="Low Battery / RSO Messages">
                             <group>
-                                <field name="bank" options="{'limit': 0, 'create': false, 'create_edit': false}" attrs="{'invisible': [('technician','=',True)],'required': [('technician', '=', False)]}"/>
+                                <field name="bank" options="{'limit': 0, 'create': false, 'create_edit': false}" attrs="{'invisible': [('technician','=',True)],'required': [('technician', '=', False)],'invisible': [('rso_sms','=',True)],'required': [('rso_sms', '=', False)]}"/>
                                 <field name="employee_name"  options="{'limit': 2, 'create': false, 'create_edit': false}" attrs="{'invisible': [('technician','=',False)],'required': [('technician', '=', True)]}"/>
                             </group>
                             <group>
                                 <field name="technician"/>
-                                <field name="cs"  attrs="{'invisible': [('technician','=',True)]}"/>
-                                <field name="branch_code" attrs="{'invisible': [('technician','=',True)]}"/>
+                                <field name="rso_sms"/>
+                                <field name="cs"  attrs="{'invisible': [('technician','=',True)],'invisible': [('rso_sms','=',True)]}"/>
+                                <field name="branch_code" attrs="{'invisible': [('technician','=',True)],'invisible': [('rso_sms','=',True)]}"/>
                             </group>
                             <group>
-                                <field name="address" attrs="{'invisible': [('technician','=',True)]}"/>
+                                <field name="address" attrs="{'invisible': [('technician','=',True)],'invisible': [('rso_sms','=',True)]}"/>
                             </group>
                         </group>
                         <separator string="SMS"/>
@@ -419,6 +420,7 @@
                     <field name="bank" />
                     <field name="cs" />
                     <field name="branch_code" />
+                    <field name="sms" />
                     <field name="number" />
                     <field name="create_uid"/>
                 </tree>
@@ -1244,6 +1246,19 @@
                         <filter string="Create Day" context="{'group_by':'date_now:day'}" />
                         <filter string="Create Month" context="{'group_by':'date_now:month'}" />
                     </group>
+                </search>
+             </field>
+         </record>
+        <record  model="ir.ui.view" id="rso_messages_log_search">
+             <field name="name">RSO Messages log Search</field>
+             <field name="model">low.messages</field>
+             <field name="arch" type="xml">
+                <search string="Search Logs">
+                    <group string="RSO'S Filter">
+                        <filter name="rso_sms" string="RSO SMS" domain="[('rso_sms','=','True')]"/>
+                    </group>
+                    <field name="number"/>
+                    <field name="sms"/>
                 </search>
              </field>
          </record>

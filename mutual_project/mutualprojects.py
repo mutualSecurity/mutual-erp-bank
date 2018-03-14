@@ -531,6 +531,8 @@ class low_messages(osv.osv):
         'sms': fields.text('SMS',store=True, default='Backup Battery is running low due to long electric failures. Please recharge it within 1.5hr for smooth working of system(MSS 111-238-222)'),
         'number': fields.char('Contact Number',store=True,size=11,required=True),
         'technician':fields.boolean('Technician',store=True),
+        'rso_sms': fields.boolean('RSO', store=True),
+
     }
 
     @api.onchange('bank')
