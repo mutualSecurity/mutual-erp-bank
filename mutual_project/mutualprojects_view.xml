@@ -382,7 +382,7 @@
                     <sheet>
                         <group string="Low Battery / RSO Messages">
                             <group>
-                                <field name="bank" options="{'limit': 0, 'create': false, 'create_edit': false}" attrs="{'invisible': [('technician','=',True)],'required': [('technician', '=', False)],'invisible': [('rso_sms','=',True)],'required': [('rso_sms', '=', False)]}"/>
+                                <field name="bank" options="{'limit': 0, 'create': false, 'create_edit': false}" attrs="{'invisible': ['|',('technician','=',True),('rso_sms','=',True)],'required': [('technician', '=', False),('rso_sms', '=', False)]}"/>
                                 <field name="employee_name"  options="{'limit': 2, 'create': false, 'create_edit': false}" attrs="{'invisible': [('technician','=',False)],'required': [('technician', '=', True)]}"/>
                             </group>
                             <group>
