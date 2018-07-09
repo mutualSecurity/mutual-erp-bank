@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <template id="wiz_patrolling_report_pdf">
+            <t t-call='report.html_container'>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.internal_layout">
+                        <div class="page">
+                            <center>
+                                <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo"
+                                     style="width:15%;height:auto;"/>
+                                <br/>
+                                <br/>
+                                <h3>Patrolling Report From
+                                    <span t-field="o.date_from" t-field-options='{"format": "dd-MM-yyyy"}'/>
+                                    To
+                                    <span t-field="o.date_to" t-field-options='{"format": "dd-MM-yyyy"}'/>
+                                </h3>
+                            </center>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr style="background:#16664D">
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            Serial No.
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            Bank Code
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            Branch Code
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            Address
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            City
+                                        </td>
+                                        <td colspan="2"
+                                            style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            First Visit
+                                        </td>
+                                        <td colspan="2"
+                                            style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            Second Visit
+                                        </td>
+                                        <td colspan="2"
+                                            style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                            Remarks
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.generate_report()" t-as="l">
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l_index+1"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['bank_code']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['branch_code']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['address']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['city']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['visit_time']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="time.strftime('%d-%m-%Y',time.strptime(l['visit_date'],'%Y-%m-%d'))"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['visit_time_two']"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                           <span t-esc="time.strftime('%d-%m-%Y',time.strptime(l['visit_date_two'],'%Y-%m-%d'))"/>
+                                        </td>
+                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; ">
+                                            <span t-esc="l['remarks']"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <div class="row">
+                                <div class="col-xs-2 pull-left">
+                                    <small>
+                                        <span>Page</span>
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </small>
+                                </div>
+                                 <div class="col-xs-2 pull-right">
+                                    <small>
+                                        System Generated Report
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

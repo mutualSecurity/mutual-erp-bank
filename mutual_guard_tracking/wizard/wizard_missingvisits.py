@@ -28,9 +28,7 @@ class WizardMissingVisits(osv.TransientModel):
         self.env.cr.execute(
             "select visit_time,visit_time_two from mutual_guard_tracking where visit_time is null and visit_time_two is null and archive_signal is False and bank_code=" + "'" + self.bank_code + "'")
         missing_visits_created = self.env.cr.dictfetchall()
-
-        print ">>>>>>>>>>>>>>>>>>>Missing Visits>>>>>>>>>>>>>>>>>>>>>"
-        print len(missing_visits_created)
+        
         if(len(missing_branches)>0):
             if(len(missing_visits_created)==0):
                 for branch in missing_branches:

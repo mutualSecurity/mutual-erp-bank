@@ -1,0 +1,31 @@
+<openerp>
+    <data>
+        <!-- ================================================== Begin Form view of GP Report ================================================ -->
+        <record id="wiz_gp_report_pdf" model="ir.ui.view">
+            <field name="name">wiz.gp.report.pdf</field>
+            <field name="model">wiz.gp.report.pdf</field>
+            <field name="arch" type="xml">
+                <form string="Guard Patrolling" version="8.0">
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" type="object" string="Proceed" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- ================================================== End Form view of GP Report ================================================ -->
+        <record id="action_wiz_gp_report_pdf" model="ir.actions.act_window">
+            <field name="name">Patrolling Report</field>
+            <field name="res_model">wiz.gp.report.pdf</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>
+

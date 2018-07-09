@@ -1,5 +1,6 @@
 from openerp.osv import fields, osv
 from openerp import api
+from datetime import date, timedelta, datetime
 
 
 class smsLogs(osv.osv):
@@ -31,6 +32,11 @@ class mutual_guard_tracking(osv.osv):
         'remarks': fields.char('Remarks', store=True),
         'archive_signal': fields.boolean('Status', store=True),
         'bank': fields.many2one('res.partner', 'Customer', store=True),
+    }
+
+    _defaults = {
+        'visit_date': datetime.today(),
+        'visit_date_two': datetime.today()
     }
 
     @api.one

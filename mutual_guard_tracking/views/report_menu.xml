@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+                id="wiz_action_patrolling_report"
+                model="wiz.gp.report.pdf"
+                string="Report"
+                report_type="qweb-pdf"
+                name="mutual_guard_tracking.wiz_patrolling_report_pdf"
+                file="mutual_guard_tracking.wiz_patrolling_report_pdf"
+                menu="False"
+        />
+    </data>
+</openerp>

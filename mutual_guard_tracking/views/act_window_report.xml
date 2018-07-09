@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <act_window
+                id="guard_patrolling_pdf_report"
+                name="Guard Patrolling"
+                res_model="wiz.gp.report.pdf"
+                src_model="mutual.guard.tracking"
+                view_mode="form"
+                multi="True"
+                target="new"
+                key2="client_action_multi"
+        />
+    </data>
+</openerp>

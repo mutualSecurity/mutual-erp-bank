@@ -23,16 +23,23 @@
 
 
 {
-'name':'Guard Tracking',
-'author':'PK Consulting Services Pvt. Ltd.',
-'website':'',
-'category': 'GT',
-'description': """Guard Tracking Module V8""",
-'depends':['base'],
-'data':['wizard/wizard_missingvisits_view.xml','guard_tracking_view.xml'],
-'installable':True,
-'auto_install':False,
-'application':True,
+    'name': 'Guard Tracking',
+    'author': 'PK Consulting Services Pvt. Ltd.',
+    'website': '',
+    'category': 'GT',
+    'description': """Guard Tracking Module V8""",
+    'depends': ['base'],
+    'data': ['wizard/wizard_missingvisits_view.xml',
+             'guard_tracking_view.xml',
+             'wizard/wizard_gp_report.xml',
+             'views/act_window_report.xml',
+             'views/wiz_patrolling_report_pdf.xml',
+             'views/report_menu.xml',
+             #'views/page_setup.xml'
+             ],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
