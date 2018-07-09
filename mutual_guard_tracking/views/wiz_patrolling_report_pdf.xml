@@ -17,29 +17,29 @@
                                     <span t-field="o.date_to" t-field-options='{"format": "dd-MM-yyyy"}'/>
                                 </h3>
                             </center>
-                            <table class="table table-condensed">
+                            <table class="table table-condensed" style="width:100%">
                                 <thead>
-                                    <tr style="background:#16664D">
-                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                    <tr style="background:#16664D;">
+                                        <td width="2%" style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             Serial No.
                                         </td>
-                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                        <td width="5%" style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             Bank Code
                                         </td>
-                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                        <td width="5%" style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             Branch Code
                                         </td>
-                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                        <td width="35%" style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             Address
                                         </td>
-                                        <td style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
+                                        <td width="10%" style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             City
                                         </td>
-                                        <td colspan="2"
+                                        <td width="15%" colspan="2"
                                             style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             First Visit
                                         </td>
-                                        <td colspan="2"
+                                        <td  width="15%" colspan="2"
                                             style="border: 1px solid black; padding:5px; text-align:center; font-weight:bolder; color:white;">
                                             Second Visit
                                         </td>

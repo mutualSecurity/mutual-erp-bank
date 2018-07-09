@@ -5,7 +5,7 @@
                 id="wiz_action_patrolling_report"
                 model="wiz.gp.report.pdf"
                 string="Report"
-                report_type="qweb-pdf"
+                report_type="qweb-html"
                 name="mutual_guard_tracking.wiz_patrolling_report_pdf"
                 file="mutual_guard_tracking.wiz_patrolling_report_pdf"
                 menu="False"
