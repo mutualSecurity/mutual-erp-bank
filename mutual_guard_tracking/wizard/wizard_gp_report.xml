@@ -7,8 +7,11 @@
             <field name="arch" type="xml">
                 <form string="Guard Patrolling" version="8.0">
                     <group>
-                        <field name="date_from"/>
-                        <field name="date_to"/>
+                        <field name="bank_code" required="1"/>
+                    </group>
+                    <group>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
                     </group>
                     <footer>
                         <button name="print_report" type="object" string="Proceed" class="oe_highlight"/>
