@@ -24,7 +24,7 @@ class WizardReportPdf(osv.TransientModel):
         self.env.cr.execute("""select * from mutual_guard_tracking where archive_signal=False and bank_code='%s'"""%(self.bank_code))
         res = self.env.cr.dictfetchall()
         if len(res)>0:
-            return self.env.cr.dictfetchall()
+            return res
         else:
             raise osv.except_osv(('Error'), ('Active signals are not found of this bank'))
 

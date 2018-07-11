@@ -1,7 +1,7 @@
 from openerp.osv import fields, osv
 from openerp import api
 from datetime import date, timedelta, datetime
-
+import re
 
 class smsLogs(osv.osv):
     _name = "sms.logs"
@@ -38,6 +38,14 @@ class mutual_guard_tracking(osv.osv):
         'visit_date': datetime.today(),
         'visit_date_two': datetime.today()
     }
+
+    @api.constrains('visit_time', 'visit_time_two')
+    def check_date_time(self):
+        regex = r"(\d*\d:\d\dPM|\d*\d:\d\dAM)"
+        if (re.match(regex,str(self.visit_time)) and re.match(regex,str(self.visit_time_two))):
+            return True
+        else:
+            raise osv.except_osv(('Error'), ('You must enter time in format 00:00PM/AM'))
 
     @api.one
     @api.depends('bank')
