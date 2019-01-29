@@ -59,6 +59,11 @@ class invoice_csnumber(osv.osv):
         'hide_mutual_strn_no': fields.boolean('Hide Mutual STRN no', store=True),
         'hide_mutual_ntn_no': fields.boolean('Hide Mutual NTN no', store=True),
         'hide_purchase_order_detail': fields.boolean('Hide Purchase Order Detail', store=True),
+
+        'tax_10_percent': fields.float(string="Tax 10 Percent" ,store=True,readonly=True,compute='select_auto_tax'),
+        'tax_17_percent': fields.float(string="Tax 17 Percent", store=True, readonly=True, compute='select_auto_tax'),
+        'tax_19_percent': fields.float(string="Tax 19 Percent", store=True, readonly=True, compute='select_auto_tax'),
+        'tax_19_5_percent': fields.float(string="Tax 19.5 Percent", store=True, readonly=True, compute='select_auto_tax'),
         # 'shifting_amount': fields.float('Shifting Amount', store=True, readonly=True, compute='select_auto_tax')
     }
     _defaults = {
@@ -96,31 +101,43 @@ class invoice_csnumber(osv.osv):
     @api.depends('invoice_line.invoice_line_tax_id')
     def select_auto_tax(self):
         for line in self.invoice_line:
-            if line.account_id.name == 'Product Sales' and line.invoice_line_tax_id.description == 'Sales Tax Output 17.00%':
-                self.show_tax = True
-                self.sales_tax += line.price_subtotal*17/100
-                self.product_sales_amount += line.price_subtotal
-                self.total_product_amount += self.sales_tax + self.product_sales_amount
-            elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'SRB 19%':
-                self.show_tax = True
-                self.srb_tax += line.price_subtotal * 19 / 100
-                self.monitoring_sales_amount += line.price_subtotal
-                self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
-            elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'PRB 19.5%':
-                self.show_tax = True
-                self.srb_tax += line.price_subtotal * 19.5 / 100
-                self.monitoring_sales_amount += line.price_subtotal
-                self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
-            elif line.account_id.name == 'Monitoring Sales' and line.invoice_line_tax_id.description == 'KPK 19.5%':
-                self.show_tax = True
-                self.srb_tax += line.price_subtotal * 19.5 / 100
-                self.monitoring_sales_amount += line.price_subtotal
-                self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
-            elif line.account_id.name == 'Maintenance Revenue':
-                self.maintenance_amount += line.price_subtotal
-            elif line.account_id.name == 'Installation Revenue':
-                self.installation_amount += line.price_subtotal
+            for tax in line.invoice_line_tax_id:
+                if line.account_id.name == 'Product Sales' and tax.description == 'Sales Tax Output 17.00%':
+                    self.show_tax = True
+                    self.sales_tax += line.price_subtotal*17/100
+                    self.product_sales_amount += line.price_subtotal
+                    self.total_product_amount += self.sales_tax + self.product_sales_amount
+                elif line.account_id.name == 'Monitoring Sales' and tax.description == 'SRB 19%':
+                    self.show_tax = True
+                    self.srb_tax += line.price_subtotal * 19 / 100
+                    self.monitoring_sales_amount += line.price_subtotal
+                    self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
+                elif line.account_id.name == 'Monitoring Sales' and tax.description == 'PRB 19.5%':
+                    self.show_tax = True
+                    self.srb_tax += line.price_subtotal * 19.5 / 100
+                    self.monitoring_sales_amount += line.price_subtotal
+                    self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
+                elif line.account_id.name == 'Monitoring Sales' and tax.description == 'KPK 19.5%':
+                    self.show_tax = True
+                    self.srb_tax += line.price_subtotal * 19.5 / 100
+                    self.monitoring_sales_amount += line.price_subtotal
+                    self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
+                elif line.account_id.name == 'Maintenance Revenue':
+                    self.maintenance_amount += line.price_subtotal
+                elif line.account_id.name == 'Installation Revenue':
+                    self.installation_amount += line.price_subtotal
 
+                elif float("{:.5g}".format(tax.amount)) == 0.170:
+                    self.tax_17_percent = line.price_subtotal*tax.amount
+
+                elif float("{:.5g}".format(tax.amount)) == 0.10:
+                    self.tax_10_percent = line.price_subtotal*tax.amount
+
+                elif float("{:.5g}".format(tax.amount)) == 0.190:
+                    self.tax_19_percent = line.price_subtotal * tax.amount
+
+                elif float("{:.5g}".format(tax.amount)) == 0.195:
+                    self.tax_19_5_percent = line.price_subtotal * tax.amount
 
     @api.onchange('remarks')
     def followup_date(self):
