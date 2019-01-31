@@ -253,7 +253,7 @@
                                                             <strong>Tax 17%</strong>
                                                         </td>
                                                         <td class="text-right">
-                                                            <span t-field="account_invoice.tax_17_percent"/>
+                                                            <span t-field="account_invoice.sales_tax"/>
                                                         </td>
                                                     </t>
                                                     <t t-if="account_invoice.tax_10_percent>0">

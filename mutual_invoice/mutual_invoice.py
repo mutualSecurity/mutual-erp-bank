@@ -8,7 +8,14 @@ class invoice_line_(osv.osv):
         'from': fields.date('From', store=True),
         'to': fields.date('To', store=True),
         'effect_on_inven':fields.selection([('Yes','Yes'),('No','No')],'Effect On Inventory',store=True,default='Yes'),
+        'tax_amount': fields.float('Tax Amount', store=True)
     }
+
+    @api.onchange('price_unit', 'quantity', 'invoice_line_tax_id')
+    def cal_tax_amount(self):
+        for tax in self.invoice_line_tax_id:
+            self.tax_amount = round(self.quantity * self.price_unit *tax.amount)
+
 
 
 class invoice_csnumber(osv.osv):
@@ -60,7 +67,7 @@ class invoice_csnumber(osv.osv):
         'hide_mutual_ntn_no': fields.boolean('Hide Mutual NTN no', store=True),
         'hide_purchase_order_detail': fields.boolean('Hide Purchase Order Detail', store=True),
 
-        'tax_10_percent': fields.float(string="Tax 10 Percent" ,store=True,readonly=True,compute='select_auto_tax'),
+        'tax_10_percent': fields.float(string="Tax 10 Percent",store=True,readonly=True,compute='select_auto_tax'),
         'tax_17_percent': fields.float(string="Tax 17 Percent", store=True, readonly=True, compute='select_auto_tax'),
         'tax_19_percent': fields.float(string="Tax 19 Percent", store=True, readonly=True, compute='select_auto_tax'),
         'tax_19_5_percent': fields.float(string="Tax 19.5 Percent", store=True, readonly=True, compute='select_auto_tax'),
@@ -98,11 +105,11 @@ class invoice_csnumber(osv.osv):
                 self.product_line = (str(self.product_line)+ "," +line.name).replace('False,','')
 
     @api.one
-    @api.depends('invoice_line.invoice_line_tax_id')
+    @api.depends('invoice_line.invoice_line_tax_id','invoice_line.price_unit','invoice_line.quantity')
     def select_auto_tax(self):
         for line in self.invoice_line:
             for tax in line.invoice_line_tax_id:
-                if line.account_id.name == 'Product Sales' and tax.description == 'Sales Tax Output 17.00%':
+                if tax.description == 'Sales Tax Output 17.00%':
                     self.show_tax = True
                     self.sales_tax += line.price_subtotal*17/100
                     self.product_sales_amount += line.price_subtotal
@@ -122,22 +129,12 @@ class invoice_csnumber(osv.osv):
                     self.srb_tax += line.price_subtotal * 19.5 / 100
                     self.monitoring_sales_amount += line.price_subtotal
                     self.total_monitoring_amount += self.srb_tax + self.monitoring_sales_amount
-                elif line.account_id.name == 'Maintenance Revenue':
+                elif line.account_id.name == 'Maintenance Revenue' and tax.amount != 0.1:
                     self.maintenance_amount += line.price_subtotal
-                elif line.account_id.name == 'Installation Revenue':
+                elif line.account_id.name == 'Installation Revenue' and tax.amount != 0.1:
                     self.installation_amount += line.price_subtotal
-
-                elif float("{:.5g}".format(tax.amount)) == 0.170:
-                    self.tax_17_percent = line.price_subtotal*tax.amount
-
-                elif float("{:.5g}".format(tax.amount)) == 0.10:
+                elif tax.amount == 0.1:
                     self.tax_10_percent = line.price_subtotal*tax.amount
-
-                elif float("{:.5g}".format(tax.amount)) == 0.190:
-                    self.tax_19_percent = line.price_subtotal * tax.amount
-
-                elif float("{:.5g}".format(tax.amount)) == 0.195:
-                    self.tax_19_5_percent = line.price_subtotal * tax.amount
 
     @api.onchange('remarks')
     def followup_date(self):

@@ -2,6 +2,15 @@
 <openerp>
     <data>
         <report
+                id="custom_tax_breakup_invoice"
+                model="account.invoice"
+                string="Tax Break-Up Invoice"
+                report_type="qweb-pdf"
+                name="mutual_reports.tax_break_up_invoice"
+                attachment_use="False"
+                file="mutual_reports.tax_break_up_invoice"
+        />
+        <report
                 id="custom_report_acknowledgment_receipt"
                 model="account.invoice"
                 string="Print Acknowledgment Receipt"

@@ -42,6 +42,9 @@
                 <xpath expr="//page/field/tree/field[@name='product_id']" position="after">
                     <field name="effect_on_inven" />
                 </xpath>
+                <xpath expr="//page/field/tree/field[@name='invoice_line_tax_id']" position="after">
+                    <field name="tax_amount" />
+                </xpath>
                  <xpath expr="//page/field/tree/field[@name='product_id']" position="attributes">
                     <attribute name="domain">"['|',('attribute_value_ids','=','N01'),('type','=','service')]"</attribute>
                 </xpath>

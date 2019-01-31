@@ -24,6 +24,7 @@
     ],
     'data': [
             'mutual_reports_reports.xml',
+            'views/tax_break_up_invoice.xml',
             'views/wiz_recovery_report.xml',
             'views/custom_sales_tax_invoice_pdf.xml',
             'views/custom_report_mutual_stock_return_pdf.xml',
