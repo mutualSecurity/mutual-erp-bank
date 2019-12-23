@@ -110,32 +110,14 @@
                                     </tr>
                                     <tr class="border-black">
                                         <t t-if="account_invoice.partner_id.bank_code=='JSBL'">
-                                            <t t-if="account_invoice.sales_tax>0">
+                                            <tr t-foreach="account_invoice.tax_line" t-as="tax">
                                                 <td>
-                                                    <strong>Tax 17%</strong>
+                                                    <strong><span t-esc="tax.name"/> </strong>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-field="account_invoice.sales_tax"/>
+                                                    <span t-field="tax.amount"/>
                                                 </td>
-                                            </t>
-                                            <t t-if="account_invoice.tax_19_percent>0">
-                                                <td>
-                                                    <strong>Tax 19%</strong>
-                                                </td>
-                                                <td class="text-right">
-                                                    <span t-field="account_invoice.tax_19_percent"/>
-                                                </td>
-                                            </t>
-                                            <t t-if="account_invoice.tax_19_5_percent>0">
-                                                <td>
-                                                    <strong>Tax 19.5%</strong>
-                                                </td>
-                                                <td class="text-right">
-                                                    <span t-field="account_invoice.tax_19_5_percent"/>
-                                                </td>
-                                            </t>
-
-
+                                            </tr>
                                         </t>
                                         <t t-if="account_invoice.partner_id.bank_code!='JSBL'">
                                             <td>
@@ -143,17 +125,6 @@
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="account_invoice.amount_tax"/>
-                                            </td>
-                                        </t>
-
-                                    </tr>
-                                    <tr class="border-black">
-                                        <t t-if="account_invoice.tax_10_percent>0">
-                                            <td>
-                                                <strong>Tax 10%</strong>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="account_invoice.tax_10_percent"/>
                                             </td>
                                         </t>
                                     </tr>
