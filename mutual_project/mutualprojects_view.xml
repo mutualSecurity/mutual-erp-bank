@@ -839,6 +839,17 @@
                             </tree>
                           </field>
                     </page>
+                    <page string="Remarks by Bank">
+                          <field name="bank_remarks" colspan="4" nolabel="1">
+                            <tree editable="bottom" string="Bank Remarks">
+                                <field name="responsible_person"/>
+                                <field name="client_name"/>
+                                <field name="remarks"/>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                            </tree>
+                          </field>
+                    </page>
                 </xpath>
                         <!--<field name="remark_by_cms" placeholder="Add you remarks..."/>-->
                 <xpath expr="//page[@string='Description']" position="after">
@@ -912,7 +923,10 @@
                     <attribute name="invisible">True</attribute>
                 </xpath>
                 <xpath expr="//page[@string='Description']" position="attributes">
-                    <attribute name="string">Remarks by Bank</attribute>
+                    <attribute name="string">Old Remarks by Bank</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Old Remarks by Bank']" position="attributes">
+                    <attribute name="readonly">1</attribute>
                 </xpath>
                 <xpath expr="//page[@string='Timesheet']" position="after">
                         <page string="SMS" groups="project.group_project_user">
