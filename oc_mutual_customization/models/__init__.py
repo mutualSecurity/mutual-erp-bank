@@ -1,1 +1,2 @@
-import sale_order
+from . import account_invoice
+from . import cp_wizard
