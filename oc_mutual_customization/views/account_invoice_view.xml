@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="oc_account_invoice_tree">
+            <field name="name">account.invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="before" >
+                    <field name="id" sequence ="1" string="Invoice Ref"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after" >
+                    <field name="origin"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="sale_inherit_field">
+            <field name="name">sale_order_form_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="is_foc" string="FOC"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="oc_sale_order_filter">
+            <field name="name">sale_order_filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Sales Order">
+                    <group string="FOC SOs">
+                        <filter string="SO By FOC" name="is_foc" domain="[('is_foc', '=', True)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+
+<!--action window-->
+        <record id="cp_wiz_form_act" model="ir.actions.act_window">
+            <field name="name">Customer Recovery Wizard</field>
+            <field name="res_model">wiz.customer.performance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--.accounts_inventory_side_top_menu menu item account menu_finance-->
+        <menuitem id="cp_menu_item"
+                  name="Customer Recovery"
+                  action="cp_wiz_form_act"
+                  parent="mutual_accounts_inventory.accounts_inventory_side_top_menu"
+                  sequence="99"/>
+<!--        wizard form-->
+         <record id="cp_wiz_form" model="ir.ui.view">
+            <field name="name">Customer Recovery Wizard</field>
+            <field name="model">wiz.customer.performance</field>
+            <field name="arch" type="xml">
+                <form string="Customer Recovery Report">
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                    <group>
+                        <field name="partner_id" required="1"/>
+                        <field name="journal" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" type="object" string="Print" class="oe_highlight"/>
+                        OR
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+
+
+<!--<button name="get_data" string="Excel Report" type="object" class="oe_highlight"/>-->
+<!--context="{'default_id': self.id}-->

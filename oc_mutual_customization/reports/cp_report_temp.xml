@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+                id="report_customer_recov_decl"
+                model="wiz.customer.performance"
+                string="Customer Performance"
+                report_type="qweb-pdf"
+                name="oc_mutual_customization.report_customer_recov_template"
+                file="oc_mutual_customization.report_customer_recov_template"
+                menu="False"
+        />
+    </data>
+</openerp>
