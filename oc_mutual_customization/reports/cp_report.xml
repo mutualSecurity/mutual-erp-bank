@@ -8,44 +8,47 @@
                         <div class="page">
                             <t t-set="total_amount" t-value='0'/>
                             <h2 align="center">Customer Recovery Report</h2>
-                            <div>
-                                <strong>Bank Name:</strong>
-                                <t t-esc="doc.journal.name"/>
-                            </div>
+                            <tr t-foreach="doc.journal" t-as="bank">
+                                <tr t-foreach="doc.fetch_record(bank.id)" t-as="item">
+                                    <div>
+                                        <strong>Bank Name:</strong>
+                                        <t t-esc="bank.name"/>
+                                    </div>
 
-                            <table border="1" class="table table-bordered">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th class="text-left">S.No.</th>
-                                        <th class="text-left">Customer</th>
-                                        <th class="text-right">Amount</th>
-                                    </tr>
-                                </thead>
+                                    <table border="1" class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-left">S.No.</th>
+                                                <th class="text-left">Customer</th>
+                                                <th class="text-right">Amount</th>
+                                            </tr>
+                                        </thead>
 
-                                <tbody>
-                                    <tr t-foreach="doc.fetch_record()" t-as="item">
-
-                                        <td colspan="text-left">
-                                            <span t-esc="item_index+1"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="doc.get_partner_name(item['partner_id'])"/>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-esc="'{0:,.2f}'.format(item['amount'])"/>
-                                            <t t-set="total_amount" t-value="total_amount+item['amount']"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Total</strong>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-esc="'{0:,.2f}'.format(total_amount)"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="text-left">
+                                                    <span t-esc="item_index+1"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="doc.get_partner_name(item['partner_id'])"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'{0:,.2f}'.format(item['amount'])"/>
+                                                    <t t-set="total_amount" t-value="total_amount+item['amount']"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'{0:,.2f}'.format(total_amount)"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </tr>
+                            </tr>
                         </div>
                     </t>
                 </t>

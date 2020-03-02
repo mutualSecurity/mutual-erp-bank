@@ -12,13 +12,13 @@ class WizardCustomerPer(osv.TransientModel):
         'start_date': fields.date('Start Date', required=True),
         'end_date': fields.date('End Date', required=True),
         'partner_id': fields.many2many('res.partner', string='Customer', required=True),
-        'journal': fields.many2one('account.journal', string='Bank')
+        'journal': fields.many2many('account.journal', string='Bank')
     }
-    def fetch_record(self):
+    def fetch_record(self, journal_id):
         self.env.cr.execute("""SELECT aml.partner_id,rp.name,SUM(credit) AS amount FROM account_move_line as aml
                                 INNER JOIN  res_partner as rp ON  aml.partner_id=rp.id
                                 where  journal_id = %s and partner_id in %s and aml.date between '%s' AND '%s'
-                                group by aml.partner_id,rp.name order by rp.name""" %(self.journal.id,tuple(self.partner_id.ids) if len(self.partner_id.ids)>1 else "("+str(self.partner_id.ids[0])+")",self.start_date,self.end_date))
+                                group by aml.partner_id,rp.name order by rp.name""" %(journal_id,tuple(self.partner_id.ids) if len(self.partner_id.ids)>1 else "("+str(self.partner_id.ids[0])+")",self.start_date,self.end_date))
         products = self.env.cr.dictfetchall()
         return products
 
