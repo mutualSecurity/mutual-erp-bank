@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oc_sms_integration,sms.integration,model_sms_integration,oc_ufone_sms_api_integration.oc_sms_api_sms,1,1,1,0
+access_oc_sms_sms,sms,model_sms,oc_ufone_sms_api_integration.oc_sms_api_sms,1,1,1,0
+access_oc_sms_sender_info,sender.info,model_sender_info,oc_ufone_sms_api_integration.oc_sms_api_sms,1,1,1,0

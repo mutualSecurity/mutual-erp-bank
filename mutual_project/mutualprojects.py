@@ -355,17 +355,9 @@ class mutual_issues(osv.osv):
   @api.multi
   def smsSent(self):
       if self.techContact:
-          if len(self.sms) < 140 :
-              if self.techContact and self.sms:
-                  self.env.cr.execute("insert into complaint_messages(message,receiver_name,receiver_contact,status,date_now)values('"+self.sms.replace('\n',' ')+"','"+str(self.technician_name.name)+"','"+self.techContact+"','0','"+str(datetime.now().date())+"')")
-                  r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact':self.techContact})
-              else:
-                  raise osv.except_osv('Sorry', 'SMS sending failed')
-          else:
-              raise osv.except_osv('SMS Limit Exceed', 'SMS length must be less than 140 characters')
-
+          if self.techContact and self.sms:
+              self.env['sms'].create({'mobile_no':self.technician_name.work_phone, 'message_body':self.sms})
       else:
-          print 'Kindly enter mobile number of technician'
           raise osv.except_osv('Empty Field','Kindly enter mobile number of technician')
 
   @api.multi
@@ -551,10 +543,7 @@ class low_messages(osv.osv):
     @api.multi
     def smsSent(self):
         if self.number  and self.sms:
-            if len(self.sms)<140 :
-                r = requests.post("http://localhost:3000", data={'sms': self.sms, 'contact': self.number})
-            else:
-                raise osv.except_osv('Error....', 'SMS Length must be within 150 characters')
+            self.env['sms'].create({'mobile_no': self.number, 'message_body': self.sms})
         else:
             raise osv.except_osv('Error....', 'Kindly enter contact number')
 
