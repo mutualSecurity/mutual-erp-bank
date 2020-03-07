@@ -11,7 +11,7 @@
 #################################################################################
 
 {
-    'name': 'Telenor SMS API Integration',
+    'name': 'Ufone SMS API Integration',
     'version': '1.0',
     'author': 'Odoo Concepts',
     'category': 'Other',

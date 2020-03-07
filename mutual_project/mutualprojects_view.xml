@@ -403,6 +403,10 @@
                             <field name="sms"/>
                         </group>
                         <group>
+                            <field name="count"/>
+                            <field name="sms_status" readonly="1"/>
+                        </group>
+                        <group>
                             <button name="smsSent" string="Sent" type="object" class="btn-link"  />
                         </group>
                     </sheet>
@@ -935,6 +939,9 @@
                                 <field name="techContact"/>
                                 <field name="count"/>
                                 <field name="sms"/>
+                            </group>
+                            <group>
+                                <field name="sms_status" readonly="1"/>
                             </group>
                             <button name="details" string="Details" type="object" class="btn-link" />
                             <button name="smsSent" string="Sent" type="object" class="btn-link"  />

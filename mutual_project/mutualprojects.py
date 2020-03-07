@@ -5,6 +5,11 @@ from datetime import date, datetime, timedelta
 import requests
 import random
 import time
+import re
+import urllib
+import urllib2
+from xml.dom.minidom import parseString
+import requests
 
 #======================================== Project.task class implementation Begins =====================================
 
@@ -273,7 +278,8 @@ class mutual_issues(osv.osv):
       'techContact': fields.char('Contact', store=True, size=11,readonly=False,compute='get_contact'),
       'count': fields.char('Count', store=True, readonly=True,compute='_count'),
       'restrict': fields.char('Restrict', store=True, readonly=True, compute='restrictAssignedtoTech'),
-      'pending': fields.boolean('Pending',store=True, read=['project.group_project_manager'], write=['project.group_project_manager'])
+      'pending': fields.boolean('Pending',store=True, read=['project.group_project_manager'], write=['project.group_project_manager']),
+      'sms_status': fields.char('SMS Staus')
   }
 
   def write(self, cr, uid, ids, vals, context=None):
@@ -356,7 +362,18 @@ class mutual_issues(osv.osv):
   def smsSent(self):
       if self.techContact:
           if self.techContact and self.sms:
-              self.env['sms'].create({'mobile_no':self.technician_name.work_phone, 'message_body':self.sms})
+              ''' Sends post request to get session Id against username & password '''
+              number = urllib.unquote(self.techContact).encode('utf8')
+              message = urllib.quote((self.sms).encode("utf-8"))
+              if int(self.count)<=160:
+                  url = ("https://bsms.ufone.com/bsms_v8_api/sendapi-0.3.jsp?id=03315506614&message=%s&shortcode=MUTUAL&lang=English&mobilenum=%s&password=Ptml@123456&groupname=&messagetype=Transactional" % (message, number))
+                  repsonse = requests.get(url, verify=False)
+                  result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
+                  #self.env['sms'].create({'mobile_no':self.techContact, 'message_body':self.sms})
+                  self.sms_status = result
+                  return result
+              else:
+                  raise osv.except_osv('Limit Exceed', 'SMS must be within 160 characters')
       else:
           raise osv.except_osv('Empty Field','Kindly enter mobile number of technician')
 
@@ -516,6 +533,7 @@ class tech_activities_issues(osv.osv):
 class low_messages(osv.osv):
     _name = "low.messages"
     _columns = {
+        'count': fields.char('Count', store=True, readonly=True, compute='_count'),
         'bank': fields.many2one('res.partner', 'Customer',store=True,required=True),
         'employee_name': fields.many2one('hr.employee', 'Technician Name',domain="[('department_id','=','Technician')]", defaults='',old='technician_name'),
         'cs': fields.char('CS Number',store=True,readonly=True),
@@ -525,8 +543,14 @@ class low_messages(osv.osv):
         'number': fields.char('Contact Number',store=True,size=11,required=True),
         'technician':fields.boolean('Technician',store=True),
         'rso_sms': fields.boolean('RSO', store=True),
+        'sms_status': fields.char('SMS Status')
 
     }
+
+    @api.depends('sms')
+    def _count(self):
+        if self.sms:
+            self.count = len(self.sms)
 
     @api.onchange('bank')
     def customer_details(self):
@@ -542,10 +566,23 @@ class low_messages(osv.osv):
 
     @api.multi
     def smsSent(self):
-        if self.number  and self.sms:
-            self.env['sms'].create({'mobile_no': self.number, 'message_body': self.sms})
+        if self.number:
+            if self.number and self.sms:
+                ''' Sends post request to get session Id against username & password '''
+                number = urllib.unquote(self.number).encode('utf8')
+                message = urllib.quote((self.sms).encode("utf-8"))
+                if int(self.count) <= 160:
+                    url = ("https://bsms.ufone.com/bsms_v8_api/sendapi-0.3.jsp?id=03315506614&message=%s&shortcode=MUTUAL&lang=English&mobilenum=%s&password=Ptml@123456&groupname=&messagetype=Transactional" % (
+                        message, number))
+                    repsonse = requests.get(url, verify=False)
+                    result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
+                    #self.env['sms'].create({'mobile_no': self.techContact, 'message_body': self.sms})
+                    self.sms_status = result
+                    return result
+                else:
+                    raise osv.except_osv('Limit Exceed', 'SMS must be within 160 characters')
         else:
-            raise osv.except_osv('Error....', 'Kindly enter contact number')
+            raise osv.except_osv('Empty Field', 'Kindly enter mobile number of technician')
 
 
 class tech_activities_tasks(osv.osv):
