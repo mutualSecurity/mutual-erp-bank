@@ -284,7 +284,7 @@ class mutual_issues(osv.osv):
 
   def write(self, cr, uid, ids, vals, context=None):
       # stage change: update date_last_stage_update
-      obj = self.browse(cr, uid, ids[0], context=context)
+      obj = self.browse(cr, uid, ids, context=context)
       if 'stage_id' in vals:
           if obj.stage_id['name']=='Online Resolved' or obj.stage_id['name']=='Resolved':
               raise osv.except_osv('Alert....', 'You are not able to move this card')
