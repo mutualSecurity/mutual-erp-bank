@@ -17,16 +17,5 @@
             sequence="4"
             parent="reports_side_top_menu">
          </menuitem>
-        <!--        custom header accounts-->
-        <record model="ir.ui.view" id="oc_report_excel">
-        <field name="name">account.invoice.form</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="is_cust_hf" string="FOR MUTUAL HEADER"/>
-            </xpath>
-        </field>
-        </record>
     </data>
 </openerp>
