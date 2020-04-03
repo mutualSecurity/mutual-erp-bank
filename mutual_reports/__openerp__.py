@@ -24,6 +24,7 @@
     ],
     'data': [
             'mutual_reports_reports.xml',
+            'views/mutual_header_footer.xml',
             'views/tax_break_up_invoice.xml',
             'views/wiz_recovery_report.xml',
             'views/custom_sales_tax_invoice_pdf.xml',
@@ -42,7 +43,8 @@
             'views/custom_monitoring_invoice_pdf.xml',
             'wizard/wiz_recovery_report_view.xml',
             'wizard/wizard_invoices_writeoff_view.xml',
-            'wiz_report_menuitem.xml'
+            'wiz_report_menuitem.xml',
+            'wizard/wiz_report_selection.xml'
 
     ]
 }

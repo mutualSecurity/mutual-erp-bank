@@ -4,6 +4,7 @@
         <template id="tax_break_up_invoice">
             <t t-call='report.html_container'>
                 <t t-foreach="docs" t-as="account_invoice">
+                    <t t-call="mutual_reports.mutual_header"/>
                     <div class="page">
                         <div class="row">
                             <strong style="font-size:18px">
@@ -36,6 +37,7 @@
                                 </span>
                                 <br/>
                             </strong>
+
                             <div class="row mt32 mb32" style="font-size:18px">
                                 <div class="col-xs-3" t-if="account_invoice.invoice_date">
                                     <strong>Invoice Date</strong>
@@ -57,7 +59,6 @@
                             <h1>Invoice#
                                 <span t-field="account_invoice.id"/>
                             </h1>
-
                             <table class="table table-condensed" style="font-size:16px">
                                 <thead>
                                     <tr>
@@ -94,8 +95,10 @@
                                         </span>
                                     </tr>
                                 </tbody>
+
                             </table>
                         </div>
+
                         <br/>
                         <div class="row">
                             <div class="col-xs-4 pull-right">
@@ -112,7 +115,9 @@
                                         <t t-if="account_invoice.partner_id.bank_code=='JSBL'">
                                             <tr t-foreach="account_invoice.tax_line" t-as="tax">
                                                 <td>
-                                                    <strong><span t-esc="tax.name"/> </strong>
+                                                    <strong>
+                                                        <span t-esc="tax.name"/>
+                                                    </strong>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-field="tax.amount"/>
@@ -176,6 +181,7 @@
                             </div>
                         </div>
                     </div>
+                    <t t-call="mutual_reports.mutual_footer"/>
                 </t>
             </t>
         </template>

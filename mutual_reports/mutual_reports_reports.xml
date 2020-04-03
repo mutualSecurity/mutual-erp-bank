@@ -96,6 +96,16 @@
                 attachment_use="False"
                 file="mutual_reports.custom_additional_invoice_pdf"
         />
+<!--&lt;!&ndash;       excel report &ndash;&gt;-->
+<!--        <report-->
+<!--                id="additional_invoice_xlsx"-->
+<!--                model="account.invoice"-->
+<!--                string="Additional Invoice Excel"-->
+<!--                report_type="xlsx"-->
+<!--                name="mutual_reports.custom_additional_invoice_xlsx"-->
+<!--                attachment_use="False"-->
+<!--                file="mutual_reports.custom_additional_invoice_xlsx"-->
+<!--        />-->
          <report
                 id="monitoring_invoice_pdf"
                 model="account.invoice"
