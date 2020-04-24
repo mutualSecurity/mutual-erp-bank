@@ -864,6 +864,23 @@ class stockreturn(osv.osv):
         'date': lambda *a: datetime.now().strftime('%Y-%m-%d'),
     }
 
+    # get cummulative data of products in req slip
+    def cumm_product_data(self):
+        cumm_prod, data = [], {}
+        for line in self.products:
+            if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
+                data = {
+                    'name': line.products.name,
+                    'quantity': line.quantity,
+                }
+                cumm_prod.append(data)
+            else:
+                for item in cumm_prod:
+                    if item['name'] == line.products.name:
+                        item['quantity'] += line.quantity
+
+        return cumm_prod
+
     @api.depends('products.products', 'products.quantity')
     def devices_details(self):
         for line in self.products:

@@ -2,126 +2,153 @@
 <openerp>
     <data>
         <!--the template id should be the same name file-->
-       <template id="custom_report_mutual_stock_return_pdf">
-           <t t-call='report.html_container'>
-                   <tr t-foreach="docs" t-as="obj">
-                        <div class="page">
-                            <h1 align="center">Stock Return Sheet</h1>
-                            <br/><br/>
-                            <div style="font-size:18px;width:900px;display:inline-block;">
-                                  <span style="font-size:18px">
-                                      <strong>Recipt No:</strong><span t-esc="obj['id']"/>
-                                      <br/>
-                                      <strong>Date:</strong><span t-esc="obj['date']"/></span>
-                                      <br/><br/>
-                                  <div style="border:2px solid grey; padding:10px;border-radius:10px;">
-                                      <strong style="font-size:18px">Title:</strong><br/>
-                                      <span t-esc="obj['title']"/><br/>
-                                      <!-- <strong style="font-size:16px">Requisition slip reference:</strong><br/>
-                                      <span t-esc="obj['req_slip_ref']"/><br/>
-                                        <br/> -->
-                                  </div>
+        <template id="custom_report_mutual_stock_return_pdf">
+            <t t-call='report.html_container'>
+                <tr t-foreach="docs" t-as="obj">
+                    <div class="page">
+                        <h1 align="center">Stock Return Sheet</h1>
+                        <br/>
+                        <br/>
+                        <div style="font-size:18px;width:900px;display:inline-block;">
+                            <span style="font-size:18px">
+                                <strong>Recipt No:</strong>
+                                <span t-esc="obj['id']"/>
+                                <br/>
+                                <strong>Date:</strong>
+                                <span t-esc="obj['date']"/>
+                            </span>
+                            <br/>
+                            <br/>
+                            <div style="border:2px solid grey; padding:10px;border-radius:10px;">
+                                <strong style="font-size:18px">Title:</strong>
+                                <br/>
+                                <span t-esc="obj['title']"/>
+                                <br/>
+                                <!-- <strong style="font-size:16px">Requisition slip reference:</strong><br/>
+                                <span t-esc="obj['req_slip_ref']"/><br/>
+                                  <br/> -->
                             </div>
-                            <br/><br/>
-                            <table class="table table-condensed" style="font-size:16px">
-                                  <thead>
-                                      <tr>
-                                          <th>Product Name</th>
-                                          <th>Quantity</th>
-                                          <th>Bank Depart./Customer/Technician</th>
-                                          <th>Cs #</th>
-                                          <th>Requisition #</th>
-                                          <th>Reference</th>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table class="table table-condensed" style="font-size:16px">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Bank Depart./Customer/Technician</th>
+                                    <th>Cs #</th>
+                                    <th>Requisition #</th>
+                                    <th>Reference</th>
 
-                                          <!--<th class="text-right">Unit Price</th>-->
-                                      </tr>
-                                  </thead>
-                                  <tbody class="invoice_tbody">
-                                      <tr t-foreach="obj['products']" t-as="l">
-                                          <td>
-                                               <span t-esc="l['products']['name']"/><br/>
-                                          </td>
+                                    <!--<th class="text-right">Unit Price</th>-->
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="obj['products']" t-as="l">
+                                    <td>
+                                        <span t-esc="l['products']['name']"/>
+                                        <br/>
+                                    </td>
 
-                                          <td>
-                                              <span t-esc="l['quantity']"/><br/>
-                                          </td>
+                                    <td>
+                                        <span t-esc="l['quantity']"/>
+                                        <br/>
+                                    </td>
 
-                                          <td>
-                                              <span t-esc="l['customer']['name']"/><br/>
-                                          </td>
+                                    <td>
+                                        <span t-esc="l['customer']['name']"/>
+                                        <br/>
+                                    </td>
 
-                                          <td>
-                                              <span t-esc="l['cs_number']"/><br/>
-                                          </td>
+                                    <td>
+                                        <span t-esc="l['cs_number']"/>
+                                        <br/>
+                                    </td>
 
-                                          <td>
-                                              <span t-esc="l['req_ref']"/><br/>
-                                          </td>
-
-
-                                          <td>
-                                              <span t-esc="l['ref_to']"/><br/>
-                                          </td>
-                                      </tr>
+                                    <td>
+                                        <span t-esc="l['req_ref']"/>
+                                        <br/>
+                                    </td>
 
 
-                                  </tbody>
-                            </table>
-                             <br></br><br></br>
-                            <div class="row"><br/><br/>
-                             <table>
-                                 <tr>
-                                     <td>
-                                         <div style="font-size:17px;text-decoration:overline;">
+                                    <td>
+                                        <span t-esc="l['ref_to']"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <br></br>
+                        <br></br>
+                        <div class="row">
+                            <br/>
+                            <br/>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="font-size:17px;text-decoration:overline;">
                                             <span style="margin-top:5px; margin-left:70px;">
                                                 <strong>
                                                     Inventory Officer
                                                 </strong>
                                             </span>
-                                         </div>
-                                     </td>
-                                     <td>
-                                         <div style="font-size:17px;text-decoration:overline;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:17px;text-decoration:overline;">
                                             <span style="margin-top:5px; margin-left:65px;">
                                                 <strong>
                                                     Manager Services
                                                 </strong>
                                             </span>
-                                         </div>
-                                     </td>
-                                     <td>
-                                         <div style="font-size:17px;text-decoration:overline;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:17px;text-decoration:overline;">
                                             <span style="margin-top:5px; margin-left:65px;">
                                                 <strong>
                                                     Accounts Department
                                                 </strong>
                                             </span>
-                                         </div>
-                                     </td>
-                                     <td>
-                                         <div style="font-size:17px;text-decoration:overline;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:17px;text-decoration:overline;">
                                             <span style="margin-top:5px; margin-left:65px;">
                                                 <strong>
                                                     GM Services
                                                 </strong>
                                             </span>
-                                         </div>
-                                     </td>
-                                 </tr>
-                             </table>
-                             </div>
-                             <div class="row"><br/><br/><br/><br/>
-                              <div class="pull-right" style="font-size:17px;text-decoration:overline;">
-                                 <span style="margin-top:5px; margin-right:104px;">
-                                     <strong>
-                                            CEO's Approval
-                                     </strong>
-                                 </span>
-                              </div>
-                             </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                   </tr>
-           </t>
-       </template>
+                        <div class="row">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="pull-right" style="font-size:17px;text-decoration:overline;">
+                                <span style="margin-top:5px; margin-right:104px;">
+                                    <strong>
+                                        CEO's Approval
+                                    </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="font-size:16px;border:2px solid grey; padding:10px;border-radius:10px;width:100%;margin-top:50px">
+                                <strong>Total Products Summary</strong>
+                                     <t t-foreach="obj.cumm_product_data()" t-as="line">
+                                         <span t-esc="line.get('name')"/> : <span t-esc="line.get('quantity')"/>,
+                                    </t>
+                            </div>
+                    </div>
+                </tr>
+            </t>
+        </template>
     </data>
 </openerp>
