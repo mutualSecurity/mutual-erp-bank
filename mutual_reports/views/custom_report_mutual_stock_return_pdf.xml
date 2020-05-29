@@ -141,11 +141,26 @@
                             </div>
                         </div>
                         <div style="font-size:16px;border:2px solid grey; padding:10px;border-radius:10px;width:100%;margin-top:50px">
-                                <strong>Total Products Summary</strong>
-                                     <t t-foreach="obj.cumm_product_data()" t-as="line">
-                                         <span t-esc="line.get('name')"/> : <span t-esc="line.get('quantity')"/>,
-                                    </t>
-                            </div>
+                            <strong>Total Products Summary</strong>
+                            <p t-if="len(obj.cumm_product_new_data())>0"><b>New Products</b><br/>
+                                <t t-foreach="obj.cumm_product_new_data()" t-as="line">
+                                    <span t-esc="line.get('name')"/>
+                                    :<span t-esc="line.get('quantity')"/>,
+                                </t>
+                            </p>
+                            <p t-if="len(obj.cumm_product_used_data())>0"><b>Used Products</b><br/>
+                                <t t-foreach="obj.cumm_product_new_data()" t-as="line">
+                                    <span t-esc="line.get('name')"/>
+                                    :<span t-esc="line.get('quantity')"/>,
+                                </t>
+                            </p>
+                            <p t-if="len(obj.cumm_product_faulty_data())>0"><b>Faulty Products</b><br/>
+                                <t t-foreach="obj.cumm_product_new_data()" t-as="line">
+                                    <span t-esc="line.get('name')"/>
+                                    :<span t-esc="line.get('quantity')"/>,
+                                </t>
+                            </p>
+                        </div>
                     </div>
                 </tr>
             </t>

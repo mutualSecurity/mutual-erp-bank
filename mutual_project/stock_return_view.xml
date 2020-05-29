@@ -42,6 +42,7 @@
                                 <field name="products" colspan="4" nolabel="1">
                                     <tree editable="top" string="Items">
                                         <field name="products" required="True"/>
+                                        <field name="product_type" required="True"/>
                                         <field name="quantity" required="True"/>
                                         <field name="customer" string="Bank Depart/Tech/Customer"/>
                                         <field name="cs_number"/>

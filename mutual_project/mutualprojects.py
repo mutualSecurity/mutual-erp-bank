@@ -713,6 +713,8 @@ class basicPackageItems(osv.osv):
         'req_code': fields.related('req_slip', 'req_code', type='char', string='Req. Ref', readonly=True),
         'issue_product_details': fields.related('req_slip', 'title', type='char', string='Issue Product Details', readonly=True),
         'date': fields.related('req_slip', 'date', type='date', string='Issue Product Details',readonly=True),
+        'product_type': fields.selection([('new', 'New'), ('used', 'Used'),
+                                  ('faulty', 'Faulty')], 'Type', default='new', store=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
                                  store=True),
         'customer': fields.many2one('res.partner', 'Customer/Technician', store=True, required=True),
@@ -865,20 +867,52 @@ class stockreturn(osv.osv):
     }
 
     # get cummulative data of products in req slip
-    def cumm_product_data(self):
+    def cumm_product_new_data(self):
         cumm_prod, data = [], {}
         for line in self.products:
-            if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
-                data = {
-                    'name': line.products.name,
-                    'quantity': line.quantity,
-                }
-                cumm_prod.append(data)
-            else:
-                for item in cumm_prod:
-                    if item['name'] == line.products.name:
-                        item['quantity'] += line.quantity
+            if line.product_type == 'new':
+                if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
+                    data = {
+                        'name': line.products.name,
+                        'quantity': line.quantity,
+                    }
+                    cumm_prod.append(data)
+                else:
+                    for item in cumm_prod:
+                        if item['name'] == line.products.name:
+                            item['quantity'] += line.quantity
+        return cumm_prod
 
+    def cumm_product_used_data(self):
+        cumm_prod, data = [], {}
+        for line in self.products:
+            if line.product_type == 'used':
+                if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
+                    data = {
+                        'name': line.products.name,
+                        'quantity': line.quantity,
+                    }
+                    cumm_prod.append(data)
+                else:
+                    for item in cumm_prod:
+                        if item['name'] == line.products.name:
+                            item['quantity'] += line.quantity
+        return cumm_prod
+
+    def cumm_product_faulty_data(self):
+        cumm_prod, data = [], {}
+        for line in self.products:
+            if line.product_type == 'faulty':
+                if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
+                    data = {
+                        'name': line.products.name,
+                        'quantity': line.quantity,
+                    }
+                    cumm_prod.append(data)
+                else:
+                    for item in cumm_prod:
+                        if item['name'] == line.products.name:
+                            item['quantity'] += line.quantity
         return cumm_prod
 
     @api.depends('products.products', 'products.quantity')
