@@ -713,8 +713,8 @@ class basicPackageItems(osv.osv):
         'req_code': fields.related('req_slip', 'req_code', type='char', string='Req. Ref', readonly=True),
         'issue_product_details': fields.related('req_slip', 'title', type='char', string='Issue Product Details', readonly=True),
         'date': fields.related('req_slip', 'date', type='date', string='Issue Product Details',readonly=True),
-        'product_type': fields.selection([('new', 'New'), ('used', 'Used'),
-                                  ('faulty', 'Faulty')], 'Type', default='new', store=True),
+        'product_type': fields.selection([('New', 'New'), ('Used', 'Used'),
+                                  ('Faulty', 'Faulty')], 'Type', default='New', store=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
                                  store=True),
         'customer': fields.many2one('res.partner', 'Customer/Technician', store=True, required=True),
@@ -870,7 +870,7 @@ class stockreturn(osv.osv):
     def cumm_product_new_data(self):
         cumm_prod, data = [], {}
         for line in self.products:
-            if line.product_type == 'new':
+            if line.product_type == 'New':
                 if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
                     data = {
                         'name': line.products.name,
@@ -886,7 +886,7 @@ class stockreturn(osv.osv):
     def cumm_product_used_data(self):
         cumm_prod, data = [], {}
         for line in self.products:
-            if line.product_type == 'used':
+            if line.product_type == 'Used':
                 if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
                     data = {
                         'name': line.products.name,
@@ -902,7 +902,7 @@ class stockreturn(osv.osv):
     def cumm_product_faulty_data(self):
         cumm_prod, data = [], {}
         for line in self.products:
-            if line.product_type == 'faulty':
+            if line.product_type == 'Faulty':
                 if not any(d['name'] == line.products.name for d in cumm_prod) or not any(cumm_prod):
                     data = {
                         'name': line.products.name,

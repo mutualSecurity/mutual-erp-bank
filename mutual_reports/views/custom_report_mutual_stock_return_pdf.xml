@@ -48,7 +48,6 @@
                                 <tr t-foreach="obj['products']" t-as="l">
                                     <td>
                                         <span t-esc="l['products']['name']"/>
-                                        <br/>
                                     </td>
 
                                     <td>
@@ -149,13 +148,13 @@
                                 </t>
                             </p>
                             <p t-if="len(obj.cumm_product_used_data())>0"><b>Used Products</b><br/>
-                                <t t-foreach="obj.cumm_product_new_data()" t-as="line">
+                                <t t-foreach="obj.cumm_product_used_data()" t-as="line">
                                     <span t-esc="line.get('name')"/>
                                     :<span t-esc="line.get('quantity')"/>,
                                 </t>
                             </p>
                             <p t-if="len(obj.cumm_product_faulty_data())>0"><b>Faulty Products</b><br/>
-                                <t t-foreach="obj.cumm_product_new_data()" t-as="line">
+                                <t t-foreach="obj.cumm_product_faulty_data()" t-as="line">
                                     <span t-esc="line.get('name')"/>
                                     :<span t-esc="line.get('quantity')"/>,
                                 </t>
