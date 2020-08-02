@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="oc_technician_report_form" model="ir.ui.view">
+            <field name="name">Technician Report Form</field>
+            <field name="model">technician.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Technician Time In/Out Report">
+                        <group>
+                            <field name="technician_id" domain="[('department_id','=',1)]"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="print_report" type="object" string="Print Report"/>
+                            <button class="oe_highlight" special="cancel" string="Cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--========================================================= Child Menu of Parent MenuItem for Basic Package Begins ================================================-->
+        <record id="oc_technician_report_menu" model="ir.actions.act_window">
+            <field name="name">Technician Report</field>
+            <field name="res_model">technician.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_technician_report"
+                  name="Time In/Out Report"
+                  parent="project.menu_project_management"
+                  sequence="40"
+                  action="mutual_project.oc_technician_report_menu"
+        />
+
+    </data>
+</openerp>

@@ -853,13 +853,15 @@ class stockreturn(osv.osv):
     _name='stock.return'
     _rec_name = "title"
     _columns = {
-            'title':fields.char('Title',store=True,required=True),
-            'date': fields.date('Date', store=True, required=True),
-            'req_slip_ref': fields.char('Requisition slip Reference', store=True,required=True,compute='devices_details'),
-            'products': fields.one2many('basic.package.items', 'stock_return_products', 'Items', store=True),
-            'devices': fields.char('Devices' ,compute='devices_details'),
-            'qty': fields.char('Qty', store=True, compute='devices_details'),
-            'ref_cs': fields.char('sales order reference', store=True),
+        'title': fields.char('Title', store=True, required=True),
+        'date': fields.date('Date', store=True, required=True),
+        'req_slip_ref': fields.char('Requisition slip Reference', store=True, required=True, compute='devices_details'),
+        'products': fields.one2many('basic.package.items', 'stock_return_products', 'Items', store=True),
+        'devices': fields.char('Devices', compute='devices_details'),
+        'qty': fields.char('Qty', store=True, compute='devices_details'),
+        'ref_cs': fields.char('sales order reference', store=True),
+        'ref': fields.char('Ref', store=True, defaults=' ', compute='devices_details', readonly=True, size=15),
+        'ref_two': fields.char('Ref', defaults=' ', compute='devices_details', readonly=True, )
     }
 
     _defaults = {
@@ -915,12 +917,43 @@ class stockreturn(osv.osv):
                             item['quantity'] += line.quantity
         return cumm_prod
 
-    @api.depends('products.products', 'products.quantity')
+    @api.one
+    @api.depends('products.products', 'products.quantity','products.customer', 'products.cs_number')
     def devices_details(self):
+        all_cus = ''
         for line in self.products:
             if str(self.req_slip_ref).find(line.req_ref) == -1:
                 self.req_slip_ref = str(self.req_slip_ref) + str(line.req_ref) + ","
                 self.req_slip_ref = self.req_slip_ref.replace('False', ' ')
+            self.devices = str(self.devices) + str(line.courier_sheet_products.name) + ","
+            self.devices = self.devices.replace('False', ' ')
+            self.qty = str(self.qty) + str(line.quantity) + ","
+            self.qty = self.qty.replace('False', ' ')
+            # self.ref = str(self.ref) + str(line.cs_number) + ","
+            # self.ref = self.ref.replace('False', ' ')
+            self.ref_two = str(self.ref_two) + str(line.cs_number) + ","
+            self.ref_two = self.ref_two.replace('False', ' ')
+            all_cus = str(all_cus) + str(line.customer.name) + ","
+            all_cus = all_cus.replace('False', ' ')
+        self.ref = all_cus[:-1]
+        all_cus = ''
+        self.env.cr.execute("select id from mutual_requisition where ref_two is null")
+        emp_ref_two = self.env.cr.dictfetchall()
+        if len(emp_ref_two) > 0:
+            self.append_ref_two(emp_ref_two)
+
+    def append_ref_two(self, lst):
+        if len(lst) > 0:
+            cumm_prods = ''
+            for item in lst:
+                self.env.cr.execute("""select * from basic_package_items where req_slip=""" + str(item['id']))
+                itemlst = self.env.cr.dictfetchall()
+                for line in itemlst:
+                    cumm_prods += str(line['cs_number'])
+                # self.env.cr.execute(
+                #     "update mutual_requisition set ref_two= '" + cumm_prods[:-1] + "' where id=" + str(item['id']))
+                # cumm_prods = ''
+
             # self.devices = str(self.devices) + line.products.name + ","
             # self.devices = self.devices.replace('False', ' ')
             # self.qty = str(self.qty) + str(line.quantity) + ","
