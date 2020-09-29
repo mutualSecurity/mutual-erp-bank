@@ -371,6 +371,7 @@ class mutual_issues(osv.osv):
                   result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
                   #self.env['sms'].create({'mobile_no':self.techContact, 'message_body':self.sms})
                   self.sms_status = result
+                  self.env['sms.report'].create({'to':number,'sms':self.sms,'status':result,'type':'Complaint Message'})
                   return result
               else:
                   raise osv.except_osv('Limit Exceed', 'SMS must be within 160 characters')
@@ -578,6 +579,7 @@ class low_messages(osv.osv):
                     result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
                     #self.env['sms'].create({'mobile_no': self.techContact, 'message_body': self.sms})
                     self.sms_status = result
+                    self.env['sms.report'].create({'to': number, 'sms':self.sms, 'status': result, 'type': 'RSO Message'})
                     return result
                 else:
                     raise osv.except_osv('Limit Exceed', 'SMS must be within 160 characters')
@@ -713,6 +715,7 @@ class basicPackageItems(osv.osv):
         'req_code': fields.related('req_slip', 'req_code', type='char', string='Req. Ref', readonly=True),
         'issue_product_details': fields.related('req_slip', 'title', type='char', string='Issue Product Details', readonly=True),
         'date': fields.related('req_slip', 'date', type='date', string='Issue Product Details',readonly=True),
+        'stock_sheet_date': fields.related('stock_return_products', 'date', type='date', string='Date', readonly=True),
         'product_type': fields.selection([('New', 'New'), ('Used', 'Used'),
                                   ('Faulty', 'Faulty')], 'Type', default='New', store=True),
         'type': fields.selection([('For Technician', 'For Technician'), ('For Customer', 'For Customer'),('Handover To Warehouse', 'Handover To Warehouse')], 'Type',
@@ -968,6 +971,17 @@ class mark_attendance(osv.osv):
         'check_in': fields.datetime('Check In', store=True),
         'check_in_view': fields.datetime('Time In', store=True),
         'status': fields.selection([('Present','Present'),('Absent','Absent')], string='Status',store=True),
+    }
+
+
+class sms_report(osv.osv):
+    _name = 'sms.report'
+    _columns = {
+        'date': fields.datetime('Date', store=True,default=datetime.today()),
+        'sms': fields.text('SMS', store=True),
+        'to': fields.char('To', store=True),
+        'status': fields.char('Status', store=True),
+        'type':fields.char('Type', store=True)
     }
 
 
