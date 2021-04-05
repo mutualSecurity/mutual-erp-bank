@@ -363,16 +363,17 @@ class mutual_issues(osv.osv):
       if self.techContact:
           if self.techContact and self.sms:
               ''' Sends post request to get session Id against username & password '''
-              number = urllib.unquote(self.techContact).encode('utf8')
-              message = urllib.quote((self.sms).encode("utf-8"))
+              # number = urllib.unquote(self.techContact).encode('utf8')
+              # message = urllib.quote((self.sms).encode("utf-8"))
               if int(self.count):
-                  url = ("https://bsms.ufone.com/bsms_v8_api/sendapi-0.3.jsp?id=03315506614&message=%s&shortcode=MUTUAL&lang=English&mobilenum=%s&password=Ptml@123456&groupname=&messagetype=Transactional" % (message, number))
-                  repsonse = requests.get(url, verify=False)
-                  result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
-                  #self.env['sms'].create({'mobile_no':self.techContact, 'message_body':self.sms})
-                  self.sms_status = result
-                  self.env['sms.report'].create({'to':number,'sms':self.sms,'status':result,'type':'Complaint Message'})
-                  return result
+                  self.env['sms'].create({'mobile_no': self.techContact, 'message_body': self.sms})
+                  # url = ("https://bsms.ufone.com/bsms_v8_api/sendapi-0.3.jsp?id=03315506614&message=%s&shortcode=MUTUAL&lang=English&mobilenum=%s&password=Ptml@123456&groupname=&messagetype=Transactional" % (message, number))
+                  # repsonse = requests.get(url, verify=False)
+                  # result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
+                  # #self.env['sms'].create({'mobile_no':self.techContact, 'message_body':self.sms})
+                  # self.sms_status = result
+                  # self.env['sms.report'].create({'to':number,'sms':self.sms,'status':result,'type':'Complaint Message'})
+                  # return result
               else:
                   raise osv.except_osv('Limit Exceed', 'SMS must be within 160 characters')
       else:
@@ -380,14 +381,12 @@ class mutual_issues(osv.osv):
 
   @api.multi
   def create_sms(self):
-
       list_of_sms = []
       rec_dict = {'sms': self.sms, 'contact': self.techContact,'status':'sending','name':self.technician_name.name}
       rec2_dict={'sms':self.sms , 'contact':self.env.user.mobile ,'status':'sending','name':self.env.user.name }
       list_of_sms.append(dict(rec_dict))
       list_of_sms.append(dict(rec2_dict))
       for l in list_of_sms:
-          print l
           self.env['complaint.messages'].create({
               'message': l.get('sms'),
               'receiver_contact': l.get('contact'),

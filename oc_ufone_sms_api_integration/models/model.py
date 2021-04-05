@@ -108,11 +108,15 @@ class SmsMain(osv.osv):
         result = parseString(repsonse.content).getElementsByTagName('response_text')[0].childNodes[0].data
         if 'Successful' in result:
             self.write({'state': 'sent', 'reason':result})
+            self.env.cr.commit()
+            print(">>>>>>>>>>>>>>>>>>>>>>> Message Sent >>>>>>>>>>>>>>>>>>>>>>>>>")
         else:
             self.write({'state': 'fail', 'reason':result})
+            self.env.cr.commit()
         return result
 
     def auto_send_message(self, cr, uid, context=None):
-        messages = self.search(cr, uid, [('state','!=', 'sent')])
+        messages = self.search(cr, uid, [('state','=', 'sending')])
         for message in self.browse(cr, uid, messages, context=context):
+            print(">>>>>>>>>>>>>>>>>>>>>>> Sending Message >>>>>>>>>>>>>>>>>>>>>>>>>")
             message.sendMessage(message.mobile_no,message.message_body)
