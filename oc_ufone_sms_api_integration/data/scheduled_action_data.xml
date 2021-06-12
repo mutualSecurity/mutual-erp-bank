@@ -5,7 +5,6 @@
 			<field name="name">Send Message</field>
 			<field name="interval_number">1</field>
 			<field name="interval_type">days</field>
-			<field name="nextcall" eval="(DateTime.now()).strftime('%Y-%m-%d 15:00:00')" />
 			<field name="numbercall">-1</field>
 			<field name="doall" eval="True"/>
 			<field name="model">sms</field>

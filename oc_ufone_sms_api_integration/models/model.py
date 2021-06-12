@@ -94,6 +94,7 @@ class SmsMain(osv.osv):
 
     @api.multi
     def sendMessage(self,number,message):
+        print(">>>>>>>>>>>>>>>>>>>>>>> SMS Service >>>>>>>>>>>>>>>>>>>>>>>>>")
         sms_config = self.env['sms.integration'].search([])[0]
         ''' Sends post request to get session Id against username & password '''
         customer_id = urllib.unquote(sms_config.customer_id).encode('utf8')
